@@ -1,5 +1,6 @@
-@import '~bootstrap/scss/bootstrap';
 @import './variables.module.scss';
+@import '~bootstrap/scss/bootstrap';
+
 
 body {
   margin: 0;
@@ -23,6 +24,18 @@ body {
 @media (min-width: 768px) {
   .navbar-expand-md .navbar-collapse {
     justify-content: flex-end;
+  }
+}
+
+.levels, .cards {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+
+  label {
+    font-weight: 600;
   }
 }
 
