@@ -6,8 +6,8 @@ class Wrapper {
   constructor(tag = 'main') {
     this.tag = tag;
     this.el = null;
-    this.children = { levels: { el: null, items: [] }, cards: { el: null, items: [] } };
-    this.className = 'container-xxl my-md-4 bd-layout';
+    this.children = { levels: { el: null, items: [] }, cards: { el: null, items: [] }, grid: { el: null } };
+    this.className = 'container-xxl my-md-4 bd-layout center';
     this.levels = [{ name: 'Low' }, { name: 'Middle' }, { name: 'Hight' }, { name: 'Random' }];
     this.cards = null;
     this.level = null;
@@ -68,7 +68,7 @@ class Wrapper {
         if (card) {
           if (!this.card || this.card !== event.target.closest('.btn-check').getAttribute('id')) {
             this.card = event.target.closest('.btn-check').getAttribute('id');
-            this.createGrig();
+            this.createGrid();
           }
         }
       });
@@ -82,15 +82,29 @@ class Wrapper {
     }
   }
 
-  createGrig() {
+  createGrid() {
     const game = this.cards.filter((el) => el.name === this.card);
-    const gridSize = game[0].figure.length;
-    console.log(gridSize);
-    const gridContainer = document.createElement('div');
-    gridContainer.classList.add('grid-container');
+    const gridWidth = game[0].figure[0].length;
 
-    game[0].figure.forEach((line, i) => {
-      line.forEach((cell, idx) => {
+    if (this.children.grid.el) {
+      // eslint-disable-next-line prefer-destructuring
+      let length = this.children.grid.el.children.length;
+
+      while (length > 0) {
+        length -= 1;
+        this.children.grid.el.children[length].remove();
+      }
+    } else {
+      const gridContainer = document.createElement('div');
+      gridContainer.classList.add('grid-container');
+
+      this.children.grid.el = gridContainer;
+    }
+
+    this.children.grid.el.style.gridTemplateColumns = `repeat(${gridWidth}, 1fr)`;
+
+    game[0].figure.forEach((line) => {
+      line.forEach((cell) => {
         const el = document.createElement('div');
         el.classList.add('cell');
         if (cell.name === 'cell') {
@@ -98,6 +112,8 @@ class Wrapper {
         }
         if (cell.name === 'hint') {
           el.innerText = cell.value;
+          el.classList.add('hint');
+
           if (cell.border?.includes('right')) {
             el.style.borderRight = '4px solid #000';
           }
@@ -105,11 +121,11 @@ class Wrapper {
             el.style.borderBottom = '4px solid #000';
           }
         }
-        gridContainer.appendChild(el);
+        this.children.grid.el.appendChild(el);
       });
     });
 
-    this.el.append(gridContainer);
+    this.el.append(this.children.grid.el);
   }
 
   changeLevel(val) {

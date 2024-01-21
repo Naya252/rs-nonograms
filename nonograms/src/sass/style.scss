@@ -39,10 +39,15 @@ body {
   }
 }
 
+.center {
+  text-align: center;
+}
+
 .grid-container {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  display: inline-grid;
   gap: 1px;
+  margin: 0 auto;
+  
 }
 
 .cell {
@@ -51,9 +56,15 @@ body {
   border: 1px solid #000;
   background-color: $secondary;
   cursor: pointer;
-  color: $dark;
+  color: #fff;
   font-weight: 600;
   text-align: center;
+
+  &.hint {
+    background-color: rgba($secondary, 0.5);
+    border: 1px solid rgba($dark, 0.5);
+    cursor: auto;
+  }
 }
 
 .cell.black {
