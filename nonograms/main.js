@@ -1,5 +1,11 @@
 import './src/sass/style.scss';
-import arr from './src/ui/templates/templates';
+import * as bootstrap from 'bootstrap';
+
+import body from './src/ui/components/body';
+import './src/ui/view/page';
+import arr from './src/shared/templates';
+
+body.initBody('dark');
 
 function toggleCell(cell) {
   cell.classList.toggle('black');
