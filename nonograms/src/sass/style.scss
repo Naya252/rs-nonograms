@@ -64,6 +64,11 @@ body {
     background-color: rgba($secondary, 0.5);
     border: 1px solid rgba($dark, 0.5);
     cursor: auto;
+
+    &.spirit{
+      background-color: rgba($secondary, 0.25);
+    border: 1px solid rgba($dark, 0.25);
+    }
   }
 }
 

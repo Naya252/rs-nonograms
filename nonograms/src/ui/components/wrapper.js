@@ -113,6 +113,9 @@ class Wrapper {
         if (cell.name === 'hint') {
           el.innerText = cell.value;
           el.classList.add('hint');
+          if (!cell.value) {
+            el.classList.add('spirit');
+          }
 
           if (cell.border?.includes('right')) {
             el.style.borderRight = '4px solid #000';
