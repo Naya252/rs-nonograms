@@ -1,22 +1,35 @@
-@import "~bootstrap/scss/bootstrap";
+@import '~bootstrap/scss/bootstrap';
 @import './variables.module.scss';
-
-
 
 body {
   margin: 0;
   display: flex;
+  flex-direction: column;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  font-family: var(--bs-font-sans-serif);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
+.navbar {
+  min-width: 100%;
+}
 
+@media (min-width: 768px) {
+  .navbar-expand-md .navbar-collapse {
+    justify-content: flex-end;
+  }
+}
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(7, 1fr); 
-  gap: 1px; 
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
 }
 
 .cell {
