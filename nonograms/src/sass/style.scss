@@ -1,7 +1,6 @@
 @import './variables.module.scss';
 @import '~bootstrap/scss/bootstrap';
 
-
 body {
   margin: 0;
   display: flex;
@@ -27,7 +26,8 @@ body {
   }
 }
 
-.levels, .cards {
+.levels,
+.cards {
   display: flex;
   gap: 12px;
   align-items: center;
@@ -49,7 +49,11 @@ body {
   width: 50px;
   height: 50px;
   border: 1px solid #000;
+  background-color: $secondary;
   cursor: pointer;
+  color: $dark;
+  font-weight: 600;
+  text-align: center;
 }
 
 .cell.black {
