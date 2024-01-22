@@ -1,3 +1,4 @@
+/* eslint-disable no-lonely-if */
 export default class Grid {
   constructor(tag = 'div', className = 'grid-container') {
     this.grid = {
@@ -7,9 +8,38 @@ export default class Grid {
       game: null,
       items: [],
     };
+    this.points = {
+      scheme: [],
+      cur: [],
+    };
+  }
+
+  checkCell(cell) {
+    const id = cell.getAttribute('id');
+    if (this.points.cur.includes(id)) {
+      this.points.cur = this.points.cur.filter((el) => el !== id);
+    } else {
+      this.points.cur.push(id);
+    }
+
+    if (this.points.cur.sort().join('=') === this.points.scheme.sort().join('=')) {
+      console.log('ПОБЕДАААААААААААА');
+    }
+  }
+
+  selectCell(event) {
+    const cell = event.target.closest('.cell');
+    if (cell && cell.hasAttribute('name')) {
+      cell.classList.toggle('black');
+
+      this.checkCell(cell);
+    }
   }
 
   createGrid(game) {
+    this.points.scheme = [];
+    this.points.cur = [];
+
     const gridWidth = game.figure[0].length;
 
     if (this.grid.el) {
@@ -27,13 +57,19 @@ export default class Grid {
 
     this.grid.el.style.gridTemplateColumns = `repeat(${gridWidth}, 1fr)`;
 
-    game.figure.forEach((line) => {
-      line.forEach((cell) => {
+    game.figure.forEach((line, idx) => {
+      line.forEach((cell, i) => {
         const el = document.createElement('div');
         el.classList.add('cell');
         if (cell.name === 'cell') {
-          el.addEventListener('click', () => el.classList.toggle('black'));
+          el.setAttribute('value', cell.value);
+          el.setAttribute('name', cell.name);
+          el.setAttribute('id', `${idx}-${i}`);
+          if (cell.value) {
+            this.points.scheme.push(`${idx}-${i}`);
+          }
         }
+
         if (cell.name === 'hint') {
           el.innerText = cell.value;
           el.classList.add('hint');
@@ -52,5 +88,7 @@ export default class Grid {
         this.grid.el.appendChild(el);
       });
     });
+
+    this.grid.el.addEventListener('click', (event) => this.selectCell(event));
   }
 }
