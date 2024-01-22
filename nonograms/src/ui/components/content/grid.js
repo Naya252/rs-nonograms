@@ -1,4 +1,6 @@
 /* eslint-disable no-lonely-if */
+import calculateMatrix from '../../../services/matrixService';
+
 export default class Grid {
   constructor(tag = 'div', className = 'grid-container') {
     this.grid = {
@@ -11,6 +13,7 @@ export default class Grid {
     this.points = {
       scheme: [],
       cur: [],
+      figure: [],
     };
   }
 
@@ -39,8 +42,11 @@ export default class Grid {
   createGrid(game) {
     this.points.scheme = [];
     this.points.cur = [];
+    this.points.figure = [];
 
-    const gridWidth = game.figure[0].length;
+    this.points.figure = calculateMatrix(game.figure);
+
+    const gridWidth = this.points.figure[0].length;
 
     if (this.grid.el) {
       // eslint-disable-next-line prefer-destructuring
@@ -57,7 +63,7 @@ export default class Grid {
 
     this.grid.el.style.gridTemplateColumns = `repeat(${gridWidth}, 1fr)`;
 
-    game.figure.forEach((line, idx) => {
+    this.points.figure.forEach((line, idx) => {
       line.forEach((cell, i) => {
         const el = document.createElement('div');
         el.classList.add('cell');
