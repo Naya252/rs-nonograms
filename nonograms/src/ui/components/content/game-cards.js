@@ -1,8 +1,10 @@
 import createElement from '../../../shared/helpers';
 import Radio from '../radio';
+import Grid from './grid';
 
-export default class GameCards {
+export default class GameCards extends Grid {
   constructor(tag = 'div', className = 'cards') {
+    super();
     this.cards = {
       tag,
       className,
@@ -45,9 +47,9 @@ export default class GameCards {
 
       this.cards.el.addEventListener('click', (event) => this.selectCurCard(event));
     } else {
-      this.cards.el.remove();
       // eslint-disable-next-line no-lonely-if
       if (this.cards.el) {
+        this.cards.el.remove();
         this.cards.data = null;
         this.cards.items = [];
         this.cards.el = ``;
