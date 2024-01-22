@@ -1,8 +1,10 @@
 import createElement from '../../../shared/helpers';
 import Radio from '../radio';
+import GameCards from './game-cards';
 
-export default class Levels {
+export default class Levels extends GameCards {
   constructor(tag = 'div', className = 'levels') {
+    super();
     this.levels = {
       tag,
       className,

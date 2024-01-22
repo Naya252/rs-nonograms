@@ -1,5 +1,4 @@
 import createElement from '../../shared/helpers';
-import Radio from './radio';
 import templates from '../../shared/templates';
 import Levels from './content/levels';
 
@@ -8,56 +7,16 @@ class Wrapper extends Levels {
     super();
     this.tag = tag;
     this.el = null;
-    this.children = { cards: { el: null, items: [] }, grid: { el: null } };
+    this.children = { grid: { el: null } };
     this.className = 'container-xxl my-md-4 bd-layout center';
-    this.cards = null;
-    this.card = null;
   }
 
   getEl() {
     this.el = createElement(this.tag, this.className);
   }
 
-  createCards() {
-    const cards = templates.filter((el) => el.level === this.curLevel.value);
-    if (cards.length) {
-      this.cards = cards;
-
-      this.children.cards.el = createElement('div', 'cards');
-      this.el.append(this.children.cards.el);
-
-      cards.forEach((el) => {
-        const radioBtn = new Radio(el.name, 'card', 'secondary');
-        const btn = radioBtn.init();
-        this.children.cards.items.push(btn);
-
-        this.children.cards.el.append(btn.input);
-        this.children.cards.el.append(btn.label);
-
-        this.el.append(this.children.cards.el);
-      });
-
-      this.children.cards.el.addEventListener('click', (event) => {
-        const card = event.target.closest('.btn-check');
-        if (card) {
-          if (!this.card || this.card !== event.target.closest('.btn-check').getAttribute('id')) {
-            this.card = event.target.closest('.btn-check').getAttribute('id');
-            this.createGrid();
-          }
-        }
-      });
-    } else {
-      // eslint-disable-next-line no-lonely-if
-      if (this.children.cards.el) {
-        this.cards = null;
-        this.children.cards.items = [];
-        this.children.cards.el.remove();
-      }
-    }
-  }
-
   createGrid() {
-    const game = this.cards.filter((el) => el.name === this.card);
+    const game = this.cards.data.filter((el) => el.name === this.curCard.value);
     const gridWidth = game[0].figure[0].length;
 
     if (this.children.grid.el) {
@@ -108,7 +67,16 @@ class Wrapper extends Levels {
   selectCurLevel(event) {
     const isSelect = super.selectCurLevel(event);
     if (isSelect) {
-      this.createCards();
+      const cards = templates.filter((el) => el.level === this.curLevel.value);
+      this.createCards(cards);
+      this.el.append(this.cards.el);
+    }
+  }
+
+  selectCurCard(event) {
+    const isSelect = super.selectCurCard(event);
+    if (isSelect) {
+      this.createGrid();
     }
   }
 
