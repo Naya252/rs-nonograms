@@ -42,7 +42,16 @@ class Header {
 
     const ul = createElement('ul', 'navbar-nav flex-row flex-wrap bd-navbar-nav pt-2 py-md-0');
     const li = createElement('li', 'nav-item col-6 col-md-auto');
-    li.innerText = 'Text';
+    const mute = createElement('i', 'bi bi-volume-mute');
+    const volume = createElement('i', 'bi bi-volume-up');
+    const star = createElement('i', 'bi bi-bookmark-star');
+    const sun = createElement('i', 'bi bi-brightness-high');
+    const moon = createElement('i', 'bi bi-moon');
+    li.append(star);
+    li.append(mute);
+    li.append(volume);
+    li.append(sun);
+    li.append(moon);
     ul.append(li);
 
     this.collapse.append(ul);
