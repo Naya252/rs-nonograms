@@ -47,7 +47,6 @@ body {
   display: inline-grid;
   gap: 1px;
   margin: 0 auto;
-  
 }
 
 .cell {
@@ -65,9 +64,9 @@ body {
     border: 1px solid rgba($dark, 0.5);
     cursor: auto;
 
-    &.spirit{
+    &.spirit {
       background-color: rgba($secondary, 0.25);
-    border: 1px solid rgba($dark, 0.25);
+      border: 1px solid rgba($dark, 0.25);
     }
   }
 }

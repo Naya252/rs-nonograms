@@ -7,7 +7,7 @@ export default class Grid {
       tag,
       className,
       el: null,
-      game: null,
+      game: [],
       items: [],
     };
     this.points = {
@@ -39,14 +39,23 @@ export default class Grid {
     }
   }
 
+  cleanGrid() {
+    if (this.grid.el) {
+      this.grid.el.remove();
+      this.grid.el = null;
+      this.grid.items = [];
+      this.grid.game = [];
+    }
+  }
+
   createGrid(game) {
     this.points.scheme = [];
     this.points.cur = [];
-    this.points.figure = [];
+    this.grid.game = [];
 
-    this.points.figure = calculateMatrix(game.figure);
+    this.grid.game = calculateMatrix(game.figure);
 
-    const gridWidth = this.points.figure[0].length;
+    const gridWidth = this.grid.game[0].length;
 
     if (this.grid.el) {
       // eslint-disable-next-line prefer-destructuring
@@ -63,7 +72,7 @@ export default class Grid {
 
     this.grid.el.style.gridTemplateColumns = `repeat(${gridWidth}, 1fr)`;
 
-    this.points.figure.forEach((line, idx) => {
+    this.grid.game.forEach((line, idx) => {
       line.forEach((cell, i) => {
         const el = document.createElement('div');
         el.classList.add('cell');

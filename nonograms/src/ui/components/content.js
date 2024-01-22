@@ -23,10 +23,7 @@ class Wrapper extends Levels {
     } else {
       // eslint-disable-next-line no-lonely-if
       if (this.grid.el) {
-        this.grid.el.remove();
-        this.grid.el = null;
-        this.grid.items = [];
-        this.grid.game = null;
+        this.cleanGrid();
       }
     }
   }
@@ -36,6 +33,7 @@ class Wrapper extends Levels {
     if (isSelect) {
       const game = this.cards.data.filter((el) => el.name === this.curCard.value);
       if (game.length) {
+        this.cleanGrid();
         this.createGrid(game[0]);
         this.el.append(this.grid.el);
       }
