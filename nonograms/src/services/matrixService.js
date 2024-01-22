@@ -105,9 +105,10 @@ function addVerticalLines(matrix) {
   const res = matrix.map((el, i) => {
     let val = el;
     if (
-      el.every((item) => item.name === 'hint') &&
-      !matrix[i + i].every((item) => item.name === 'hint') &&
-      i !== matrix.length - 1
+      (el.every((item) => item.name === 'hint') &&
+        !matrix[i + i].every((item) => item.name === 'hint') &&
+        i !== matrix.length - 1) ||
+      (matrix.length === 6 && i === 0)
     ) {
       val = el.map((item) => {
         const withBorder = item;
