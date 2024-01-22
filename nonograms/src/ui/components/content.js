@@ -17,6 +17,7 @@ class Wrapper extends Levels {
   selectCurLevel(event) {
     const isSelect = super.selectCurLevel(event);
     if (isSelect) {
+      this.cleanCards();
       const cards = templates.filter((el) => el.level === this.curLevel.value);
       this.createCards(cards);
       this.el.append(this.cards.el);

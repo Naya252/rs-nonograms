@@ -31,8 +31,17 @@ export default class GameCards extends Grid {
     return isSelect;
   }
 
+  cleanCards() {
+    if (this.cards.el) {
+      this.cards.el.remove();
+      this.cards.data = null;
+      this.cards.items = [];
+      this.cards.el = ``;
+    }
+  }
+
   createCards(cards) {
-    if (cards.length) {
+    if (cards.length && this.cards.data !== cards) {
       this.cards.data = cards;
       this.cards.el = createElement(this.cards.tag, this.cards.className);
 
@@ -46,14 +55,6 @@ export default class GameCards extends Grid {
       });
 
       this.cards.el.addEventListener('click', (event) => this.selectCurCard(event));
-    } else {
-      // eslint-disable-next-line no-lonely-if
-      if (this.cards.el) {
-        this.cards.el.remove();
-        this.cards.data = null;
-        this.cards.items = [];
-        this.cards.el = ``;
-      }
     }
   }
 
