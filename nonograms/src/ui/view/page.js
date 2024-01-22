@@ -1,6 +1,6 @@
 import body from '../components/body';
 import header from '../components/header';
-import content from '../components/wrapper';
+import content from '../components/content';
 
 export default function initPage() {
   header.initNav();

@@ -1,16 +1,16 @@
 import createElement from '../../shared/helpers';
 import Radio from './radio';
 import templates from '../../shared/templates';
+import Levels from './content/levels';
 
-class Wrapper {
+class Wrapper extends Levels {
   constructor(tag = 'main') {
+    super();
     this.tag = tag;
     this.el = null;
-    this.children = { levels: { el: null, items: [] }, cards: { el: null, items: [] }, grid: { el: null } };
+    this.children = { cards: { el: null, items: [] }, grid: { el: null } };
     this.className = 'container-xxl my-md-4 bd-layout center';
-    this.levels = [{ name: 'Low' }, { name: 'Middle' }, { name: 'Hight' }, { name: 'Random' }];
     this.cards = null;
-    this.level = null;
     this.card = null;
   }
 
@@ -18,34 +18,8 @@ class Wrapper {
     this.el = createElement(this.tag, this.className);
   }
 
-  createLevels() {
-    this.children.levels.el = createElement('div', 'levels');
-
-    this.levels.forEach((item) => {
-      const radioBtn = new Radio(item.name, 'level');
-      const btn = radioBtn.init();
-      btn.label.classList.add('btn-lg');
-      this.children.levels.items.push(btn);
-
-      this.children.levels.el.append(btn.input);
-      this.children.levels.el.append(btn.label);
-
-      this.el.append(this.children.levels.el);
-    });
-
-    this.children.levels.el.addEventListener('click', (event) => {
-      const category = event.target.closest('.btn-check');
-      if (category) {
-        if (!this.level || this.level !== event.target.closest('.btn-check').getAttribute('id').toLowerCase()) {
-          this.level = event.target.closest('.btn-check').getAttribute('id').toLowerCase();
-          this.createCards();
-        }
-      }
-    });
-  }
-
   createCards() {
-    const cards = templates.filter((el) => el.level === this.level);
+    const cards = templates.filter((el) => el.level === this.curLevel.value);
     if (cards.length) {
       this.cards = cards;
 
@@ -131,16 +105,20 @@ class Wrapper {
     this.el.append(this.children.grid.el);
   }
 
-  changeLevel(val) {
-    this.level = val;
+  selectCurLevel(event) {
+    const isSelect = super.selectCurLevel(event);
+    if (isSelect) {
+      this.createCards();
+    }
   }
 
   init() {
     this.getEl();
     this.createLevels();
+    this.el.append(this.levels.el);
     return this.el;
   }
 }
 
-const wrapper = new Wrapper();
-export default wrapper;
+const content = new Wrapper();
+export default content;
