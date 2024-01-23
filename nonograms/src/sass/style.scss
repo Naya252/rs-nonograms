@@ -45,29 +45,30 @@ body {
 
 .grid-container {
   display: inline-grid;
-  gap: 1px;
   margin: 0 auto;
 }
 
 .cell {
   width: 50px;
   height: 50px;
-  border: 1px solid #000;
+  border: 1px solid rgba($dark, 0.5);
   background-color: $secondary;
   cursor: pointer;
   color: #fff;
   font-weight: 600;
   text-align: center;
 
-  &.hint {
-    background-color: rgba($secondary, 0.5);
-    border: 1px solid rgba($dark, 0.5);
-    cursor: auto;
+  
+}
 
-    &.spirit {
-      background-color: rgba($secondary, 0.25);
-      border: 1px solid rgba($dark, 0.25);
-    }
+.hint {
+  background-color: rgba($secondary, 0.5);
+  border: 1px solid rgba($dark, 0.3);
+  cursor: auto;
+
+  &.spirit {
+    background-color: rgba($secondary, 0.25);
+    border: 1px solid rgba($dark, 0.15);
   }
 }
 

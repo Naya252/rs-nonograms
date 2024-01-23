@@ -91,13 +91,13 @@ export default class Grid {
           if (!cell.value) {
             el.classList.add('spirit');
           }
+        }
 
-          if (cell.border?.includes('right')) {
-            el.style.borderRight = '4px solid #000';
-          }
-          if (cell.border?.includes('bottom')) {
-            el.style.borderBottom = '4px solid #000';
-          }
+        if (cell.border?.includes('right')) {
+          el.style.borderRight = '2px solid #000';
+        }
+        if (cell.border?.includes('top')) {
+          el.style.borderTop = '2px solid #000';
         }
         this.grid.items.push(el);
         this.grid.el.appendChild(el);

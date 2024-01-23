@@ -81,17 +81,13 @@ function addFieldData(matrix) {
 function addHorisontalLines(matrix) {
   const res = matrix.map((el, i) => {
     let val = el;
-    if (
-      el.every((item) => item.name === 'hint') &&
-      !matrix[i + i].every((item) => item.name === 'hint') &&
-      i !== matrix.length - 1
-    ) {
+    if ((i + 1) % 5 === 0 && !el.every((item) => item.name === 'hint')) {
       val = el.map((item) => {
         const withBorder = item;
         if (item.border) {
-          withBorder.border += ' bottom';
+          withBorder.border += ' top';
         } else {
-          withBorder.border = 'bottom';
+          withBorder.border = 'top';
         }
         return withBorder;
       });
@@ -102,14 +98,16 @@ function addHorisontalLines(matrix) {
 }
 
 function addVerticalLines(matrix) {
+  let start = null;
   const res = matrix.map((el, i) => {
     let val = el;
+
     if (
-      (el.every((item) => item.name === 'hint') &&
-        !matrix[i + i].every((item) => item.name === 'hint') &&
-        i !== matrix.length - 1) ||
-      (matrix.length === 6 && i === 0)
+      i !== 0 &&
+      ((matrix[+i - 1].every((item) => item.name === 'hint') && !el.every((item) => item.name === 'hint')) ||
+        (i - start) % 5 === 0)
     ) {
+      start = i;
       val = el.map((item) => {
         const withBorder = item;
         if (item.border) {
@@ -120,6 +118,7 @@ function addVerticalLines(matrix) {
         return withBorder;
       });
     }
+
     return val;
   });
 
@@ -132,13 +131,13 @@ export default function calculateMatrix(matrix) {
   res = getLeftHint(res);
   res = turnLeft(res);
   res = getLeftHint(res);
-  res = turnRight(res);
-  res = addHorisontalLines(res);
-
-  res = turnRight(res);
 
   res = addVerticalLines(res);
   res = turnLeft(res);
+  res = addHorisontalLines(res);
+
+  res = turnRight(res);
+  res = turnRight(res);
 
   return res;
 }

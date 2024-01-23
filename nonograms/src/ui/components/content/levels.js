@@ -9,7 +9,7 @@ export default class Levels extends GameCards {
       tag,
       className,
       el: null,
-      names: [{ name: 'Low' }, { name: 'Middle' }, { name: 'Hight' }, { name: 'Random' }],
+      names: [{ name: 'Low' }, { name: 'Middle' }, { name: 'High' }, { name: 'Random' }],
       items: [],
     };
     this.curLevel = {
