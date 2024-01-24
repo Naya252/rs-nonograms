@@ -37,6 +37,10 @@ class Wrapper extends Levels {
         this.cleanGrid();
         this.createGrid(game[0]);
         this.el.append(this.grid.el);
+
+        this.cleanTimer();
+        this.createTimer();
+        this.el.append(this.timer.el);
       }
     }
   }

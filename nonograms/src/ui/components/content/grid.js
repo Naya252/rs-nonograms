@@ -1,8 +1,10 @@
 /* eslint-disable no-lonely-if */
 import calculateMatrix from '../../../services/matrixService';
+import Timer from './timer';
 
-export default class Grid {
+export default class Grid extends Timer {
   constructor(tag = 'div', className = 'grid-container') {
+    super();
     this.grid = {
       tag,
       className,
@@ -34,6 +36,11 @@ export default class Grid {
     const cell = event.target.closest('.cell');
     if (cell && cell.hasAttribute('name')) {
       cell.classList.toggle('black');
+
+      if (!this.timer.isStart) {
+        this.timer.isStart = true;
+        this.startTimer();
+      }
 
       this.checkCell(cell);
     }
