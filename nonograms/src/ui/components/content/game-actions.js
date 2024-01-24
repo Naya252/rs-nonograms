@@ -55,7 +55,21 @@ export default class Actions extends Grid {
     this.reset.el.removeAttribute('disabled');
   }
 
+  removeActions() {
+    if (this.save.el) {
+      this.save.el.remove();
+    }
+    if (this.solution.el) {
+      this.solution.el.remove();
+    }
+    if (this.reset.el) {
+      this.reset.el.remove();
+    }
+  }
+
   createActions() {
+    this.removeActions();
+
     this.save.el = createElement(this.save.tag, this.save.className);
     this.save.el.innerText = this.save.className.toUpperCase();
 

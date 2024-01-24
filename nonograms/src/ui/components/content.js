@@ -25,6 +25,7 @@ class Wrapper extends Levels {
       // eslint-disable-next-line no-lonely-if
       if (this.grid.el) {
         this.cleanGrid();
+        this.removeActions();
       }
     }
   }
