@@ -52,7 +52,6 @@ export default class Grid {
     this.points.scheme = [];
     this.points.cur = [];
     this.grid.game = [];
-
     this.grid.game = calculateMatrix(game.figure);
 
     const gridWidth = this.grid.game[0].length;

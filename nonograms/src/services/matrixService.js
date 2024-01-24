@@ -125,9 +125,26 @@ function addVerticalLines(matrix) {
   return res;
 }
 
+function changeToBool(matrix) {
+  const res = [];
+  matrix.map((line) => {
+    const row = line.map((el) => {
+      let val = false;
+      if (el === 1) {
+        val = true;
+      }
+      return val;
+    });
+    res.push(row);
+    return line;
+  });
+  return res;
+}
+
 export default function calculateMatrix(matrix) {
   const val = [...matrix];
-  let res = addFieldData(val);
+  let res = changeToBool(val);
+  res = addFieldData(res);
   res = getLeftHint(res);
   res = turnLeft(res);
   res = getLeftHint(res);
