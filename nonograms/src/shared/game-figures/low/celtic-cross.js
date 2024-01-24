@@ -1,9 +1,9 @@
 const celticCross = [
-  [false, false, true, false, false],
-  [false, true, false, true, false],
-  [false, false, true, false, false],
-  [false, false, true, false, false],
-  [false, true, true, true, false],
+  [0, 0, 1, 0, 0],
+  [0, 1, 0, 1, 0],
+  [0, 0, 1, 0, 0],
+  [0, 0, 1, 0, 0],
+  [0, 1, 1, 1, 0],
 ];
 
 export default celticCross;

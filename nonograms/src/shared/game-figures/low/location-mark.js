@@ -1,9 +1,9 @@
 const locationMark = [
-  [false, true, true, true, false],
-  [true, true, false, true, true],
-  [true, true, false, true, true],
-  [false, true, true, true, false],
-  [false, false, true, false, false],
+  [0, 1, 1, 1, 0],
+  [1, 1, 0, 1, 1],
+  [1, 1, 1, 1, 1],
+  [0, 1, 1, 1, 0],
+  [0, 0, 1, 0, 0],
 ];
 
 export default locationMark;
