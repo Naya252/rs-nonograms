@@ -32,15 +32,17 @@ export default class Actions extends Grid {
     this.cleanTimer();
     this.createTimer();
 
-    this.points.cur = [];
-
-    for (const cell of this.grid.items) {
-      if (cell.classList.contains('black')) {
-        cell.classList.remove('black');
-      }
-    }
-
+    this.cleanCells();
     this.addDisabled();
+  }
+
+  showSolution() {
+    this.cleanTimer();
+    this.createTimer();
+
+    this.fillScheme();
+    this.addDisabled();
+    this.activeReset();
   }
 
   addDisabled() {
@@ -49,12 +51,17 @@ export default class Actions extends Grid {
     this.reset.el.setAttribute('disabled', true);
   }
 
+  activeReset() {
+    this.reset.el.removeAttribute('disabled');
+  }
+
   createActions() {
     this.save.el = createElement(this.save.tag, this.save.className);
     this.save.el.innerText = this.save.className.toUpperCase();
 
     this.solution.el = createElement(this.solution.tag, this.solution.className);
     this.solution.el.innerText = this.solution.className.toUpperCase();
+    this.solution.el.addEventListener('click', () => this.showSolution());
 
     this.reset.el = createElement(this.reset.tag, this.reset.className);
     this.reset.el.innerText = this.reset.className.toUpperCase();

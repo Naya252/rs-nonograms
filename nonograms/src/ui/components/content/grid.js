@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-lonely-if */
 import calculateMatrix from '../../../services/matrixService';
 import Timer from './timer';
@@ -44,6 +45,26 @@ export default class Grid extends Timer {
       }
 
       this.checkCell(cell);
+    }
+  }
+
+  fillScheme() {
+    this.cleanCells();
+
+    this.grid.items.forEach((el) => {
+      if (el.hasAttribute('id') && this.points.scheme.includes(el.getAttribute('id'))) {
+        el.classList.add('black');
+      }
+    });
+  }
+
+  cleanCells() {
+    this.points.cur = [];
+
+    for (const cell of this.grid.items) {
+      if (cell.classList.contains('black')) {
+        cell.classList.remove('black');
+      }
     }
   }
 
