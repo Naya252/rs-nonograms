@@ -1,8 +1,8 @@
 /* eslint-disable no-lonely-if */
 import calculateMatrix from '../../../services/matrixService';
-import Timer from './timer';
+import Actions from './game-actions';
 
-export default class Grid extends Timer {
+export default class Grid extends Actions {
   constructor(tag = 'div', className = 'grid-container') {
     super();
     this.grid = {
@@ -40,6 +40,7 @@ export default class Grid extends Timer {
       if (!this.timer.isStart) {
         this.timer.isStart = true;
         this.startTimer();
+        this.activateButtons();
       }
 
       this.checkCell(cell);

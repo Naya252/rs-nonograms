@@ -41,6 +41,11 @@ class Wrapper extends Levels {
         this.cleanTimer();
         this.createTimer();
         this.el.append(this.timer.el);
+
+        this.createActions();
+        this.el.append(this.save.el);
+        this.el.append(this.solution.el);
+        this.el.append(this.reset.el);
       }
     }
   }
