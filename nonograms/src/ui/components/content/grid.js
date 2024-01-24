@@ -1,8 +1,8 @@
 /* eslint-disable no-lonely-if */
 import calculateMatrix from '../../../services/matrixService';
-import Actions from './game-actions';
+import Timer from './timer';
 
-export default class Grid extends Actions {
+export default class Grid extends Timer {
   constructor(tag = 'div', className = 'grid-container') {
     super();
     this.grid = {

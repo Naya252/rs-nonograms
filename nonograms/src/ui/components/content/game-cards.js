@@ -1,8 +1,8 @@
 import createElement from '../../../shared/helpers';
 import Radio from '../radio';
-import Grid from './grid';
+import Actions from './game-actions';
 
-export default class GameCards extends Grid {
+export default class GameCards extends Actions {
   constructor(tag = 'div', className = 'cards') {
     super();
     this.cards = {
