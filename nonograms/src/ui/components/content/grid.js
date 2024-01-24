@@ -76,7 +76,6 @@ export default class Grid {
         const el = document.createElement('div');
         el.classList.add('cell');
         if (cell.name === 'cell') {
-          el.setAttribute('value', cell.value);
           el.setAttribute('name', cell.name);
           el.setAttribute('id', `${idx}-${i}`);
           if (cell.value) {
