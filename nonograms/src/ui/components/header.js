@@ -56,7 +56,7 @@ export default class Header extends Settings {
     const title = createElement('h1', 'navbar-brand');
     title.setAttribute('data-bs-theme', 'dark');
 
-    title.innerText = 'Nanograms';
+    title.innerText = 'Nonograms';
     nav.append(title);
     nav.append(this.burger);
     nav.append(this.collapse);
