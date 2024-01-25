@@ -1,10 +1,14 @@
 import createElement from '../../shared/helpers';
+import Settings from './content/settings';
 
-class Header {
+export default class Header extends Settings {
   constructor(tag = 'header') {
-    this.tag = tag;
-    this.el = null;
-    this.className = 'navbar navbar-expand-md bd-navbar bg-primary';
+    super();
+    this.header = {
+      tag,
+      el: null,
+      className: 'navbar navbar-expand-md bd-navbar bg-primary',
+    };
     this.burger = null;
     this.collapse = null;
   }
@@ -39,27 +43,19 @@ class Header {
   createCollapse() {
     this.collapse = createElement('div', 'collapse navbar-collapse');
     this.collapse.setAttribute('id', 'bdNavbar');
+    this.collapse.setAttribute('data-bs-theme', 'dark');
 
-    const ul = createElement('ul', 'navbar-nav flex-row flex-wrap bd-navbar-nav pt-2 py-md-0');
-    const li = createElement('li', 'nav-item col-6 col-md-auto');
-    const mute = createElement('i', 'bi bi-volume-mute');
-    const volume = createElement('i', 'bi bi-volume-up');
-    const star = createElement('i', 'bi bi-bookmark-star');
-    const sun = createElement('i', 'bi bi-brightness-high');
-    const moon = createElement('i', 'bi bi-moon');
-    li.append(star);
-    li.append(mute);
-    li.append(volume);
-    li.append(sun);
-    li.append(moon);
-    ul.append(li);
+    this.createSettings();
 
-    this.collapse.append(ul);
+    this.collapse.append(this.theme.el);
+    this.collapse.append(this.volume.el);
   }
 
   createChild() {
-    const nav = createElement('nav', 'container-xxl flex-wrap flex-md-nowrap', this.el);
+    const nav = createElement('nav', 'container-xxl flex-wrap flex-md-nowrap', this.header.el);
     const title = createElement('h1', 'navbar-brand');
+    title.setAttribute('data-bs-theme', 'dark');
+
     title.innerText = 'Nanograms';
     nav.append(title);
     nav.append(this.burger);
@@ -67,12 +63,9 @@ class Header {
   }
 
   initNav() {
-    this.el = createElement(this.tag, this.className);
+    this.header.el = createElement(this.header.tag, this.header.className);
     this.createBurgerBtn();
     this.createCollapse();
     this.createChild();
   }
 }
-
-const header = new Header();
-export default header;
