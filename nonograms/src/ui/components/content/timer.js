@@ -31,7 +31,11 @@ export default class Timer {
   changeTimerValue(sec) {
     this.timer.sec = sec;
     this.timer.value = new Date(1970, 0, 0, 0, 0, +sec || 0).toLocaleTimeString('ru');
-    this.timer.el.innerText = this.timer.value;
+    if (this.timer.value.toString().slice(0, 2) === '00') {
+      this.timer.el.innerText = this.timer.value.toString().slice(3);
+    } else {
+      this.timer.el.innerText = this.timer.value;
+    }
   }
 
   cleanTimer() {
