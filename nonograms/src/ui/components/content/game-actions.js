@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 import createElement from '../../../shared/helpers';
 import Grid from './grid';
 
