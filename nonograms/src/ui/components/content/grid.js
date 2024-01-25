@@ -10,13 +10,12 @@ export default class Grid extends Timer {
       tag,
       className,
       el: null,
-      game: [],
+      matrix: [],
       items: [],
     };
     this.points = {
       scheme: [],
       cur: [],
-      figure: [],
     };
   }
 
@@ -73,17 +72,17 @@ export default class Grid extends Timer {
       this.grid.el.remove();
       this.grid.el = null;
       this.grid.items = [];
-      this.grid.game = [];
+      this.grid.matrix = [];
     }
   }
 
   createGrid(game) {
     this.points.scheme = [];
     this.points.cur = [];
-    this.grid.game = [];
-    this.grid.game = calculateMatrix(game.figure);
+    this.grid.matrix = [];
+    this.grid.matrix = calculateMatrix(game.figure);
 
-    const gridWidth = this.grid.game[0].length;
+    const gridWidth = this.grid.matrix[0].length;
 
     if (this.grid.el) {
       // eslint-disable-next-line prefer-destructuring
@@ -100,7 +99,7 @@ export default class Grid extends Timer {
 
     this.grid.el.style.gridTemplateColumns = `repeat(${gridWidth}, 1fr)`;
 
-    this.grid.game.forEach((line, idx) => {
+    this.grid.matrix.forEach((line, idx) => {
       line.forEach((cell, i) => {
         const el = document.createElement('div');
         el.classList.add('cell');
