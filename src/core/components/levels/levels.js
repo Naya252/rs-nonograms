@@ -1,22 +1,16 @@
-import createElement from '../../shared/helpers';
-import Radio from '../base/radio';
 import GameCards from '../game-cards/game-cards';
+import LevelBtns from './ui/levels-ui';
 
 export default class Levels extends GameCards {
-  constructor(tag = 'div', className = 'levels') {
+  constructor() {
     super();
-    this.levels = {
-      tag,
-      className,
-      el: null,
-      names: [{ name: 'Low' }, { name: 'Middle' }, { name: 'High' }, { name: 'Random' }],
-      items: [],
-    };
+
     this.curLevel = {
       el: null,
       value: null,
-      children: [],
     };
+
+    this.levels = new LevelBtns();
   }
 
   selectCurLevel(event) {
@@ -35,16 +29,11 @@ export default class Levels extends GameCards {
   }
 
   createLevels() {
-    this.levels.el = createElement(this.levels.tag, this.levels.className);
+    this.levels.names = [{ name: 'Low' }, { name: 'Middle' }, { name: 'High' }, { name: 'Random' }];
+    this.levels.createLevels();
 
     this.levels.names.forEach((item) => {
-      const radioBtn = new Radio(item.name, 'level');
-      const btn = radioBtn.init();
-      btn.label.classList.add('btn-lg');
-      this.levels.items.push(btn);
-
-      this.levels.el.append(btn.input);
-      this.levels.el.append(btn.label);
+      this.levels.createLevel(item);
     });
 
     this.levels.el.addEventListener('click', (event) => this.selectCurLevel(event));
