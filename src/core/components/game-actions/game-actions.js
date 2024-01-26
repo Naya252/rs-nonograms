@@ -1,24 +1,13 @@
-import createElement from '../../shared/helpers';
 import Grid from '../grid/grid';
+import Button from './ui/btn';
 
 export default class Actions extends Grid {
   constructor() {
     super();
-    this.save = {
-      tag: 'button',
-      className: 'save',
-      el: null,
-    };
-    this.solution = {
-      tag: 'button',
-      className: 'solution',
-      el: null,
-    };
-    this.reset = {
-      tag: 'button',
-      className: 'reset',
-      el: null,
-    };
+
+    this.save = new Button('save');
+    this.solution = new Button('solution');
+    this.reset = new Button('reset');
   }
 
   activateButtons() {
@@ -69,15 +58,12 @@ export default class Actions extends Grid {
   createActions() {
     this.removeActions();
 
-    this.save.el = createElement(this.save.tag, this.save.className);
-    this.save.el.innerText = this.save.className.toUpperCase();
+    this.save.createBtn();
 
-    this.solution.el = createElement(this.solution.tag, this.solution.className);
-    this.solution.el.innerText = this.solution.className.toUpperCase();
+    this.solution.createBtn();
     this.solution.el.addEventListener('click', () => this.showSolution());
 
-    this.reset.el = createElement(this.reset.tag, this.reset.className);
-    this.reset.el.innerText = this.reset.className.toUpperCase();
+    this.reset.createBtn();
     this.reset.el.addEventListener('click', () => this.resetGame());
 
     this.addDisabled();
