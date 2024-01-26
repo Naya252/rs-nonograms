@@ -1,6 +1,6 @@
-import createElement from '../../../shared/helpers';
-import Radio from '../radio';
-import GameCards from './game-cards';
+import createElement from '../../shared/helpers';
+import Radio from '../base/radio';
+import GameCards from '../game-cards/game-cards';
 
 export default class Levels extends GameCards {
   constructor(tag = 'div', className = 'levels') {

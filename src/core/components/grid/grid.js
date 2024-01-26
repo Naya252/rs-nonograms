@@ -1,7 +1,8 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-lonely-if */
-import calculateMatrix from '../../../services/matrixService';
-import Timer from './timer';
+import calculateMatrix from './service/matrixService';
+import Timer from '../timer/timer';
+import { FILL_SOUND, CLEAN_SOUND, X_SOUND } from '../../shared/constants';
 
 export default class Grid extends Timer {
   constructor(tag = 'div', className = 'grid-container') {
@@ -17,6 +18,9 @@ export default class Grid extends Timer {
       scheme: [],
       cur: [],
     };
+    this.audioFill = new Audio(FILL_SOUND);
+    this.audioClean = new Audio(CLEAN_SOUND);
+    this.audioX = new Audio(X_SOUND);
   }
 
   checkCell(cell) {
@@ -35,7 +39,14 @@ export default class Grid extends Timer {
   selectCell(event) {
     const cell = event.target.closest('.cell');
     if (cell && cell.hasAttribute('name')) {
-      cell.classList.toggle('black');
+      if (cell.classList.contains('black')) {
+        cell.classList.remove('black');
+        this.audioClean.play();
+      } else {
+        cell.classList.add('black');
+        this.audioFill.play();
+      }
+      // cell.classList.toggle('black');
 
       if (!this.timer.isStart) {
         this.timer.isStart = true;

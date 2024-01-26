@@ -1,5 +1,5 @@
-import createElement from '../../../shared/helpers';
-import Grid from './grid';
+import createElement from '../../shared/helpers';
+import Grid from '../grid/grid';
 
 export default class Actions extends Grid {
   constructor() {

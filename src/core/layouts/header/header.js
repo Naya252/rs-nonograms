@@ -1,5 +1,5 @@
 import createElement from '../../shared/helpers';
-import Settings from './content/settings';
+import Settings from '../../components/settings/settings';
 
 export default class Header extends Settings {
   constructor(tag = 'header') {

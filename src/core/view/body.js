@@ -1,4 +1,4 @@
-import Header from './header';
+import Header from '../layouts/header/header';
 
 class Body extends Header {
   constructor(tag = 'body') {

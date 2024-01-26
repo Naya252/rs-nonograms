@@ -1,6 +1,6 @@
 import createElement from '../../shared/helpers';
-import templates from '../../shared/templates';
-import Levels from './content/levels';
+import templates from '../../game-figures/templates';
+import Levels from '../../components/levels/levels';
 
 class Wrapper extends Levels {
   constructor(tag = 'main') {

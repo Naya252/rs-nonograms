@@ -1,6 +1,6 @@
-import body from '../components/body';
+import body from './body';
 
-import content from '../components/content';
+import content from '../layouts/main/content';
 
 export default function initPage() {
   content.init();

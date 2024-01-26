@@ -1,4 +1,4 @@
-import createElement from '../../../shared/helpers';
+import createElement from '../../shared/helpers';
 
 export default class Timer {
   constructor(tag = 'div', className = 'timer') {

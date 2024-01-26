@@ -1,6 +1,6 @@
-import createElement from '../../../shared/helpers';
-import Radio from '../radio';
-import Actions from './game-actions';
+import createElement from '../../shared/helpers';
+import Radio from '../base/radio';
+import Actions from '../game-actions/game-actions';
 
 export default class GameCards extends Actions {
   constructor(tag = 'div', className = 'cards') {
