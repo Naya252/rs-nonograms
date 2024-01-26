@@ -1,22 +1,16 @@
-import createElement from '../../shared/helpers';
-import Radio from '../base/radio';
 import Actions from '../game-actions/game-actions';
+import Cards from './ui/game-cards-ui';
 
 export default class GameCards extends Actions {
-  constructor(tag = 'div', className = 'cards') {
+  constructor() {
     super();
-    this.cards = {
-      tag,
-      className,
-      el: null,
-      data: null,
-      items: [],
-    };
+
     this.curCard = {
       el: null,
       value: null,
-      children: [],
     };
+
+    this.cards = new Cards();
   }
 
   selectCurCard(event) {
@@ -43,15 +37,10 @@ export default class GameCards extends Actions {
   createCards(cards) {
     if (cards.length && this.cards.data !== cards) {
       this.cards.data = cards;
-      this.cards.el = createElement(this.cards.tag, this.cards.className);
+      this.cards.createCards();
 
       this.cards.data.forEach((el) => {
-        const radioBtn = new Radio(el.name, 'card', 'secondary');
-        const btn = radioBtn.init();
-        this.cards.items.push(btn);
-
-        this.cards.el.append(btn.input);
-        this.cards.el.append(btn.label);
+        this.cards.createCard(el);
       });
 
       this.cards.el.addEventListener('click', (event) => this.selectCurCard(event));
