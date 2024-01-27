@@ -13,7 +13,6 @@ export default class Timer {
   }
 
   startTimer() {
-    this.timer.sec = 0;
     const rafStart = Date.now();
     const tick = () => {
       const seconds = Math.floor((Date.now() - rafStart) / 1000 || 0);
@@ -44,9 +43,14 @@ export default class Timer {
     this.timer.isStart = false;
   }
 
-  createTimer() {
+  createTimer(savedTime) {
     this.timer.create();
     this.addValues();
     this.timer.el.innerText = this.timer.value;
+
+    if (savedTime) {
+      this.timer.sec = +savedTime;
+      this.changeTimerValue(this.timer.sec);
+    }
   }
 }

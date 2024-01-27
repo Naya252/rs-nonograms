@@ -13,10 +13,6 @@ export default class Actions {
     this.reset.el.removeAttribute('disabled');
   }
 
-  // savetGame() {
-  //   console.log('save');
-  // }
-
   resetGame() {
     this.addDisabled();
   }

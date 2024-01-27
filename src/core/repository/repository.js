@@ -5,6 +5,11 @@ export function getCardsData(value) {
   return cards;
 }
 
+export function getCardData(value) {
+  const card = templates.filter((el) => el.name === value);
+  return card;
+}
+
 export function saveTheme(theme) {
   localStorage.setItem('n-n-theme', theme);
 }
@@ -23,7 +28,14 @@ export function getVolume() {
   return volume;
 }
 
-export function saveGame(data) {}
+export function saveGameData(data) {
+  localStorage.setItem('n-n-game', JSON.stringify(data));
+}
+
+export function getSavedGame() {
+  const data = localStorage.getItem('n-n-game');
+  return JSON.parse(data);
+}
 
 export function checkSavedGame(data) {}
 

@@ -1,5 +1,14 @@
 /* eslint-disable no-lonely-if */
-import { getCardsData, saveTheme, getTheme, saveVolume, getVolume } from '../repository/repository';
+import {
+  getCardsData,
+  getCardData,
+  saveTheme,
+  getTheme,
+  saveVolume,
+  getVolume,
+  saveGameData,
+  getSavedGame,
+} from '../repository/repository';
 import { getBoolTheme, getBoolValue } from '../shared/helpers';
 import { FILL_SOUND, CLEAN_SOUND, X_SOUND } from '../shared/constants';
 
@@ -85,21 +94,47 @@ export default class Game {
     this.lvl.levels.el.addEventListener('click', (event) => this.selectCurLevel(event));
     this.content.main.el.append(this.lvl.levels.el);
 
+    const saved = getSavedGame();
+    if (saved) {
+      this.addSavedGameLvl();
+    }
+
     this.lvl.levels.el.childNodes[1].click();
+  }
+
+  addSavedGameLvl() {
+    if (this.lvl.levels.el.childNodes.length === 8) {
+      this.lvl.levels.createLevel({ name: 'saved' });
+    }
   }
 
   selectCurLevel(event) {
     const isSelect = this.lvl.selectCurLevel(event);
 
-    if (isSelect) {
-      this.crd.cleanCards();
-      this.createCards();
+    if (this.lvl.curLevel.value === 'saved') {
+      this.selectSaved();
     } else {
-      if (this.grd.grid.el) {
-        this.grd.cleanGrid();
-        this.actions.removeActions();
+      if (isSelect) {
+        this.crd.cleanCards();
+        this.createCards();
+      } else {
+        if (this.grd.grid.el) {
+          this.grd.cleanGrid();
+          this.actions.removeActions();
+        }
       }
     }
+  }
+
+  selectSaved() {
+    this.crd.cleanCards();
+    this.grd.cleanGrid();
+    this.actions.removeActions();
+    this.tmr.cleanTimer();
+
+    const data = getSavedGame();
+    this.createGrid(data.card, data.timer);
+    this.fillSavedGame(data.grid);
   }
 
   // ================== Cards ===============================================
@@ -124,8 +159,14 @@ export default class Game {
 
   // ================== Grid ================================================
 
-  createGrid() {
-    const game = this.crd.cards.data.filter((el) => el.name === this.crd.curCard.value);
+  createGrid(savedCard, savedTime) {
+    let game;
+
+    if (savedCard) {
+      game = getCardData(savedCard);
+    } else {
+      game = this.crd.cards.data.filter((el) => el.name === this.crd.curCard.value);
+    }
 
     if (game.length) {
       this.grd.cleanGrid();
@@ -133,9 +174,14 @@ export default class Game {
       this.grd.grid.el.addEventListener('click', (event) => this.selectCell(event));
       this.content.main.el.append(this.grd.grid.el);
 
-      this.createTimer();
+      this.createTimer(savedTime);
       this.createActions();
     }
+  }
+
+  fillSavedGame(data) {
+    this.grd.points.cur = data;
+    this.grd.fillSavedCells();
   }
 
   selectCell(event) {
@@ -147,8 +193,6 @@ export default class Game {
 
     const isFill = this.grd.selectCell(event);
 
-    // this.audioFill = new Audio(FILL_SOUND);
-    // this.audioClean = new Audio(CLEAN_SOUND);
     // this.audioX = new Audio(X_SOUND);
 
     if (!this.settings.volume.isSilent) {
@@ -162,9 +206,9 @@ export default class Game {
 
   // ================== Timer ===============================================
 
-  createTimer() {
+  createTimer(savedTime) {
     this.tmr.cleanTimer();
-    this.tmr.createTimer();
+    this.tmr.createTimer(savedTime);
     this.content.main.el.append(this.tmr.timer.el);
   }
 
@@ -174,6 +218,7 @@ export default class Game {
     this.actions.createActions();
     this.actions.solution.el.addEventListener('click', () => this.showSolution());
     this.actions.reset.el.addEventListener('click', () => this.resetGame());
+    this.actions.save.el.addEventListener('click', () => this.saveGame());
 
     this.content.main.el.append(this.actions.save.el);
     this.content.main.el.append(this.actions.solution.el);
@@ -193,6 +238,18 @@ export default class Game {
     this.grd.fillScheme();
 
     this.actions.showSolution();
+  }
+
+  saveGame() {
+    const data = {
+      lvl: this.lvl.curLevel.value,
+      card: this.crd.curCard.value,
+      grid: this.grd.points.cur,
+      timer: this.tmr.timer.sec,
+    };
+    saveGameData(data);
+
+    this.addSavedGameLvl();
   }
 
   // ================== HTML ================================================

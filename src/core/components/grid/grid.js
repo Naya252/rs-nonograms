@@ -52,6 +52,14 @@ export default class Grid {
     });
   }
 
+  fillSavedCells() {
+    this.grid.items.forEach((el) => {
+      if (el.hasAttribute('id') && this.points.cur.includes(el.getAttribute('id'))) {
+        el.classList.add('black');
+      }
+    });
+  }
+
   cleanCells() {
     this.points.cur = [];
 
