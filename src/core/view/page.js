@@ -1,5 +1,5 @@
 /* eslint-disable no-lonely-if */
-import templates from '../game-figures/templates';
+import { getCardsData } from '../repository/repository';
 
 import Body from './body';
 import Header from '../layouts/header/header';
@@ -82,7 +82,7 @@ export default class Game {
   // ================== Cards ===============================================
 
   createCards() {
-    const cards = templates.filter((el) => el.level === this.lvl.curLevel.value);
+    const cards = getCardsData();
 
     this.crd.createCards(cards);
     this.crd.cards.el.addEventListener('click', (event) => this.selectCurCard(event));
