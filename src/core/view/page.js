@@ -7,5 +7,5 @@ export default function initPage() {
 
   body.initBody('dark');
 
-  body.el.append(content.el);
+  body.el.append(content.main.el);
 }

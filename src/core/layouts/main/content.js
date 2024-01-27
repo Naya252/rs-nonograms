@@ -1,17 +1,12 @@
-import createElement from '../../shared/helpers';
 import templates from '../../game-figures/templates';
 import Levels from '../../components/levels/levels';
+import Main from './ui/main-ui';
 
 class Wrapper extends Levels {
-  constructor(tag = 'main') {
+  constructor() {
     super();
-    this.tag = tag;
-    this.el = null;
-    this.className = 'container-xxl my-md-4 bd-layout center';
-  }
 
-  getEl() {
-    this.el = createElement(this.tag, this.className);
+    this.main = new Main();
   }
 
   selectCurLevel(event) {
@@ -20,7 +15,7 @@ class Wrapper extends Levels {
       this.cleanCards();
       const cards = templates.filter((el) => el.level === this.curLevel.value);
       this.createCards(cards);
-      this.el.append(this.cards.el);
+      this.main.el.append(this.cards.el);
     } else {
       // eslint-disable-next-line no-lonely-if
       if (this.grid.el) {
@@ -37,25 +32,26 @@ class Wrapper extends Levels {
       if (game.length) {
         this.cleanGrid();
         this.createGrid(game[0]);
-        this.el.append(this.grid.el);
+        this.main.el.append(this.grid.el);
 
         this.cleanTimer();
         this.createTimer();
-        this.el.append(this.timer.el);
+        this.main.el.append(this.timer.el);
 
         this.createActions();
-        this.el.append(this.save.el);
-        this.el.append(this.solution.el);
-        this.el.append(this.reset.el);
+        this.main.el.append(this.save.el);
+        this.main.el.append(this.solution.el);
+        this.main.el.append(this.reset.el);
       }
     }
   }
 
   init() {
-    this.getEl();
+    this.main.create();
     this.createLevels();
-    this.el.append(this.levels.el);
-    return this.el;
+
+    this.main.el.append(this.levels.el);
+    return this.main.el;
   }
 }
 
