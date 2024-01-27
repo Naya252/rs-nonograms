@@ -1,23 +1,20 @@
 /* eslint-disable no-restricted-syntax */
-/* eslint-disable no-lonely-if */
-import calculateMatrix from './service/matrixService';
+import calculateMatrix from './service/matrix-service';
 import Timer from '../timer/timer';
 import { FILL_SOUND, CLEAN_SOUND, X_SOUND } from '../../shared/constants';
+import GridUI from './ui/grid-ui';
 
 export default class Grid extends Timer {
-  constructor(tag = 'div', className = 'grid-container') {
+  constructor() {
     super();
-    this.grid = {
-      tag,
-      className,
-      el: null,
-      matrix: [],
-      items: [],
-    };
+
+    this.grid = new GridUI();
+
     this.points = {
       scheme: [],
       cur: [],
     };
+
     this.audioFill = new Audio(FILL_SOUND);
     this.audioClean = new Audio(CLEAN_SOUND);
     this.audioX = new Audio(X_SOUND);
@@ -46,7 +43,6 @@ export default class Grid extends Timer {
         cell.classList.add('black');
         this.audioFill.play();
       }
-      // cell.classList.toggle('black');
 
       if (!this.timer.isStart) {
         this.timer.isStart = true;
@@ -93,54 +89,7 @@ export default class Grid extends Timer {
     this.grid.matrix = [];
     this.grid.matrix = calculateMatrix(game.figure);
 
-    const gridWidth = this.grid.matrix[0].length;
-
-    if (this.grid.el) {
-      // eslint-disable-next-line prefer-destructuring
-      let length = this.grid.items.length;
-
-      while (length > 0) {
-        length -= 1;
-        this.grid.items[length].remove();
-      }
-    } else {
-      this.grid.el = document.createElement('div');
-      this.grid.el.classList.add('grid-container');
-    }
-
-    this.grid.el.style.gridTemplateColumns = `repeat(${gridWidth}, 1fr)`;
-
-    this.grid.matrix.forEach((line, idx) => {
-      line.forEach((cell, i) => {
-        const el = document.createElement('div');
-        el.classList.add('cell');
-        if (cell.name === 'cell') {
-          el.setAttribute('name', cell.name);
-          el.setAttribute('id', `${idx}-${i}`);
-          if (cell.value) {
-            this.points.scheme.push(`${idx}-${i}`);
-          }
-        }
-
-        if (cell.name === 'hint') {
-          el.innerText = cell.value;
-          el.classList.add('hint');
-          if (!cell.value) {
-            el.classList.add('spirit');
-          }
-        }
-
-        if (cell.border?.includes('right')) {
-          el.style.borderRight = '2px solid #000';
-        }
-        if (cell.border?.includes('top')) {
-          el.style.borderTop = '2px solid #000';
-        }
-        this.grid.items.push(el);
-        this.grid.el.appendChild(el);
-      });
-    });
-
+    this.points.scheme = this.grid.create(this.grid.matrix);
     this.grid.el.addEventListener('click', (event) => this.selectCell(event));
   }
 }
