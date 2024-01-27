@@ -30,7 +30,7 @@ export default class Levels extends GameCards {
 
   createLevels() {
     this.levels.names = [{ name: 'Low' }, { name: 'Middle' }, { name: 'High' }, { name: 'Random' }];
-    this.levels.createLevels();
+    this.levels.create();
 
     this.levels.names.forEach((item) => {
       this.levels.createLevel(item);

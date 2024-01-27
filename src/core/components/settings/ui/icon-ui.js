@@ -1,13 +1,15 @@
-import { createElement } from '../../../shared/helpers';
+import { BaseClass } from '../../../shared/helpers';
 
-export default class IconUI {
+export default class IconUI extends BaseClass {
   constructor() {
-    this.iconTag = 'i';
-    this.iconClass = 'bi';
+    super();
+
+    this.tag = 'i';
+    this.className = 'bi';
   }
 
-  createIcon() {
-    const icon = createElement(this.iconTag, this.iconClass);
-    return icon;
+  create() {
+    super.create();
+    return this.el;
   }
 }

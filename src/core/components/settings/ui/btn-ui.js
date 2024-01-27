@@ -1,11 +1,13 @@
-import { createElement } from '../../../shared/helpers';
+import { BaseClass } from '../../../shared/helpers';
 import IconUI from './icon-ui';
 
-export default class BtnUI {
+export default class BtnUI extends BaseClass {
   constructor({ btnClass, trueIcon, falseIcon }) {
+    super();
+
     this.tag = 'button';
     this.className = btnClass;
-    this.el = null;
+
     this.icon = null;
     this.trueIcon = trueIcon;
     this.falseIcon = falseIcon;
@@ -21,10 +23,11 @@ export default class BtnUI {
     }
   }
 
-  createSettingBtn() {
-    this.el = createElement(this.tag, this.className);
+  create() {
+    super.create();
+
     const icn = new IconUI();
-    this.icon = icn.createIcon();
+    this.icon = icn.create();
     this.el.append(this.icon);
   }
 }

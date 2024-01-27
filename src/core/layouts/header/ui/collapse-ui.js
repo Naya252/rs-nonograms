@@ -1,14 +1,15 @@
-import { createElement } from '../../../shared/helpers';
+import { BaseClass } from '../../../shared/helpers';
 
-export default class CollapseUI {
+export default class CollapseUI extends BaseClass {
   constructor(tag = 'div', className = 'collapse navbar-collapse') {
+    super();
+
     this.tag = tag;
-    this.el = null;
     this.className = className;
   }
 
   create() {
-    this.el = createElement(this.tag, this.className);
+    super.create();
 
     this.el.setAttribute('id', 'bdNavbar');
     this.el.setAttribute('data-bs-theme', 'dark');

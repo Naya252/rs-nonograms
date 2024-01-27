@@ -1,12 +1,12 @@
 import templates from '../../game-figures/templates';
+import { BaseClass } from '../../shared/helpers';
 import Levels from '../../components/levels/levels';
-import Main from './ui/main-ui';
 
 class Wrapper extends Levels {
   constructor() {
     super();
 
-    this.main = new Main();
+    this.main = new BaseClass('main', 'container-xxl my-md-4 bd-layout center');
   }
 
   selectCurLevel(event) {

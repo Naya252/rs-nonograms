@@ -1,4 +1,4 @@
-import { createElement } from '../../../shared/helpers';
+import { BaseClass } from '../../../shared/helpers';
 
 function createPath() {
   const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -22,15 +22,16 @@ function createIcon() {
   return icon;
 }
 
-export default class BurgerUI {
+export default class BurgerUI extends BaseClass {
   constructor(tag = 'button', className = 'navbar-toggler') {
+    super();
+
     this.tag = tag;
-    this.el = null;
     this.className = className;
   }
 
   create() {
-    this.el = createElement(this.tag, this.className);
+    super.create();
 
     this.el.setAttribute('type', 'button');
     this.el.setAttribute('data-bs-toggle', 'collapse');

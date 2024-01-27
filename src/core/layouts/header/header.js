@@ -1,5 +1,6 @@
+import { BaseClass } from '../../shared/helpers';
 import Settings from '../../components/settings/settings';
-import HeaderUI from './ui/header-ui';
+
 import BurgerUI from './ui/burger-ui';
 import CollapseUI from './ui/collapse-ui';
 import NavUI from './ui/nav-ui';
@@ -8,7 +9,7 @@ export default class Header extends Settings {
   constructor() {
     super();
 
-    this.header = new HeaderUI();
+    this.header = new BaseClass('header', 'navbar navbar-expand-md bd-navbar bg-primary');
     this.burger = new BurgerUI();
     this.collapse = new CollapseUI();
     this.nav = new NavUI();

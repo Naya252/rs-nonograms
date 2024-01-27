@@ -1,15 +1,16 @@
-import { createElement } from '../../../shared/helpers';
+import { BaseClass } from '../../../shared/helpers';
 
-export default class TimerUI {
+export default class TimerUI extends BaseClass {
   constructor(tag = 'div', className = 'timer') {
+    super();
+
     this.tag = tag;
     this.className = className;
-    this.el = null;
   }
 
-  createUI() {
+  create() {
     if (!this.el) {
-      this.el = createElement(this.tag, this.className);
+      super.create();
     }
   }
 }

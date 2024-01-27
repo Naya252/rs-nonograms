@@ -1,11 +1,13 @@
-import { createElement } from '../../../shared/helpers';
+import { BaseClass } from '../../../shared/helpers';
 import Radio from '../../base/radio';
 
-export default class Cards {
+export default class Cards extends BaseClass {
   constructor(tag = 'div', className = 'cards') {
+    super();
+
     this.tag = tag;
     this.className = className;
-    this.el = null;
+
     this.items = [];
   }
 
@@ -16,9 +18,5 @@ export default class Cards {
 
     this.el.append(btn.input);
     this.el.append(btn.label);
-  }
-
-  createCards() {
-    this.el = createElement(this.tag, this.className);
   }
 }

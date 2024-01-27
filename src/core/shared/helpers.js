@@ -7,11 +7,23 @@
  * @return {Element} created element
  *
  */
-export default function createElement(selector, className, parent) {
+export function createElement(selector, className, parent) {
   const element = document.createElement(selector);
   element.className = className;
   if (parent) {
     parent.append(element);
   }
   return element;
+}
+
+export class BaseClass {
+  constructor(tag, className) {
+    this.tag = tag;
+    this.el = null;
+    this.className = className;
+  }
+
+  create() {
+    this.el = createElement(this.tag, this.className);
+  }
 }

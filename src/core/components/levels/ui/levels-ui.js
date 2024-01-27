@@ -1,11 +1,13 @@
-import { createElement } from '../../../shared/helpers';
+import { BaseClass } from '../../../shared/helpers';
 import Radio from '../../base/radio';
 
-export default class LevelBtn {
+export default class LevelBtn extends BaseClass {
   constructor(tag = 'div', className = 'levels') {
+    super();
+
     this.tag = tag;
     this.className = className;
-    this.el = null;
+
     this.items = [];
   }
 
@@ -17,9 +19,5 @@ export default class LevelBtn {
 
     this.el.append(btn.input);
     this.el.append(btn.label);
-  }
-
-  createLevels() {
-    this.el = createElement(this.tag, this.className);
   }
 }

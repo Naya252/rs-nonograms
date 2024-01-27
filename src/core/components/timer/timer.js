@@ -45,7 +45,7 @@ export default class Timer {
   }
 
   createTimer() {
-    this.timer.createUI();
+    this.timer.create();
     this.addValues();
     this.timer.el.innerText = this.timer.value;
   }

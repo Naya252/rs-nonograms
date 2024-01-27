@@ -37,7 +37,7 @@ export default class GameCards extends Actions {
   createCards(cards) {
     if (cards.length && this.cards.data !== cards) {
       this.cards.data = cards;
-      this.cards.createCards();
+      this.cards.create();
 
       this.cards.data.forEach((el) => {
         this.cards.createCard(el);

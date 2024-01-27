@@ -58,12 +58,12 @@ export default class Actions extends Grid {
   createActions() {
     this.removeActions();
 
-    this.save.createBtn();
+    this.save.create();
 
-    this.solution.createBtn();
+    this.solution.create();
     this.solution.el.addEventListener('click', () => this.showSolution());
 
-    this.reset.createBtn();
+    this.reset.create();
     this.reset.el.addEventListener('click', () => this.resetGame());
 
     this.addDisabled();

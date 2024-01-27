@@ -1,14 +1,16 @@
-import { createElement } from '../../../shared/helpers';
+import { BaseClass, createElement } from '../../../shared/helpers';
 
-export default class NavUI {
+export default class NavUI extends BaseClass {
   constructor(tag = 'nav', className = 'container-xxl flex-wrap flex-md-nowrap') {
+    super();
+
     this.tag = tag;
-    this.el = null;
     this.className = className;
   }
 
   create() {
-    this.el = createElement(this.tag, this.className);
+    super.create();
+
     const title = createElement('h1', 'navbar-brand');
     title.setAttribute('data-bs-theme', 'dark');
     title.innerText = 'Nonograms';

@@ -1,14 +1,15 @@
-import { createElement } from '../../../shared/helpers';
+import { BaseClass } from '../../../shared/helpers';
 
-export default class Button {
+export default class Button extends BaseClass {
   constructor(className) {
+    super();
+
     this.tag = 'button';
     this.className = className;
-    this.el = null;
   }
 
-  createBtn() {
-    this.el = createElement(this.tag, this.className);
+  create() {
+    super.create();
     this.el.innerText = this.className.toUpperCase();
   }
 }

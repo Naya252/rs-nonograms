@@ -1,11 +1,11 @@
 /* eslint-disable prefer-destructuring */
-import { createElement } from '../../../shared/helpers';
+import { BaseClass, createElement } from '../../../shared/helpers';
 
-export default class GridUI {
+export default class GridUI extends BaseClass {
   constructor(tag = 'div', className = 'grid-container') {
+    super();
     this.tag = tag;
     this.className = className;
-    this.el = null;
     this.items = [];
   }
 
@@ -18,7 +18,7 @@ export default class GridUI {
         this.items[length].remove();
       }
     } else {
-      this.el = createElement(this.tag, this.className);
+      super.create();
     }
 
     const gridWidth = matrix[0].length;
