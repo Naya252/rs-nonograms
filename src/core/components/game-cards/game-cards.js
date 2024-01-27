@@ -1,10 +1,7 @@
-import Actions from '../game-actions/game-actions';
 import Cards from './ui/game-cards-ui';
 
-export default class GameCards extends Actions {
+export default class GameCards {
   constructor() {
-    super();
-
     this.curCard = {
       el: null,
       value: null,
@@ -42,8 +39,6 @@ export default class GameCards extends Actions {
       this.cards.data.forEach((el) => {
         this.cards.createCard(el);
       });
-
-      this.cards.el.addEventListener('click', (event) => this.selectCurCard(event));
     }
   }
 

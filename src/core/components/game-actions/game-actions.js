@@ -1,10 +1,7 @@
-import Grid from '../grid/grid';
 import Button from './ui/btn';
 
-export default class Actions extends Grid {
+export default class Actions {
   constructor() {
-    super();
-
     this.save = new Button('save');
     this.solution = new Button('solution');
     this.reset = new Button('reset');
@@ -16,19 +13,15 @@ export default class Actions extends Grid {
     this.reset.el.removeAttribute('disabled');
   }
 
-  resetGame() {
-    this.cleanTimer();
-    this.createTimer();
+  // savetGame() {
+  //   console.log('save');
+  // }
 
-    this.cleanCells();
+  resetGame() {
     this.addDisabled();
   }
 
   showSolution() {
-    this.cleanTimer();
-    this.createTimer();
-
-    this.fillScheme();
     this.addDisabled();
     this.activeReset();
   }
@@ -57,15 +50,9 @@ export default class Actions extends Grid {
 
   createActions() {
     this.removeActions();
-
     this.save.create();
-
     this.solution.create();
-    this.solution.el.addEventListener('click', () => this.showSolution());
-
     this.reset.create();
-    this.reset.el.addEventListener('click', () => this.resetGame());
-
     this.addDisabled();
   }
 }

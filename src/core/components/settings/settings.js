@@ -30,15 +30,9 @@ export default class Settings {
     this.volume.create();
     this.volume.isSilent = true;
     this.volume.changeIcon(this.volume.isSilent);
-    this.volume.el.addEventListener('click', () => {
-      this.changeVolume();
-    });
 
     this.theme.create();
     this.theme.isDark = true;
     this.theme.changeIcon(this.theme.isDark);
-    this.theme.el.addEventListener('click', () => {
-      this.changeTheme();
-    });
   }
 }

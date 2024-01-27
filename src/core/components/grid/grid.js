@@ -1,13 +1,10 @@
 /* eslint-disable no-restricted-syntax */
 import calculateMatrix from './service/matrix-service';
-import Timer from '../timer/timer';
 import { FILL_SOUND, CLEAN_SOUND, X_SOUND } from '../../shared/constants';
 import GridUI from './ui/grid-ui';
 
-export default class Grid extends Timer {
+export default class Grid {
   constructor() {
-    super();
-
     this.grid = new GridUI();
 
     this.points = {
@@ -42,12 +39,6 @@ export default class Grid extends Timer {
       } else {
         cell.classList.add('black');
         this.audioFill.play();
-      }
-
-      if (!this.timer.isStart) {
-        this.timer.isStart = true;
-        this.startTimer();
-        this.activateButtons();
       }
 
       this.checkCell(cell);
@@ -90,6 +81,5 @@ export default class Grid extends Timer {
     this.grid.matrix = calculateMatrix(game.figure);
 
     this.points.scheme = this.grid.create(this.grid.matrix);
-    this.grid.el.addEventListener('click', (event) => this.selectCell(event));
   }
 }
