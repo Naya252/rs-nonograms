@@ -1,4 +1,4 @@
-import createElement from '../../../shared/helpers';
+import { createElement } from '../../../shared/helpers';
 
 export default class MainUI {
   constructor(tag = 'main', className = 'container-xxl my-md-4 bd-layout center') {

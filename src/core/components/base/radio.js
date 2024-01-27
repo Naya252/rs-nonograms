@@ -1,4 +1,4 @@
-import createElement from '../../shared/helpers';
+import { createElement } from '../../shared/helpers';
 
 export default class Radio {
   constructor(radioId, name, color = 'primary', input = 'input', label = 'label') {

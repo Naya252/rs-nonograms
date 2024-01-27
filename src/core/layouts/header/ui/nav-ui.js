@@ -1,4 +1,4 @@
-import createElement from '../../../shared/helpers';
+import { createElement } from '../../../shared/helpers';
 
 export default class NavUI {
   constructor(tag = 'nav', className = 'container-xxl flex-wrap flex-md-nowrap') {

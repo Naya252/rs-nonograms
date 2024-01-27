@@ -1,4 +1,4 @@
-import createElement from '../../../shared/helpers';
+import { createElement } from '../../../shared/helpers';
 import IconUI from './icon-ui';
 
 export default class BtnUI {

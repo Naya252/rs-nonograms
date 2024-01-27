@@ -1,5 +1,5 @@
 /* eslint-disable prefer-destructuring */
-import createElement from '../../../shared/helpers';
+import { createElement } from '../../../shared/helpers';
 
 export default class GridUI {
   constructor(tag = 'div', className = 'grid-container') {

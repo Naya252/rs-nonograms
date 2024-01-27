@@ -1,4 +1,4 @@
-import createElement from '../../../shared/helpers';
+import { createElement } from '../../../shared/helpers';
 
 export default class HeaderUI {
   constructor(tag = 'header', className = 'navbar navbar-expand-md bd-navbar bg-primary') {

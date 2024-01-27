@@ -1,4 +1,4 @@
-import createElement from '../../../shared/helpers';
+import { createElement } from '../../../shared/helpers';
 
 export default class CollapseUI {
   constructor(tag = 'div', className = 'collapse navbar-collapse') {

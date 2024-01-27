@@ -1,4 +1,4 @@
-import createElement from '../../../shared/helpers';
+import { createElement } from '../../../shared/helpers';
 
 function createPath() {
   const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');

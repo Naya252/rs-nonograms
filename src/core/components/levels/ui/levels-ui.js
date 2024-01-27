@@ -1,4 +1,4 @@
-import createElement from '../../../shared/helpers';
+import { createElement } from '../../../shared/helpers';
 import Radio from '../../base/radio';
 
 export default class LevelBtn {
