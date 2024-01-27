@@ -185,21 +185,24 @@ export default class Game {
   }
 
   selectCell(event) {
-    if (!this.tmr.timer.isStart) {
-      this.tmr.timer.isStart = true;
-      this.tmr.startTimer();
-      this.actions.activateButtons();
-    }
+    const cell = event.target.closest('.cell');
+    if (cell.hasAttribute('id')) {
+      if (!this.tmr.timer.isStart) {
+        this.tmr.timer.isStart = true;
+        this.tmr.startTimer();
+        this.actions.activateButtons();
+      }
 
-    const isFill = this.grd.selectCell(event);
+      const isFill = this.grd.selectCell(event);
 
-    // this.audioX = new Audio(X_SOUND);
+      // this.audioX = new Audio(X_SOUND);
 
-    if (!this.settings.volume.isSilent) {
-      if (isFill) {
-        new Audio(FILL_SOUND).play();
-      } else {
-        new Audio(CLEAN_SOUND).play();
+      if (!this.settings.volume.isSilent) {
+        if (isFill) {
+          new Audio(FILL_SOUND).play();
+        } else {
+          new Audio(CLEAN_SOUND).play();
+        }
       }
     }
   }
