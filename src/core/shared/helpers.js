@@ -31,3 +31,7 @@ export class BaseClass {
 export function getBoolTheme(text) {
   return text === 'dark';
 }
+
+export function getBoolValue(text) {
+  return text === 'silent';
+}

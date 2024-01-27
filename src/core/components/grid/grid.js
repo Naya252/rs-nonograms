@@ -1,6 +1,5 @@
 /* eslint-disable no-restricted-syntax */
 import calculateMatrix from './service/matrix-service';
-import { FILL_SOUND, CLEAN_SOUND, X_SOUND } from '../../shared/constants';
 import GridUI from './ui/grid-ui';
 
 export default class Grid {
@@ -11,10 +10,6 @@ export default class Grid {
       scheme: [],
       cur: [],
     };
-
-    this.audioFill = new Audio(FILL_SOUND);
-    this.audioClean = new Audio(CLEAN_SOUND);
-    this.audioX = new Audio(X_SOUND);
   }
 
   checkCell(cell) {
@@ -31,18 +26,20 @@ export default class Grid {
   }
 
   selectCell(event) {
+    let isFill = null;
     const cell = event.target.closest('.cell');
     if (cell && cell.hasAttribute('name')) {
       if (cell.classList.contains('black')) {
         cell.classList.remove('black');
-        this.audioClean.play();
+        isFill = false;
       } else {
         cell.classList.add('black');
-        this.audioFill.play();
+        isFill = true;
       }
 
       this.checkCell(cell);
     }
+    return isFill;
   }
 
   fillScheme() {

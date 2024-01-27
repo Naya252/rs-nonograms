@@ -24,11 +24,12 @@ export default class Settings {
   changeVolume() {
     this.volume.isSilent = !this.volume.isSilent;
     this.volume.changeIcon(this.volume.isSilent);
+
+    return this.volume.isSilent;
   }
 
   createSettings() {
     this.volume.create();
-    this.volume.isSilent = true;
     this.volume.changeIcon(this.volume.isSilent);
 
     this.theme.create();

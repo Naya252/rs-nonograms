@@ -1,6 +1,7 @@
 /* eslint-disable no-lonely-if */
-import { getCardsData, saveTheme, getTheme } from '../repository/repository';
-import { getBoolTheme } from '../shared/helpers';
+import { getCardsData, saveTheme, getTheme, saveVolume, getVolume } from '../repository/repository';
+import { getBoolTheme, getBoolValue } from '../shared/helpers';
+import { FILL_SOUND, CLEAN_SOUND, X_SOUND } from '../shared/constants';
 
 import Body from './body';
 import Header from '../layouts/header/header';
@@ -31,6 +32,14 @@ export default class Game {
   // ================== Settings ============================================
 
   createSettings() {
+    const gameVolume = getVolume();
+
+    if (!gameVolume) {
+      this.settings.volume.isSilent = true;
+    } else {
+      this.settings.volume.isSilent = getBoolValue(gameVolume);
+    }
+
     this.settings.createSettings();
     this.top.collapse.el.append(this.settings.theme.el);
     this.settings.theme.el.addEventListener('click', () => {
@@ -58,7 +67,15 @@ export default class Game {
   }
 
   changeVolume() {
-    this.settings.changeVolume();
+    const val = this.settings.changeVolume();
+
+    let textVal = 'silent';
+    if (val) {
+      textVal = 'silent';
+    } else {
+      textVal = 'loud';
+    }
+    saveVolume(textVal);
   }
 
   // ================== Levels ==============================================
@@ -128,7 +145,19 @@ export default class Game {
       this.actions.activateButtons();
     }
 
-    this.grd.selectCell(event);
+    const isFill = this.grd.selectCell(event);
+
+    // this.audioFill = new Audio(FILL_SOUND);
+    // this.audioClean = new Audio(CLEAN_SOUND);
+    // this.audioX = new Audio(X_SOUND);
+
+    if (!this.settings.volume.isSilent) {
+      if (isFill) {
+        new Audio(FILL_SOUND).play();
+      } else {
+        new Audio(CLEAN_SOUND).play();
+      }
+    }
   }
 
   // ================== Timer ===============================================

@@ -14,7 +14,14 @@ export function getTheme() {
   return theme;
 }
 
-export function saveVolume(data) {}
+export function saveVolume(volume) {
+  localStorage.setItem('n-n-volume', volume);
+}
+
+export function getVolume() {
+  const volume = localStorage.getItem('n-n-volume');
+  return volume;
+}
 
 export function saveGame(data) {}
 
