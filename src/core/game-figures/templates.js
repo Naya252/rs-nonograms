@@ -1,41 +1,41 @@
-import locationMark from './low/location-mark';
-import topHat from './low/top-hat';
-import celticCross from './low/celtic-cross';
-import tower from './low/tower';
-import camel from './low/camel';
-import bird from './middle/bird';
-import cat from './middle/cat';
-import deer from './middle/deer';
-import duck from './middle/duck';
-import house from './middle/house';
-import snowman from './middle/snowman';
-import death from './high/death';
-import horse from './high/horse';
-import fish from './high/fish';
-import ram from './high/ram';
-import anchor from './high/anchor';
+import locationMark from './easy/location-mark';
+import topHat from './easy/top-hat';
+import celticCross from './easy/celtic-cross';
+import tower from './easy/tower';
+import camel from './easy/camel';
+import bird from './medium/bird';
+import cat from './medium/cat';
+import deer from './medium/deer';
+import duck from './medium/duck';
+import house from './medium/house';
+import snowman from './medium/snowman';
+import death from './hard/death';
+import horse from './hard/horse';
+import fish from './hard/fish';
+import ram from './hard/ram';
+import anchor from './hard/anchor';
 
 const templates = [
   {
-    level: 'low',
+    level: 'easy',
     name: 'Location mark',
     figure: [...locationMark],
   },
-  { level: 'low', name: 'Top hat', figure: [...topHat] },
-  { level: 'low', name: 'Celtic cross', figure: [...celticCross] },
-  { level: 'low', name: 'Tower', figure: [...tower] },
-  { level: 'low', name: 'Camel', figure: [...camel] },
-  { level: 'middle', name: 'Bird', figure: [...bird] },
-  { level: 'middle', name: 'Cat', figure: [...cat] },
-  { level: 'middle', name: 'Deer', figure: [...deer] },
-  { level: 'middle', name: 'Duck', figure: [...duck] },
-  { level: 'middle', name: 'House', figure: [...house] },
-  { level: 'middle', name: 'Snowman', figure: [...snowman] },
-  { level: 'high', name: 'Death', figure: [...death] },
-  { level: 'high', name: 'Horse', figure: [...horse] },
-  { level: 'high', name: 'Fish', figure: [...fish] },
-  { level: 'high', name: 'Ram', figure: [...ram] },
-  { level: 'high', name: 'Anchor', figure: [...anchor] },
+  { level: 'easy', name: 'Top hat', figure: [...topHat] },
+  { level: 'easy', name: 'Celtic cross', figure: [...celticCross] },
+  { level: 'easy', name: 'Tower', figure: [...tower] },
+  { level: 'easy', name: 'Camel', figure: [...camel] },
+  { level: 'medium', name: 'Bird', figure: [...bird] },
+  { level: 'medium', name: 'Cat', figure: [...cat] },
+  { level: 'medium', name: 'Deer', figure: [...deer] },
+  { level: 'medium', name: 'Duck', figure: [...duck] },
+  { level: 'medium', name: 'House', figure: [...house] },
+  { level: 'medium', name: 'Snowman', figure: [...snowman] },
+  { level: 'hard', name: 'Death', figure: [...death] },
+  { level: 'hard', name: 'Horse', figure: [...horse] },
+  { level: 'hard', name: 'Fish', figure: [...fish] },
+  { level: 'hard', name: 'Ram', figure: [...ram] },
+  { level: 'hard', name: 'Anchor', figure: [...anchor] },
 ];
 
 export default templates;
