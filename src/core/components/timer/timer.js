@@ -1,16 +1,15 @@
-import createElement from '../../shared/helpers';
+import TimerUI from './ui/timer-ui';
 
 export default class Timer {
-  constructor(tag = 'div', className = 'timer') {
-    this.timer = {
-      tag,
-      className,
-      el: null,
-      sec: 0,
-      value: '00:00',
-      isStart: false,
-      req: null,
-    };
+  constructor() {
+    this.timer = new TimerUI();
+  }
+
+  addValues() {
+    this.timer.sec = 0;
+    this.timer.value = '00:00';
+    this.timer.isStart = false;
+    this.timer.req = null;
   }
 
   startTimer() {
@@ -46,11 +45,8 @@ export default class Timer {
   }
 
   createTimer() {
-    if (!this.timer.el) {
-      this.timer.el = createElement(this.timer.tag, this.timer.className);
-      this.timer.el.innerText = this.timer.value;
-    } else {
-      this.timer.el.innerText = this.timer.value;
-    }
+    this.timer.createUI();
+    this.addValues();
+    this.timer.el.innerText = this.timer.value;
   }
 }
