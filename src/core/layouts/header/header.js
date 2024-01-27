@@ -18,16 +18,15 @@ export default class Header extends Settings {
   initNav() {
     this.header.create();
     this.nav.create();
-    this.header.el.append(this.nav.el);
-
     this.burger.create();
 
     this.collapse.create();
     this.createSettings();
+
     this.collapse.el.append(this.theme.el);
     this.collapse.el.append(this.volume.el);
-
     this.nav.el.append(this.burger.el);
     this.nav.el.append(this.collapse.el);
+    this.header.el.append(this.nav.el);
   }
 }

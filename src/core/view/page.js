@@ -1,11 +1,20 @@
-import body from './body';
+import Body from './body';
+import Header from '../layouts/header/header';
+import Main from '../layouts/main/content';
 
-import content from '../layouts/main/content';
+export default class Game {
+  constructor() {
+    this.body = new Body();
+    this.top = new Header();
+    this.content = new Main();
+  }
 
-export default function initPage() {
-  content.init();
+  init() {
+    this.body.initBody('dark');
+    this.top.initNav();
+    this.content.init();
 
-  body.initBody('dark');
-
-  body.el.append(content.main.el);
+    this.body.el.append(this.top.header.el);
+    this.body.el.append(this.content.main.el);
+  }
 }

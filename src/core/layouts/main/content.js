@@ -2,7 +2,7 @@ import templates from '../../game-figures/templates';
 import { BaseClass } from '../../shared/helpers';
 import Levels from '../../components/levels/levels';
 
-class Wrapper extends Levels {
+export default class Main extends Levels {
   constructor() {
     super();
 
@@ -54,6 +54,3 @@ class Wrapper extends Levels {
     return this.main.el;
   }
 }
-
-const content = new Wrapper();
-export default content;

@@ -1,8 +1,5 @@
-import Header from '../layouts/header/header';
-
-class Body extends Header {
+export default class Body {
   constructor(tag = 'body') {
-    super();
     this.tag = tag;
     this.el = null;
   }
@@ -25,23 +22,17 @@ class Body extends Header {
   }
 
   changeDataTheme(theme) {
-    if (theme === 'dark') {
-      this.theme.isDark = true;
-    } else {
-      this.theme.isDark = false;
-    }
+    // if (theme === 'dark') {
+    //   this.theme.isDark = true;
+    // } else {
+    //   this.theme.isDark = false;
+    // }
     this.el.setAttribute('data-bs-theme', theme);
   }
 
   initBody(theme = 'light') {
     this.getEl();
     this.addDataTag();
-    this.initNav();
     this.changeDataTheme(theme);
-
-    this.el.append(this.header.el);
   }
 }
-
-const body = new Body();
-export default body;

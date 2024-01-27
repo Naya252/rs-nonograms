@@ -1,8 +1,8 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import './src/sass/style.scss';
 import 'bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-import initPage from './src/core/view/page';
+import Game from './src/core/view/page';
 
-initPage();
+const game = new Game();
+game.init();
