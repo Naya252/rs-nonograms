@@ -27,3 +27,7 @@ export class BaseClass {
     this.el = createElement(this.tag, this.className);
   }
 }
+
+export function getBoolTheme(text) {
+  return text === 'dark';
+}

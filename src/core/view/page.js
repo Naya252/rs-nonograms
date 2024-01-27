@@ -1,5 +1,6 @@
 /* eslint-disable no-lonely-if */
-import { getCardsData } from '../repository/repository';
+import { getCardsData, saveTheme, getTheme } from '../repository/repository';
+import { getBoolTheme } from '../shared/helpers';
 
 import Body from './body';
 import Header from '../layouts/header/header';
@@ -44,11 +45,16 @@ export default class Game {
 
   changeTheme() {
     const val = this.settings.changeTheme();
+
+    let textVal = 'dark';
     if (val) {
-      this.body.changeDataTheme('dark');
+      textVal = 'dark';
     } else {
-      this.body.changeDataTheme('light');
+      textVal = 'light';
     }
+
+    this.body.changeDataTheme(textVal);
+    saveTheme(textVal);
   }
 
   changeVolume() {
@@ -82,7 +88,7 @@ export default class Game {
   // ================== Cards ===============================================
 
   createCards() {
-    const cards = getCardsData();
+    const cards = getCardsData(this.lvl.curLevel.value);
 
     this.crd.createCards(cards);
     this.crd.cards.el.addEventListener('click', (event) => this.selectCurCard(event));
@@ -162,7 +168,16 @@ export default class Game {
 
   // ================== HTML ================================================
   createHtml() {
-    this.body.initBody('dark');
+    const gameTheme = getTheme();
+
+    if (!gameTheme) {
+      this.body.initBody('dark');
+      this.settings.theme.isDark = true;
+    } else {
+      this.body.initBody(gameTheme);
+      this.settings.theme.isDark = getBoolTheme(gameTheme);
+    }
+
     this.top.initNav();
     this.content.init();
 

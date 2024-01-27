@@ -32,7 +32,6 @@ export default class Settings {
     this.volume.changeIcon(this.volume.isSilent);
 
     this.theme.create();
-    this.theme.isDark = true;
     this.theme.changeIcon(this.theme.isDark);
   }
 }
