@@ -139,6 +139,11 @@ body {
   --bs-gradient: none;
 }
 
-.invisible{
-  display: none
+.invisible {
+  display: none;
+}
+
+.modal-open {
+  overflow: hidden;
+  padding-right: 17px;
 }
