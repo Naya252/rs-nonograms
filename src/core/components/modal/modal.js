@@ -21,6 +21,11 @@ export default class Modal extends ModalUI {
       title: 'Reset game',
       text: `Everything you selected in the playing field will be erased`,
     };
+
+    this.change = {
+      title: 'Change game',
+      text: `Everything you selected in the playing field will be erased`,
+    };
   }
 
   close() {
@@ -51,6 +56,14 @@ export default class Modal extends ModalUI {
     if (type === 'reset') {
       this.changeTitle(this.reset.title);
       this.changeText(this.reset.text);
+      if (this.cancelBtn.classList.contains('invisible')) {
+        this.cancelBtn.classList.remove('invisible');
+      }
+    }
+
+    if (type === 'change') {
+      this.changeTitle(this.change.title);
+      this.changeText(this.change.text);
       if (this.cancelBtn.classList.contains('invisible')) {
         this.cancelBtn.classList.remove('invisible');
       }

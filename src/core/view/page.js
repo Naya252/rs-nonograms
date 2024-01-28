@@ -42,6 +42,8 @@ export default class Game {
 
     this.modal = new Modal();
     this.alert = new Alert();
+
+    this.changeGameEvt = null;
   }
 
   // ================== Settings ============================================
@@ -97,7 +99,16 @@ export default class Game {
 
   createLevels() {
     this.lvl.createLevels();
-    this.lvl.levels.el.addEventListener('click', (event) => this.selectCurLevel(event));
+    this.lvl.levels.el.addEventListener('click', (event) => {
+      if (this.tmr.timer.isStart) {
+        this.tmr.pauseTimer();
+        this.changeGameEvt = event;
+        this.openModal('change');
+      } else {
+        this.selectCurLevel(event);
+      }
+    });
+
     this.content.main.el.append(this.lvl.levels.el);
 
     const saved = getSavedGame();
@@ -105,7 +116,7 @@ export default class Game {
       this.addSavedGameLvl();
     }
 
-    this.lvl.levels.el.childNodes[1].click();
+    this.lvl.levels.el.childNodes[0].click();
   }
 
   addSavedGameLvl() {
@@ -149,7 +160,15 @@ export default class Game {
     const cards = getCardsData(this.lvl.curLevel.value);
 
     this.crd.createCards(cards);
-    this.crd.cards.el.addEventListener('click', (event) => this.selectCurCard(event));
+    this.crd.cards.el.addEventListener('click', (event) => {
+      if (this.tmr.timer.isStart) {
+        this.tmr.pauseTimer();
+        this.changeGameEvt = event;
+        this.openModal('change');
+      } else {
+        this.selectCurCard(event);
+      }
+    });
     this.content.main.el.append(this.crd.cards.el);
 
     this.crd.cards.el.childNodes[0].click();
@@ -196,6 +215,7 @@ export default class Game {
       if (cell.hasAttribute('id')) {
         if (!this.tmr.timer.isStart) {
           this.tmr.timer.isStart = true;
+
           this.tmr.startTimer(true);
           this.actions.activateButtons();
         }
@@ -262,34 +282,47 @@ export default class Game {
       } else {
         this.callActions('cancel', type);
       }
-
-      this.modal.close();
-
-      this.body.el.classList.remove('modal-open');
-      this.top.header.el.removeAttribute('inert');
-      this.content.main.el.removeAttribute('inert');
-
-      this.body.el.lastChild.remove();
-      this.body.el.lastChild.remove();
     }
   }
 
+  close() {
+    this.modal.close();
+
+    this.body.el.classList.remove('modal-open');
+    this.top.header.el.removeAttribute('inert');
+    this.content.main.el.removeAttribute('inert');
+
+    this.body.el.lastChild.remove();
+    this.body.el.lastChild.remove();
+  }
+
   callActions(action, type) {
-    if (type === 'solution') {
-      if (action === 'sbmt') {
-        this.submitSolution();
+    if ((type === 'solution' || type === 'reset' || type === 'change') && action === 'cancel') {
+      this.cancelTimerPause();
+      this.close();
+    }
+
+    if (type === 'solution' && action === 'sbmt') {
+      this.submitSolution();
+      this.close();
+    }
+    if (type === 'reset' && action === 'sbmt') {
+      this.submitResetGame();
+      this.close();
+    }
+    if (type === 'change' && action === 'sbmt') {
+      this.tmr.timer.isStart = false;
+      this.close();
+
+      if (this.changeGameEvt.target.classList.contains('scheme')) {
+        this.selectCurCard(this.changeGameEvt);
       } else {
-        this.cancelTimerPause();
+        this.selectCurLevel(this.changeGameEvt);
       }
     }
-    if (type === 'reset') {
-      if (action === 'sbmt') {
-        this.submitResetGame();
-      } else {
-        this.cancelTimerPause();
-      }
-    }
+
     if (type === 'win') {
+      this.close();
       setTimeout(() => {
         this.alert.addAlert('score');
       }, 300);
