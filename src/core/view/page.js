@@ -279,20 +279,21 @@ export default class Game {
       if (action === 'sbmt') {
         this.submitSolution();
       } else {
-        this.cancelSolution();
+        this.cancelTimerPause();
       }
     }
-    if (type === 'save') {
-    }
     if (type === 'reset') {
+      if (action === 'sbmt') {
+        this.submitResetGame();
+      } else {
+        this.cancelTimerPause();
+      }
     }
     if (type === 'win') {
       setTimeout(() => {
         this.alert.addAlert('score');
       }, 300);
     }
-    console.log(action);
-    console.log(type);
   }
 
   // ================== Timer ===============================================
@@ -317,10 +318,14 @@ export default class Game {
   }
 
   resetGame() {
+    this.tmr.pauseTimer();
+    this.openModal('reset');
+  }
+
+  submitResetGame() {
     this.tmr.cleanTimer();
     this.tmr.createTimer();
     this.grd.cleanCells();
-    this.grd.lockGrid();
     this.actions.resetGame();
   }
 
@@ -337,8 +342,7 @@ export default class Game {
     this.actions.showSolution();
   }
 
-  cancelSolution() {
-    console.log(2222, this.tmr.timer.isStart);
+  cancelTimerPause() {
     this.tmr.timer.isStart = true;
     this.tmr.startTimer(true);
   }
