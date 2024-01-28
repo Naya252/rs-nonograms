@@ -196,7 +196,7 @@ export default class Game {
       if (cell.hasAttribute('id')) {
         if (!this.tmr.timer.isStart) {
           this.tmr.timer.isStart = true;
-          this.tmr.startTimer();
+          this.tmr.startTimer(true);
           this.actions.activateButtons();
         }
 
@@ -225,12 +225,12 @@ export default class Game {
     this.actions.addDisabled();
     this.actions.activeReset();
 
-    this.openModal();
+    this.openModal('win');
   }
 
   // ================== Modal ===============================================
 
-  openModal() {
+  openModal(type) {
     if (!this.modal.el) {
       this.modal.create();
       this.modal.el.addEventListener('click', (event) => this.closeModal(event));
@@ -243,15 +243,26 @@ export default class Game {
       this.body.el.classList.add('modal-open');
       this.top.header.el.setAttribute('inert', true);
       this.content.main.el.setAttribute('inert', true);
-      this.modal.open('Great!', `You have solved the nonogram in ${this.tmr.timer.sec} seconds!`);
+
+      this.modal.open(type, this.tmr.timer.sec);
     }, 300);
   }
 
   closeModal(event) {
-    const button = event.target.closest('.cls');
+    const close = event.target.closest('.cls');
+    const submit = event.target.closest('.sbmt');
     const backdrop = event.target.className === 'modal fade show';
 
-    if (button || backdrop) {
+    const hasInvisinleBtn = this.modal.cancelBtn.classList.contains('invisible');
+    const type = this.modal.el.getAttribute('data-type');
+
+    if (close || backdrop || (submit && hasInvisinleBtn) || (submit && !hasInvisinleBtn)) {
+      if (submit && !hasInvisinleBtn) {
+        this.callActions('sbmt', type);
+      } else {
+        this.callActions('cancel', type);
+      }
+
       this.modal.close();
 
       this.body.el.classList.remove('modal-open');
@@ -260,11 +271,28 @@ export default class Game {
 
       this.body.el.lastChild.remove();
       this.body.el.lastChild.remove();
+    }
+  }
 
+  callActions(action, type) {
+    if (type === 'solution') {
+      if (action === 'sbmt') {
+        this.submitSolution();
+      } else {
+        this.cancelSolution();
+      }
+    }
+    if (type === 'save') {
+    }
+    if (type === 'reset') {
+    }
+    if (type === 'win') {
       setTimeout(() => {
         this.alert.addAlert('score');
       }, 300);
     }
+    console.log(action);
+    console.log(type);
   }
 
   // ================== Timer ===============================================
@@ -297,12 +325,22 @@ export default class Game {
   }
 
   showSolution() {
+    this.tmr.pauseTimer();
+    this.openModal('solution');
+  }
+
+  submitSolution() {
     this.grd.lockGrid();
     this.tmr.cleanTimer();
     this.tmr.createTimer();
     this.grd.fillScheme();
-
     this.actions.showSolution();
+  }
+
+  cancelSolution() {
+    console.log(2222, this.tmr.timer.isStart);
+    this.tmr.timer.isStart = true;
+    this.tmr.startTimer(true);
   }
 
   saveGame() {
