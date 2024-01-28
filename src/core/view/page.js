@@ -229,10 +229,10 @@ export default class Game {
     if (!this.modal.el) {
       this.modal.create();
       this.modal.el.addEventListener('click', (event) => this.closeModal(event));
-
-      this.body.el.append(this.modal.backdrop);
-      this.body.el.append(this.modal.el);
     }
+
+    this.body.el.append(this.modal.backdrop);
+    this.body.el.append(this.modal.el);
 
     setTimeout(() => {
       this.body.el.classList.add('modal-open');
@@ -252,6 +252,12 @@ export default class Game {
       this.body.el.classList.remove('modal-open');
       this.top.header.el.removeAttribute('inert');
       this.content.main.el.removeAttribute('inert');
+
+      this.body.el.lastChild.remove();
+      this.body.el.lastChild.remove();
+
+      console.log(this.modal.el);
+      console.log(this.modal.backdrop);
     }
   }
 
