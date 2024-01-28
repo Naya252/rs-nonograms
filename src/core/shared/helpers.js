@@ -1,3 +1,4 @@
+import { getWinGame } from '../repository/repository';
 /**
  * Create element for DOM
  *
@@ -34,4 +35,28 @@ export function getBoolTheme(text) {
 
 export function getBoolValue(text) {
   return text === 'silent';
+}
+
+export function getScore() {
+  let data = getWinGame();
+  data = data.sort((a, b) => a.timer - b.timer);
+
+  return data;
+}
+
+export function getEmptyScore() {
+  return { card: null, lvl: null, timer: null };
+}
+
+export function completeScore(arr) {
+  const scoreData = [...arr];
+  if (scoreData.length < 5) {
+    const max = 5;
+    let i = scoreData.length;
+    while (i < max) {
+      scoreData.push(getEmptyScore());
+      i += 1;
+    }
+  }
+  return scoreData;
 }

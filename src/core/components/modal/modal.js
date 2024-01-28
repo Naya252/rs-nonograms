@@ -26,6 +26,11 @@ export default class Modal extends ModalUI {
       title: 'Change game',
       text: `Everything you selected in the playing field will be erased`,
     };
+
+    this.score = {
+      title: 'Score Table',
+      text: ``,
+    };
   }
 
   close() {
@@ -67,6 +72,17 @@ export default class Modal extends ModalUI {
       if (this.cancelBtn.classList.contains('invisible')) {
         this.cancelBtn.classList.remove('invisible');
       }
+    }
+
+    if (type === 'score') {
+      this.changeTitle(this.score.title);
+      this.changeText(this.score.text);
+      if (!this.cancelBtn.classList.contains('invisible')) {
+        this.cancelBtn.classList.add('invisible');
+      }
+
+      this.scoreTable.append(this.scoreBody);
+      this.p.append(this.scoreTable);
     }
   }
 

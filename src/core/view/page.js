@@ -10,7 +10,7 @@ import {
   getSavedGame,
   setWinGame,
 } from '../repository/repository';
-import { getBoolTheme, getBoolValue } from '../shared/helpers';
+import { getBoolTheme, getBoolValue, getScore, completeScore } from '../shared/helpers';
 import { FILL_SOUND, CLEAN_SOUND, X_SOUND } from '../shared/constants';
 
 import Body from './body';
@@ -59,6 +59,12 @@ export default class Game {
     }
 
     this.settings.createSettings();
+
+    this.top.collapse.el.append(this.settings.score.el);
+    this.settings.score.el.addEventListener('click', () => {
+      this.showScore();
+    });
+
     this.top.collapse.el.append(this.settings.theme.el);
     this.settings.theme.el.addEventListener('click', () => {
       this.changeTheme();
@@ -94,6 +100,12 @@ export default class Game {
       textVal = 'loud';
     }
     saveVolume(textVal);
+  }
+
+  showScore() {
+    const scoreData = getScore();
+
+    this.openModal('score', scoreData);
   }
 
   // ================== Levels ==============================================
@@ -251,10 +263,18 @@ export default class Game {
 
   // ================== Modal ===============================================
 
-  openModal(type) {
+  openModal(type, scoreData) {
     if (!this.modal.el) {
       this.modal.create();
       this.modal.el.addEventListener('click', (event) => this.closeModal(event));
+    }
+
+    if (scoreData && type === 'score') {
+      const data = completeScore(scoreData);
+
+      data.forEach((el, i) => {
+        this.modal.createRow({ ...el, num: i + 1 });
+      });
     }
 
     this.body.el.append(this.modal.backdrop);
@@ -282,6 +302,14 @@ export default class Game {
         this.callActions('sbmt', type);
       } else {
         this.callActions('cancel', type);
+      }
+
+      if (type === 'score') {
+        this.close();
+
+        this.modal.scoreBody.remove();
+        this.modal.scoreBody = null;
+        this.modal.createBody();
       }
     }
   }

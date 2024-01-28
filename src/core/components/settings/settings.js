@@ -12,6 +12,11 @@ export default class Settings {
       trueIcon: 'bi-moon',
       falseIcon: 'bi-brightness-high',
     });
+    this.score = new BtnUI({
+      btnClass: 'score btn btn-link mx-2',
+      trueIcon: 'bi-bookmark-star',
+      falseIcon: 'bi-bookmark-star-fill',
+    });
   }
 
   changeTheme() {
@@ -29,6 +34,9 @@ export default class Settings {
   }
 
   createSettings() {
+    this.score.create();
+    this.score.changeIcon();
+
     this.volume.create();
     this.volume.changeIcon(this.volume.isSilent);
 

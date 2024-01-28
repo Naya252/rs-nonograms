@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import { BaseClass, createElement } from '../../../shared/helpers';
 
 export default class ModalUI extends BaseClass {
@@ -10,10 +11,58 @@ export default class ModalUI extends BaseClass {
     this.p = null;
     this.backdrop = null;
     this.cancelBtn = null;
+    this.scoreTable = null;
+    this.scoreBody = null;
+  }
+
+  createScoreTable() {
+    this.scoreTable = createElement('table', 'table table-striped');
+
+    const head = createElement('thead', '');
+    const tr = createElement('tr', '');
+    head.append(tr);
+    this.scoreTable.append(head);
+    this.createBody();
+
+    const heads = ['#', 'Title', 'Level', 'Time'];
+    for (const el of heads) {
+      const hdr = createElement('th', '');
+      hdr.innerText = el;
+      tr.append(hdr);
+    }
+  }
+
+  createBody() {
+    this.scoreBody = createElement('tbody', '');
+    this.scoreTable.append(this.scoreBody);
+  }
+
+  createRow(data) {
+    const tr = createElement('tr', '');
+
+    const th = createElement('th', data.num);
+    th.innerText = data.num;
+
+    const td1 = createElement('td', data.card);
+    td1.innerText = data.card;
+
+    const td2 = createElement('td', data.lvl);
+    td2.innerText = data.lvl;
+
+    const td3 = createElement('td', data.timer);
+    td3.innerText = data.timer;
+
+    tr.append(th);
+    tr.append(td1);
+    tr.append(td2);
+    tr.append(td3);
+
+    this.scoreBody.append(tr);
   }
 
   create() {
     super.create();
+    this.createScoreTable();
 
     this.el.setAttribute('data-bs-keyboard', 'false');
     this.el.setAttribute('tabindex', '-1');
@@ -51,6 +100,6 @@ export default class ModalUI extends BaseClass {
     dialog.append(content);
     this.el.append(dialog);
 
-    this.backdrop = createElement('button', 'modal-backdrop fade');
+    this.backdrop = createElement('div', 'modal-backdrop fade');
   }
 }
