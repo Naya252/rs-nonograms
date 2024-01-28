@@ -23,6 +23,8 @@ import Actions from '../components/game-actions/game-actions';
 import Grid from '../components/grid/grid';
 import Timer from '../components/timer/timer';
 
+import Modal from '../components/modal/modal';
+
 export default class Game {
   constructor() {
     this.body = new Body();
@@ -36,6 +38,8 @@ export default class Game {
     this.grd = new Grid();
     this.tmr = new Timer();
     this.actions = new Actions();
+
+    this.modal = new Modal();
   }
 
   // ================== Settings ============================================
@@ -193,7 +197,7 @@ export default class Game {
         this.actions.activateButtons();
       }
 
-      const isFill = this.grd.selectCell(event);
+      const { isFill, isWin } = this.grd.selectCell(event);
 
       // this.audioX = new Audio(X_SOUND);
 
@@ -204,6 +208,50 @@ export default class Game {
           new Audio(CLEAN_SOUND).play();
         }
       }
+
+      if (isWin) {
+        this.winGame();
+      }
+    }
+  }
+
+  winGame() {
+    this.tmr.pauseTimer();
+    this.actions.addDisabled();
+    this.actions.activeReset();
+
+    this.openModal();
+  }
+
+  // ================== Modal ===============================================
+
+  openModal() {
+    if (!this.modal.el) {
+      this.modal.create();
+      this.modal.el.addEventListener('click', (event) => this.closeModal(event));
+
+      this.body.el.append(this.modal.backdrop);
+      this.body.el.append(this.modal.el);
+    }
+
+    setTimeout(() => {
+      this.body.el.classList.add('modal-open');
+      this.top.header.el.setAttribute('inert', true);
+      this.content.main.el.setAttribute('inert', true);
+      this.modal.open('Great!', `You have solved the nonogram in ${this.tmr.getTimerValue()} seconds!`);
+    }, 300);
+  }
+
+  closeModal(event) {
+    const button = event.target.closest('.cls');
+    const backdrop = event.target.className === 'modal fade show';
+
+    if (button || backdrop) {
+      this.modal.close();
+
+      this.body.el.classList.remove('modal-open');
+      this.top.header.el.removeAttribute('inert');
+      this.content.main.el.removeAttribute('inert');
     }
   }
 

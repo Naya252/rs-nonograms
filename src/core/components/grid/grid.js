@@ -20,13 +20,17 @@ export default class Grid {
       this.points.cur.push(id);
     }
 
-    if (this.points.cur.sort().join('=') === this.points.scheme.sort().join('=')) {
-      console.log('ПОБЕДАААААААААААА');
-    }
+    return this.isWin();
+  }
+
+  isWin() {
+    return this.points.cur.sort().join('=') === this.points.scheme.sort().join('=');
   }
 
   selectCell(event) {
     let isFill = null;
+    let isWin = null;
+
     const cell = event.target.closest('.cell');
     if (cell && cell.hasAttribute('name')) {
       if (cell.classList.contains('black')) {
@@ -37,9 +41,9 @@ export default class Grid {
         isFill = true;
       }
 
-      this.checkCell(cell);
+      isWin = this.checkCell(cell);
     }
-    return isFill;
+    return { isFill, isWin };
   }
 
   fillScheme() {

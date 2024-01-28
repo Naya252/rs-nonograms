@@ -29,15 +29,26 @@ export default class Timer {
   changeTimerValue(sec) {
     this.timer.sec = sec;
     this.timer.value = new Date(1970, 0, 0, 0, 0, +sec || 0).toLocaleTimeString('ru');
+    const value = this.getTimerValue();
+    this.timer.el.innerText = value;
+  }
+
+  getTimerValue() {
+    let value;
     if (this.timer.value.toString().slice(0, 2) === '00') {
-      this.timer.el.innerText = this.timer.value.toString().slice(3);
+      value = this.timer.value.toString().slice(3);
     } else {
-      this.timer.el.innerText = this.timer.value;
+      value = this.timer.value;
     }
+    return value;
+  }
+
+  pauseTimer() {
+    window.cancelAnimationFrame(this.timer.req);
   }
 
   cleanTimer() {
-    window.cancelAnimationFrame(this.timer.req);
+    this.pauseTimer();
     this.timer.sec = 0;
     this.timer.value = '00:00';
     this.timer.isStart = false;
