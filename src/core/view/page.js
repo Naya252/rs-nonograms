@@ -241,7 +241,7 @@ export default class Game {
       this.body.el.classList.add('modal-open');
       this.top.header.el.setAttribute('inert', true);
       this.content.main.el.setAttribute('inert', true);
-      this.modal.open('Great!', `You have solved the nonogram in ${this.tmr.getTimerValue()} seconds!`);
+      this.modal.open('Great!', `You have solved the nonogram in ${this.tmr.timer.sec} seconds!`);
     }, 300);
   }
 
