@@ -37,10 +37,21 @@ export function getSavedGame() {
   return JSON.parse(data);
 }
 
+export function getWinGame() {
+  const data = localStorage.getItem('n-n-win');
+  return data ? JSON.parse(data) : [];
+}
+
+export function setWinGame(data) {
+  const oldArr = getWinGame();
+
+  let newArr = [...oldArr, data];
+  if (newArr.length > 5) {
+    newArr = newArr.slice(1);
+  }
+  localStorage.setItem('n-n-win', JSON.stringify(newArr));
+}
+
 export function checkSavedGame(data) {}
 
 export function saveUsedSchemes(data) {}
-
-export function saveWinGame(data) {}
-
-export function showWinningTable(data) {}

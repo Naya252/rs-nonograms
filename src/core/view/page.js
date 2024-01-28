@@ -8,6 +8,7 @@ import {
   getVolume,
   saveGameData,
   getSavedGame,
+  setWinGame,
 } from '../repository/repository';
 import { getBoolTheme, getBoolValue } from '../shared/helpers';
 import { FILL_SOUND, CLEAN_SOUND, X_SOUND } from '../shared/constants';
@@ -322,7 +323,16 @@ export default class Game {
     }
 
     if (type === 'win') {
+      this.tmr.timer.isStart = false;
       this.close();
+      const data = {
+        lvl: this.lvl.curLevel.value,
+        card: this.crd.curCard.value,
+        timer: this.tmr.timer.sec,
+        id: new Date(),
+      };
+      setWinGame(data);
+
       setTimeout(() => {
         this.alert.addAlert('score');
       }, 300);
