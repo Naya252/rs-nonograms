@@ -260,6 +260,10 @@ export default class Game {
 
       this.body.el.lastChild.remove();
       this.body.el.lastChild.remove();
+
+      setTimeout(() => {
+        this.alert.addAlert('score');
+      }, 300);
     }
   }
 
@@ -312,7 +316,7 @@ export default class Game {
 
     this.addSavedGameLvl();
 
-    this.alert.addSave();
+    this.alert.addAlert();
   }
 
   // ================== HTML ================================================

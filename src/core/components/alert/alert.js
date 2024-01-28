@@ -10,13 +10,18 @@ export default class Alert extends BaseClass {
 
     this.infoIcon = 'bi bi-info-circle';
     this.savedText = 'Game saved';
+    this.tableText = 'Result added in Score table';
   }
 
-  createAlert() {
+  createAlert(type) {
     const alert = createElement('div', 'alert alert-primary d-flex align-items-center alert-dismissible fade');
     const icon = createElement('i', this.infoIcon);
     const text = createElement('div', '');
-    text.innerText = this.savedText;
+    if (type) {
+      text.innerText = this.tableText;
+    } else {
+      text.innerText = this.savedText;
+    }
 
     alert.append(icon);
     alert.append(text);
@@ -26,8 +31,8 @@ export default class Alert extends BaseClass {
     return alert;
   }
 
-  addSave() {
-    const alert = this.createAlert();
+  addAlert(type) {
+    const alert = this.createAlert(type);
     this.el.append(alert);
     setTimeout(() => {
       alert.classList.add('show');
