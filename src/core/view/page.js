@@ -24,6 +24,7 @@ import Grid from '../components/grid/grid';
 import Timer from '../components/timer/timer';
 
 import Modal from '../components/modal/modal';
+import Alert from '../components/alert/alert';
 
 export default class Game {
   constructor() {
@@ -40,6 +41,7 @@ export default class Game {
     this.actions = new Actions();
 
     this.modal = new Modal();
+    this.alert = new Alert();
   }
 
   // ================== Settings ============================================
@@ -309,6 +311,8 @@ export default class Game {
     saveGameData(data);
 
     this.addSavedGameLvl();
+
+    this.alert.addSave();
   }
 
   // ================== HTML ================================================
@@ -331,9 +335,20 @@ export default class Game {
 
     this.createSettings();
     this.createLevels();
+
+    this.alert.create();
+    this.body.el.append(this.alert.el);
   }
 
   init() {
     this.createHtml();
+
+    // const myAlert = document.getElementById('myAlert');
+    // myAlert.addEventListener('closed.bs.alert', (event) => {
+    //   console.log('fff');
+    //   // do something, for instance, explicitly move focus to the most appropriate element,
+    //   // so it doesn't get lost/reset to the start of the page
+    //   // document.getElementById('...').focus()
+    // });
   }
 }
