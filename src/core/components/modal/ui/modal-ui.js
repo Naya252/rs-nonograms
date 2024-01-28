@@ -9,6 +9,7 @@ export default class ModalUI extends BaseClass {
     this.title = null;
     this.p = null;
     this.backdrop = null;
+    this.cancelBtn = null;
   }
 
   create() {
@@ -37,9 +38,12 @@ export default class ModalUI extends BaseClass {
     this.p = createElement('p', '');
     body.append(this.p);
 
-    const footerBtn = createElement('button', 'btn btn-secondary cls');
-    footerBtn.innerText = 'OK';
-    footer.append(footerBtn);
+    const submitBtn = createElement('button', 'btn btn-secondary sbmt');
+    submitBtn.innerText = 'OK';
+    this.cancelBtn = createElement('button', 'btn btn-outline-secondary-cancel cls invisible');
+    this.cancelBtn.innerText = 'Cancel';
+    footer.append(submitBtn);
+    footer.append(this.cancelBtn);
 
     content.append(header);
     content.append(body);
