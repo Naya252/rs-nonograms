@@ -110,9 +110,20 @@ body {
   }
 }
 
+.score {
+  padding: 0;
+
+  .bi-bookmark-star {
+    font-size: 1.8rem;
+  }
+  .bi-moon {
+    font-size: 1.5rem;
+  }
+}
+
 .alerts {
   position: absolute;
-  top: 58px;
+  top: 70px;
   right: 0;
   z-index: 99;
   width: 292px;
@@ -145,5 +156,5 @@ body {
 
 .modal-open {
   overflow: hidden;
-  padding-right: 17px;
+  // padding-right: 17px;
 }

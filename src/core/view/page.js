@@ -10,7 +10,7 @@ import {
   getSavedGame,
   setWinGame,
 } from '../repository/repository';
-import { getBoolTheme, getBoolValue, getScore, completeScore } from '../shared/helpers';
+import { getBoolTheme, getBoolValue, getScore, completeScore, formateTime } from '../shared/helpers';
 import { FILL_SOUND, CLEAN_SOUND, X_SOUND } from '../shared/constants';
 
 import Body from './body';
@@ -273,7 +273,8 @@ export default class Game {
       const data = completeScore(scoreData);
 
       data.forEach((el, i) => {
-        this.modal.createRow({ ...el, num: i + 1 });
+        const time = formateTime(el.timer);
+        this.modal.createRow({ ...el, num: i + 1, timer: time });
       });
     }
 

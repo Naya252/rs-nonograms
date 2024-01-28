@@ -60,3 +60,19 @@ export function completeScore(arr) {
   }
   return scoreData;
 }
+
+// TODO сделать единую функцию для таймера и таблицы
+export function formateTime(sec) {
+  let value = null;
+  if (sec) {
+    const time = new Date(1970, 0, 0, 0, 0, +sec || 0).toLocaleTimeString('ru');
+
+    if (time.toString().slice(0, 2) === '00') {
+      value = time.toString().slice(3);
+    } else {
+      value = time;
+    }
+  }
+
+  return value;
+}
