@@ -189,33 +189,36 @@ export default class Game {
   }
 
   selectCell(event) {
-    const cell = event.target.closest('.cell');
-    if (cell.hasAttribute('id')) {
-      if (!this.tmr.timer.isStart) {
-        this.tmr.timer.isStart = true;
-        this.tmr.startTimer();
-        this.actions.activateButtons();
-      }
-
-      const { isFill, isWin } = this.grd.selectCell(event);
-
-      // this.audioX = new Audio(X_SOUND);
-
-      if (!this.settings.volume.isSilent) {
-        if (isFill) {
-          new Audio(FILL_SOUND).play();
-        } else {
-          new Audio(CLEAN_SOUND).play();
+    if (!this.grd.grid.el.classList.contains('lock')) {
+      const cell = event.target.closest('.cell');
+      if (cell.hasAttribute('id')) {
+        if (!this.tmr.timer.isStart) {
+          this.tmr.timer.isStart = true;
+          this.tmr.startTimer();
+          this.actions.activateButtons();
         }
-      }
 
-      if (isWin) {
-        this.winGame();
+        const { isFill, isWin } = this.grd.selectCell(event);
+
+        // this.audioX = new Audio(X_SOUND);
+
+        if (!this.settings.volume.isSilent) {
+          if (isFill) {
+            new Audio(FILL_SOUND).play();
+          } else {
+            new Audio(CLEAN_SOUND).play();
+          }
+        }
+
+        if (isWin) {
+          this.winGame();
+        }
       }
     }
   }
 
   winGame() {
+    this.grd.lockGrid();
     this.tmr.pauseTimer();
     this.actions.addDisabled();
     this.actions.activeReset();
@@ -255,9 +258,6 @@ export default class Game {
 
       this.body.el.lastChild.remove();
       this.body.el.lastChild.remove();
-
-      console.log(this.modal.el);
-      console.log(this.modal.backdrop);
     }
   }
 
@@ -286,10 +286,12 @@ export default class Game {
     this.tmr.cleanTimer();
     this.tmr.createTimer();
     this.grd.cleanCells();
+    this.grd.lockGrid();
     this.actions.resetGame();
   }
 
   showSolution() {
+    this.grd.lockGrid();
     this.tmr.cleanTimer();
     this.tmr.createTimer();
     this.grd.fillScheme();

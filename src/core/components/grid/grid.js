@@ -83,11 +83,19 @@ export default class Grid {
     }
   }
 
+  lockGrid() {
+    this.grid.el.classList.toggle('lock');
+  }
+
   createGrid(game) {
     this.points.scheme = [];
     this.points.cur = [];
     this.grid.matrix = [];
     this.grid.matrix = calculateMatrix(game.figure);
+
+    if (this.grid.el && this.grid.el.classList.contains('lock')) {
+      this.lockGrid();
+    }
 
     this.points.scheme = this.grid.create(this.grid.matrix);
   }
