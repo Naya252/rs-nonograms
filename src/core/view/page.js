@@ -306,17 +306,22 @@ export default class Game {
   }
 
   saveGame() {
-    const data = {
-      lvl: this.lvl.curLevel.value,
-      card: this.crd.curCard.value,
-      grid: this.grd.points.cur,
-      timer: this.tmr.timer.sec,
-    };
-    saveGameData(data);
+    const lastSaved = getSavedGame();
+    if (lastSaved && lastSaved.grid.join('=') !== this.grd.points.cur.join('=')) {
+      const data = {
+        lvl: this.lvl.curLevel.value,
+        card: this.crd.curCard.value,
+        grid: this.grd.points.cur,
+        timer: this.tmr.timer.sec,
+      };
+      saveGameData(data);
 
-    this.addSavedGameLvl();
+      this.addSavedGameLvl();
 
-    this.alert.addAlert();
+      this.alert.addAlert();
+    } else {
+      this.alert.addAlert('not');
+    }
   }
 
   // ================== HTML ================================================
