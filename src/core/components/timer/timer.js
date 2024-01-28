@@ -12,8 +12,16 @@ export default class Timer {
     this.timer.req = null;
   }
 
-  startTimer() {
-    const rafStart = Date.now();
+  // TODO разобраться с условиями старта таймера (с пустого/не пустого значения)
+  startTimer(val) {
+    let rafStart;
+    if (val) {
+      rafStart = Date.now();
+      rafStart = new Date(rafStart).setTime(new Date(rafStart).getTime() - this.timer.sec * 1000);
+    } else {
+      rafStart = Date.now();
+    }
+
     const tick = () => {
       const seconds = Math.floor((Date.now() - rafStart) / 1000 || 0);
 
