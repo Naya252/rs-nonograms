@@ -13,14 +13,24 @@ export default class Levels {
   selectCurLevel(event) {
     let isSelect = false;
     if (event) {
-      const category = event.target.closest('.btn-check');
+      const category = event.target.closest('.level');
 
       if (category) {
         if (
           !this.curLevel.value ||
-          this.curLevel.value !== event.target.closest('.btn-check').getAttribute('id').toLowerCase()
+          this.curLevel.value !== event.target.closest('.level').getAttribute('id').toLowerCase()
         ) {
-          this.changeLevel(event.target.closest('.btn-check').getAttribute('id').toLowerCase());
+          this.changeLevel(event.target.closest('.level').getAttribute('id').toLowerCase());
+
+          this.levels.items.forEach((el) => {
+            if (el.classList.contains('btn-primary')) {
+              el.classList.remove('btn-primary');
+              el.classList.add('btn-outline-primary');
+            }
+          });
+          category.classList.add('btn-primary');
+          category.classList.remove('btn-outline-primary');
+
           isSelect = true;
         }
       }

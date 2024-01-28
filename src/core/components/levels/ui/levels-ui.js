@@ -1,5 +1,5 @@
 import { BaseClass } from '../../../shared/helpers';
-import Radio from '../../base/radio';
+import Btn from '../../base/btn';
 
 export default class LevelBtn extends BaseClass {
   constructor(tag = 'div', className = 'levels') {
@@ -12,12 +12,10 @@ export default class LevelBtn extends BaseClass {
   }
 
   createLevel(el) {
-    const radioBtn = new Radio(el.name, 'level');
+    const radioBtn = new Btn(el.name, 'level');
     const btn = radioBtn.init();
-    btn.label.classList.add('btn-lg');
+    btn.classList.add('btn-lg');
     this.items.push(btn);
-
-    this.el.append(btn.input);
-    this.el.append(btn.label);
+    this.el.append(btn);
   }
 }

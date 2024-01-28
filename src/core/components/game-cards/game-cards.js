@@ -11,11 +11,21 @@ export default class GameCards {
   }
 
   selectCurCard(event) {
-    const card = event.target.closest('.btn-check');
+    const card = event.target.closest('.scheme');
     let isSelect = false;
     if (card) {
-      if (!this.curCard.value || this.curCard.value !== event.target.closest('.btn-check').getAttribute('id')) {
-        this.changeCard(event.target.closest('.btn-check').getAttribute('id'));
+      if (!this.curCard.value || this.curCard.value !== event.target.closest('.scheme').getAttribute('id')) {
+        this.changeCard(event.target.closest('.scheme').getAttribute('id'));
+
+        this.cards.items.forEach((el) => {
+          if (el.classList.contains('btn-secondary')) {
+            el.classList.remove('btn-secondary');
+            el.classList.add('btn-outline-secondary');
+          }
+        });
+        card.classList.add('btn-secondary');
+        card.classList.remove('btn-outline-secondary');
+
         isSelect = true;
       }
     }

@@ -1,5 +1,5 @@
 import { BaseClass } from '../../../shared/helpers';
-import Radio from '../../base/radio';
+import Btn from '../../base/btn';
 
 export default class Cards extends BaseClass {
   constructor(tag = 'div', className = 'cards') {
@@ -12,11 +12,9 @@ export default class Cards extends BaseClass {
   }
 
   createCard(el) {
-    const radioBtn = new Radio(el.name, 'card', 'secondary');
+    const radioBtn = new Btn(el.name, 'scheme', 'secondary');
     const btn = radioBtn.init();
     this.items.push(btn);
-
-    this.el.append(btn.input);
-    this.el.append(btn.label);
+    this.el.append(btn);
   }
 }
