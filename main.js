@@ -6,3 +6,5 @@ import Game from './src/core/view/page';
 
 const game = new Game();
 game.init();
+
+window.addEventListener('beforeunload', (event) => game.saveRandomGames(event));

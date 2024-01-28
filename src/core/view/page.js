@@ -1,4 +1,5 @@
 /* eslint-disable no-lonely-if */
+import RANDOM_DATA from '../game-figures/templates';
 import {
   getCardsData,
   getCardData,
@@ -9,6 +10,9 @@ import {
   saveGameData,
   getSavedGame,
   setWinGame,
+  savePassedGames,
+  getRandomCard,
+  getPassedGames,
 } from '../repository/repository';
 import { getBoolTheme, getBoolValue, getScore, completeScore, formateTime } from '../shared/helpers';
 import { FILL_SOUND, CLEAN_SOUND, X_SOUND } from '../shared/constants';
@@ -45,6 +49,43 @@ export default class Game {
     this.alert = new Alert();
 
     this.changeGameEvt = null;
+    this.passedGames = [];
+    this.randomData = [...RANDOM_DATA];
+    this.randomId = 0;
+  }
+
+  // ================== Random game ============================================
+
+  changePassedGame(id) {
+    this.passedGames.push(id);
+    this.changeData(id);
+    if (this.passedGames.length === 16) {
+      this.passedGames = [];
+      this.changeData(id);
+      this.changePassedGame(id);
+    }
+  }
+
+  saveRandomGames() {
+    savePassedGames(this.passedGames);
+  }
+
+  changeId() {
+    console.log(this.passedGames);
+    const idx = Math.floor(Math.random() * this.randomData.length);
+    this.randomId = this.randomData[idx].id;
+
+    this.changePassedGame(this.randomId);
+    const scheme = getRandomCard(this.randomId);
+    this.createGrid(scheme.name);
+    console.log(this.passedGames);
+  }
+
+  changeData(id) {
+    this.randomData = this.randomData.filter((el) => el.id !== id);
+    if (this.passedGames.length === 16) {
+      this.randomData = [...RANDOM_DATA];
+    }
   }
 
   // ================== Settings ============================================
@@ -146,6 +187,8 @@ export default class Game {
 
     if (this.lvl.curLevel.value === 'saved') {
       this.selectSaved();
+    } else if (this.lvl.curLevel.value === 'random') {
+      this.changeId();
     } else {
       if (isSelect) {
         this.crd.cleanCards();
@@ -196,6 +239,7 @@ export default class Game {
   // ================== Grid ================================================
 
   createGrid(savedCard, savedTime) {
+    console.log(savedCard);
     let game;
 
     if (savedCard) {
@@ -208,6 +252,7 @@ export default class Game {
       this.grd.cleanGrid();
       this.grd.createGrid(game[0]);
       this.grd.grid.el.addEventListener('click', (event) => this.selectCell(event));
+      this.grd.grid.el.addEventListener('contextmenu', (event) => event.preventDefault());
       this.content.main.el.append(this.grd.grid.el);
 
       this.createTimer(savedTime);
@@ -471,5 +516,7 @@ export default class Game {
 
   init() {
     this.createHtml();
+    this.passedGames = getPassedGames();
+    console.log(this.passedGames);
   }
 }

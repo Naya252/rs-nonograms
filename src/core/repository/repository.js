@@ -10,6 +10,11 @@ export function getCardData(value) {
   return card;
 }
 
+export function getRandomCard(id) {
+  const card = templates.filter((el) => el.id === id);
+  return card[0];
+}
+
 export function saveTheme(theme) {
   localStorage.setItem('n-n-theme', theme);
 }
@@ -52,6 +57,13 @@ export function setWinGame(data) {
   localStorage.setItem('n-n-win', JSON.stringify(newArr));
 }
 
-export function checkSavedGame(data) {}
+export function savePassedGames(passed) {
+  if (passed.length) {
+    localStorage.setItem('n-n-passed', JSON.stringify(passed));
+  }
+}
 
-export function saveUsedSchemes(data) {}
+export function getPassedGames() {
+  const data = localStorage.getItem('n-n-passed');
+  return data ? JSON.parse(data) : [];
+}
