@@ -307,7 +307,7 @@ export default class Game {
 
   saveGame() {
     const lastSaved = getSavedGame();
-    console.log(lastSaved);
+
     if (lastSaved === null || (lastSaved && lastSaved.grid.join('=') !== this.grd.points.cur.join('='))) {
       const data = {
         lvl: this.lvl.curLevel.value,
@@ -352,13 +352,5 @@ export default class Game {
 
   init() {
     this.createHtml();
-
-    // const myAlert = document.getElementById('myAlert');
-    // myAlert.addEventListener('closed.bs.alert', (event) => {
-    //   console.log('fff');
-    //   // do something, for instance, explicitly move focus to the most appropriate element,
-    //   // so it doesn't get lost/reset to the start of the page
-    //   // document.getElementById('...').focus()
-    // });
   }
 }
