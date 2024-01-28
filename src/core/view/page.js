@@ -318,8 +318,12 @@ export default class Game {
   }
 
   resetGame() {
-    this.tmr.pauseTimer();
-    this.openModal('reset');
+    if (this.grd.grid.el.classList.contains('lock')) {
+      this.submitResetGame();
+    } else {
+      this.tmr.pauseTimer();
+      this.openModal('reset');
+    }
   }
 
   submitResetGame() {
@@ -327,6 +331,9 @@ export default class Game {
     this.tmr.createTimer();
     this.grd.cleanCells();
     this.actions.resetGame();
+    if (this.grd.grid.el.classList.contains('lock')) {
+      this.grd.lockGrid();
+    }
   }
 
   showSolution() {
