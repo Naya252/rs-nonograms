@@ -113,7 +113,10 @@ export default class Game {
   createLevels() {
     this.lvl.createLevels();
     this.lvl.levels.el.addEventListener('click', (event) => {
-      if (this.tmr.timer.isStart) {
+      if (
+        this.tmr.timer.isStart &&
+        event.target.closest('.level').getAttribute('id').toLowerCase() !== this.lvl.curLevel.value
+      ) {
         this.tmr.pauseTimer();
         this.changeGameEvt = event;
         this.openModal('change');
@@ -147,11 +150,6 @@ export default class Game {
       if (isSelect) {
         this.crd.cleanCards();
         this.createCards();
-      } else {
-        if (this.grd.grid.el) {
-          this.grd.cleanGrid();
-          this.actions.removeActions();
-        }
       }
     }
   }
