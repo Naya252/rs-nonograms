@@ -11,11 +11,17 @@ export default class GameCards {
   }
 
   selectCurCard(event) {
-    const card = event.target.closest('.scheme');
     let isSelect = false;
+    let card;
+    if (event.target) {
+      card = event.target.closest('.scheme');
+    } else {
+      card = event;
+    }
+
     if (card) {
-      if (!this.curCard.value || this.curCard.value !== event.target.closest('.scheme').getAttribute('id')) {
-        this.changeCard(event.target.closest('.scheme').getAttribute('id'));
+      if (!this.curCard.value || this.curCard.value !== card.getAttribute('id')) {
+        this.changeCard(card.getAttribute('id'));
 
         this.cards.items.forEach((el) => {
           if (el.classList.contains('btn-secondary')) {

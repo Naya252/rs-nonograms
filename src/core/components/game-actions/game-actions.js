@@ -5,12 +5,16 @@ export default class Actions {
     this.save = new Button('save');
     this.solution = new Button('solution');
     this.reset = new Button('reset');
+    this.random = new Button('random');
+    this.saved = new Button('saved');
   }
 
   activateButtons() {
     this.save.el.removeAttribute('disabled');
     this.solution.el.removeAttribute('disabled');
     this.reset.el.removeAttribute('disabled');
+    this.random.el.removeAttribute('disabled');
+    this.saved.el.removeAttribute('disabled');
   }
 
   resetGame() {
@@ -42,6 +46,12 @@ export default class Actions {
     if (this.reset.el) {
       this.reset.el.remove();
     }
+    if (this.saved.el) {
+      this.saved.el.remove();
+    }
+    if (this.random.el) {
+      this.random.el.remove();
+    }
   }
 
   createActions() {
@@ -49,6 +59,8 @@ export default class Actions {
     this.save.create();
     this.solution.create();
     this.reset.create();
+    this.random.create();
+    this.saved.create();
     this.addDisabled();
   }
 }

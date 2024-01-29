@@ -14,7 +14,7 @@ import {
   getRandomCard,
   getPassedGames,
 } from '../repository/repository';
-import { getBoolTheme, getBoolValue, getScore, completeScore, formateTime, createElement } from '../shared/helpers';
+import { getBoolTheme, getBoolValue, getScore, completeScore, formateTime } from '../shared/helpers';
 import { FILL_SOUND, CLEAN_SOUND, X_SOUND, CLICK_SOUND, NOTIFICATION_SOUND, WIN_SOUND } from '../shared/constants';
 
 import Body from './body';
@@ -53,7 +53,6 @@ export default class Game {
     this.randomData = [...RANDOM_DATA];
     this.randomId = 0;
 
-    this.info = '';
     this.isLoad = false;
   }
 
@@ -128,10 +127,8 @@ export default class Game {
 
     this.changePassedGame(this.randomId);
     const scheme = getRandomCard(this.randomId);
-    this.info = `level: ${scheme.level} - game: ${scheme.name}`;
-    console.log(this.info);
-    this.createGrid(scheme.name);
-    // console.log(this.passedGames);
+
+    this.getSpecLevel(scheme.level, scheme.name);
   }
 
   changeData(id) {
@@ -219,76 +216,88 @@ export default class Game {
         this.openModal('change');
       } else {
         this.selectCurLevel(event);
+        this.getClickSound();
       }
     });
 
     this.content.main.el.append(this.lvl.levels.el);
 
-    const saved = getSavedGame();
-    if (saved) {
-      this.addSavedGameLvl();
-    }
-
-    this.lvl.levels.el.childNodes[0].click();
+    this.selectSpecificLevel(this.lvl.levels.el.childNodes[0]);
   }
 
-  addSavedGameLvl() {
-    if (this.lvl.levels.el.childNodes.length === 4) {
-      this.lvl.levels.createLevel({ name: 'saved' });
-    }
-  }
+  getSpecLevel(lvl, name) {
+    const level = this.lvl.levels.items.filter((el) => el.value === lvl);
 
-  selectCurLevel(event) {
-    this.info = '';
-    const isSelect = this.lvl.selectCurLevel(event);
-
-    if (this.lvl.curLevel.value === 'saved') {
-      this.selectSaved();
-      this.getClickSound();
-    } else if (this.lvl.curLevel.value === 'random') {
-      this.changeId();
-      this.getClickSound();
+    // TODO убрать дубль
+    if (level[0].getAttribute('value') === this.lvl.curLevel.value) {
+      const secificCard = this.crd.cards.items.filter((el) => el.value === name);
+      this.selectSpecificCard(secificCard[0]);
     } else {
-      if (isSelect) {
-        this.crd.cleanCards();
+      this.selectSpecificLevel(level[0], name);
+    }
+  }
+
+  selectSpecificLevel(lvl, card) {
+    const isSelect = this.lvl.selectCurLevel(lvl);
+    if (isSelect) {
+      this.crd.cleanCards();
+
+      if (card) {
+        this.createCards(card);
+      } else {
         this.createCards();
       }
     }
   }
 
-  selectSaved() {
-    this.crd.cleanCards();
-    this.grd.cleanGrid();
-    this.actions.removeActions();
-    this.tmr.cleanTimer();
+  selectCurLevel(event) {
+    const isSelect = this.lvl.selectCurLevel(event);
 
+    if (isSelect) {
+      this.crd.cleanCards();
+      this.createCards();
+    }
+  }
+
+  selectSaved() {
     const data = getSavedGame();
 
-    this.info = `level: ${data.lvl} - game: ${data.card}`;
-    console.log(this.info);
-
+    this.getSpecLevel(data.lvl, data.card);
+    // TODO двойное создание таблицы
     this.createGrid(data.card, data.timer);
     this.fillSavedGame(data.grid);
   }
 
   // ================== Cards ===============================================
 
-  createCards() {
+  createCards(crd) {
     const cards = getCardsData(this.lvl.curLevel.value);
 
     this.crd.createCards(cards);
+
     this.crd.cards.el.addEventListener('click', (event) => {
       if (this.tmr.timer.isStart) {
         this.tmr.pauseTimer();
         this.changeGameEvt = event;
         this.openModal('change');
-      } else {
+      }
+      if (!this.tmr.timer.isStart && !crd) {
         this.selectCurCard(event);
       }
     });
     this.content.main.el.append(this.crd.cards.el);
 
-    this.crd.cards.el.childNodes[0].click();
+    if (crd) {
+      const secificCard = this.crd.cards.items.filter((el) => el.value === crd);
+      this.selectSpecificCard(secificCard[0]);
+    } else {
+      this.selectSpecificCard(this.crd.cards.el.childNodes[0]);
+    }
+  }
+
+  selectSpecificCard(el) {
+    this.crd.selectCurCard(el);
+    this.createGrid();
   }
 
   selectCurCard(event) {
@@ -476,10 +485,15 @@ export default class Game {
       this.tmr.timer.isStart = false;
       this.close();
 
-      if (this.changeGameEvt.target.classList.contains('scheme')) {
-        this.selectCurCard(this.changeGameEvt);
+      if (this.changeGameEvt) {
+        if (this.changeGameEvt.target.classList.contains('scheme')) {
+          this.selectCurCard(this.changeGameEvt);
+        } else {
+          this.selectCurLevel(this.changeGameEvt);
+        }
       } else {
-        this.selectCurLevel(this.changeGameEvt);
+        this.changeId();
+        this.getClickSound();
       }
     }
 
@@ -525,10 +539,26 @@ export default class Game {
       this.saveGame();
       this.getClickSound();
     });
+    this.actions.random.el.addEventListener('click', () => {
+      if (this.tmr.timer.isStart) {
+        this.tmr.pauseTimer();
+        // this.changeGameEvt = event;
+        this.openModal('change');
+      } else {
+        this.changeId();
+        this.getClickSound();
+      }
+    });
+    this.actions.saved.el.addEventListener('click', () => {
+      this.selectSaved();
+      this.getClickSound();
+    });
 
     this.content.main.el.append(this.actions.save.el);
     this.content.main.el.append(this.actions.solution.el);
     this.content.main.el.append(this.actions.reset.el);
+    this.content.main.el.append(this.actions.random.el);
+    this.content.main.el.append(this.actions.saved.el);
   }
 
   resetGame() {
@@ -579,8 +609,6 @@ export default class Game {
         timer: this.tmr.timer.sec,
       };
       saveGameData(data);
-
-      this.addSavedGameLvl();
 
       this.alert.addAlert();
     } else {

@@ -12,34 +12,36 @@ export default class Levels {
 
   selectCurLevel(event) {
     let isSelect = false;
-    if (event) {
-      const category = event.target.closest('.level');
+    let category;
 
-      if (category) {
-        if (
-          !this.curLevel.value ||
-          this.curLevel.value !== event.target.closest('.level').getAttribute('id').toLowerCase()
-        ) {
-          this.changeLevel(event.target.closest('.level').getAttribute('id').toLowerCase());
+    if (event.target) {
+      category = event.target.closest('.level');
+    } else {
+      category = event;
+    }
 
-          this.levels.items.forEach((el) => {
-            if (el.classList.contains('btn-primary')) {
-              el.classList.remove('btn-primary');
-              el.classList.add('btn-outline-primary');
-            }
-          });
-          category.classList.add('btn-primary');
-          category.classList.remove('btn-outline-primary');
+    if (category) {
+      if (!this.curLevel.value || this.curLevel.value !== category.getAttribute('id').toLowerCase()) {
+        this.changeLevel(category.getAttribute('id').toLowerCase());
 
-          isSelect = true;
-        }
+        this.levels.items.forEach((el) => {
+          if (el.classList.contains('btn-primary')) {
+            el.classList.remove('btn-primary');
+            el.classList.add('btn-outline-primary');
+          }
+        });
+        category.classList.add('btn-primary');
+        category.classList.remove('btn-outline-primary');
+
+        isSelect = true;
       }
     }
+
     return isSelect;
   }
 
   createLevels() {
-    this.levels.names = [{ name: 'easy' }, { name: 'medium' }, { name: 'hard' }, { name: 'random' }];
+    this.levels.names = [{ name: 'easy' }, { name: 'medium' }, { name: 'hard' }];
     this.levels.create();
 
     this.levels.names.forEach((item) => {
