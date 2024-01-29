@@ -106,6 +106,11 @@ export default class Game {
 
   // ================== Random game ============================================
 
+  fillPassedGames() {
+    const passed = getPassedGames();
+    passed.forEach((el) => this.changePassedGame(el));
+  }
+
   changePassedGame(id) {
     this.passedGames.push(id);
     this.changeData(id);
@@ -121,7 +126,6 @@ export default class Game {
   }
 
   changeId() {
-    // console.log(this.passedGames);
     const idx = Math.floor(Math.random() * this.randomData.length);
     this.randomId = this.randomData[idx].id;
 
@@ -312,7 +316,6 @@ export default class Game {
   // ================== Grid ================================================
 
   createGrid(savedCard, savedTime) {
-    // console.log(savedCard);
     let game;
 
     if (savedCard) {
@@ -344,8 +347,6 @@ export default class Game {
   }
 
   selectCell(event, rbm) {
-    // console.log(rbm);
-
     if (!this.grd.grid.el.classList.contains('lock')) {
       const cell = event.target.closest('.cell');
 
@@ -643,7 +644,6 @@ export default class Game {
 
   init() {
     this.createHtml();
-    this.passedGames = getPassedGames();
-    // console.log(this.passedGames);
+    this.fillPassedGames();
   }
 }
