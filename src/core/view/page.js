@@ -54,6 +54,7 @@ export default class Game {
     this.randomId = 0;
 
     this.info = '';
+    this.isLoad = false;
   }
 
   // ================== Sounds =================================================
@@ -81,7 +82,7 @@ export default class Game {
   }
 
   getClickSound() {
-    if (!this.settings.volume.isSilent) {
+    if (!this.settings.volume.isSilent && this.isLoad) {
       const audio = new Audio(CLICK_SOUND);
       audio.volume = 0.8;
       audio.play();
