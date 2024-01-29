@@ -252,6 +252,11 @@ export default class Game {
       this.grd.cleanGrid();
       this.grd.createGrid(game[0]);
       this.grd.grid.el.addEventListener('click', (event) => this.selectCell(event));
+      this.grd.grid.el.addEventListener('mouseup', (event) => {
+        if (event.button === 2) {
+          this.selectCell(event, true);
+        }
+      });
       this.grd.grid.el.addEventListener('contextmenu', (event) => event.preventDefault());
       this.content.main.el.append(this.grd.grid.el);
 
@@ -265,9 +270,12 @@ export default class Game {
     this.grd.fillSavedCells();
   }
 
-  selectCell(event) {
+  selectCell(event, rbm) {
+    console.log(rbm);
+
     if (!this.grd.grid.el.classList.contains('lock')) {
       const cell = event.target.closest('.cell');
+
       if (cell.hasAttribute('id')) {
         if (!this.tmr.timer.isStart) {
           this.tmr.timer.isStart = true;
@@ -276,20 +284,28 @@ export default class Game {
           this.actions.activateButtons();
         }
 
-        const { isFill, isWin } = this.grd.selectCell(event);
-
-        // this.audioX = new Audio(X_SOUND);
-
-        if (!this.settings.volume.isSilent) {
-          if (isFill) {
-            new Audio(FILL_SOUND).play();
-          } else {
-            new Audio(CLEAN_SOUND).play();
+        if (rbm) {
+          if (!cell.classList.contains('black')) {
+            new Audio(X_SOUND).play();
+            cell.classList.toggle('x');
           }
-        }
+        } else {
+          if (!cell.classList.contains('x')) {
+            const { isFill, isWin } = this.grd.selectCell(event);
 
-        if (isWin) {
-          this.winGame();
+            if (!this.settings.volume.isSilent) {
+              if (isFill) {
+                console.log('fill');
+                new Audio(FILL_SOUND).play();
+              } else {
+                new Audio(CLEAN_SOUND).play();
+              }
+            }
+
+            if (isWin) {
+              this.winGame();
+            }
+          }
         }
       }
     }
