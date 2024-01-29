@@ -20,7 +20,7 @@ export default class Radio {
     this.input.el = createElement(this.input.tag, this.input.className);
     this.input.el.setAttribute('type', 'radio');
     this.input.el.setAttribute('name', this.name);
-    this.input.el.setAttribute('vaue', this.input.id);
+    this.input.el.setAttribute('value', this.input.id);
     this.input.el.setAttribute('autocomplete', 'off');
     this.input.el.setAttribute('id', this.input.id);
 

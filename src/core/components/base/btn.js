@@ -13,7 +13,7 @@ export default class Radio extends BaseClass {
   getEl() {
     super.create();
 
-    this.el.setAttribute('vaue', this.id);
+    this.el.setAttribute('value', this.id);
     this.el.setAttribute('id', this.id);
     this.el.innerText = this.id;
 
