@@ -177,7 +177,7 @@ export default class Game {
   }
 
   addSavedGameLvl() {
-    if (this.lvl.levels.el.childNodes.length === 8) {
+    if (this.lvl.levels.el.childNodes.length === 4) {
       this.lvl.levels.createLevel({ name: 'saved' });
     }
   }
