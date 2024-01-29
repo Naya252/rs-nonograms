@@ -87,7 +87,7 @@ export default class Grid {
     this.grid.el.classList.toggle('lock');
   }
 
-  createGrid(game) {
+  createGrid(game, level) {
     this.points.scheme = [];
     this.points.cur = [];
     this.grid.matrix = [];
@@ -97,6 +97,6 @@ export default class Grid {
       this.lockGrid();
     }
 
-    this.points.scheme = this.grid.create(this.grid.matrix);
+    this.points.scheme = this.grid.create(this.grid.matrix, level);
   }
 }

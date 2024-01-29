@@ -14,7 +14,7 @@ import {
   getRandomCard,
   getPassedGames,
 } from '../repository/repository';
-import { getBoolTheme, getBoolValue, getScore, completeScore, formateTime } from '../shared/helpers';
+import { getBoolTheme, getBoolValue, getScore, completeScore, formateTime, createElement } from '../shared/helpers';
 import { FILL_SOUND, CLEAN_SOUND, X_SOUND, CLICK_SOUND, NOTIFICATION_SOUND, WIN_SOUND } from '../shared/constants';
 
 import Body from './body';
@@ -54,6 +54,7 @@ export default class Game {
     this.randomId = 0;
 
     this.isLoad = false;
+    this.wrap = null;
   }
 
   // ================== Sounds =================================================
@@ -326,7 +327,7 @@ export default class Game {
 
     if (game.length) {
       this.grd.cleanGrid();
-      this.grd.createGrid(game[0]);
+      this.grd.createGrid(game[0], this.lvl.curLevel.value);
       this.grd.grid.el.addEventListener('click', (event) => this.selectCell(event));
       this.grd.grid.el.addEventListener('mouseup', (event) => {
         if (event.button === 2) {
@@ -334,7 +335,19 @@ export default class Game {
         }
       });
       this.grd.grid.el.addEventListener('contextmenu', (event) => event.preventDefault());
-      this.content.main.el.append(this.grd.grid.el);
+
+      const wrap = createElement('div', 'wrap');
+      const actions = createElement('div', 'actions');
+
+      wrap.append(this.grd.grid.el);
+      wrap.append(actions);
+
+      if (this.wrap) {
+        this.wrap.remove();
+      }
+
+      this.content.main.el.append(wrap);
+      this.wrap = wrap;
 
       this.createTimer(savedTime);
       this.createActions();
@@ -521,7 +534,7 @@ export default class Game {
   createTimer(savedTime) {
     this.tmr.cleanTimer();
     this.tmr.createTimer(savedTime);
-    this.content.main.el.append(this.tmr.timer.el);
+    this.wrap.childNodes[1].append(this.tmr.timer.el);
   }
 
   // ================== Actions =============================================
@@ -555,11 +568,11 @@ export default class Game {
       this.getClickSound();
     });
 
-    this.content.main.el.append(this.actions.save.el);
-    this.content.main.el.append(this.actions.solution.el);
-    this.content.main.el.append(this.actions.reset.el);
-    this.content.main.el.append(this.actions.random.el);
-    this.content.main.el.append(this.actions.saved.el);
+    this.wrap.childNodes[1].append(this.actions.save.el);
+    this.wrap.childNodes[1].append(this.actions.solution.el);
+    this.wrap.childNodes[1].append(this.actions.reset.el);
+    this.wrap.childNodes[1].append(this.actions.random.el);
+    this.wrap.childNodes[1].append(this.actions.saved.el);
   }
 
   resetGame() {

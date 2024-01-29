@@ -2,11 +2,11 @@ import Button from './ui/btn';
 
 export default class Actions {
   constructor() {
-    this.save = new Button('save');
-    this.solution = new Button('solution');
-    this.reset = new Button('reset');
-    this.random = new Button('random');
-    this.saved = new Button('saved');
+    this.save = new Button('save', 'btn  btn-outline-success');
+    this.solution = new Button('solution', 'btn  btn-outline-info');
+    this.reset = new Button('reset', 'btn  btn-outline-info');
+    this.random = new Button('random', 'btn  btn-outline-secondary mt-3');
+    this.saved = new Button('saved', 'btn  btn-outline-secondary');
   }
 
   activateButtons() {

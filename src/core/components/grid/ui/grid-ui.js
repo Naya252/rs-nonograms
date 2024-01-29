@@ -9,7 +9,7 @@ export default class GridUI extends BaseClass {
     this.items = [];
   }
 
-  create(matrix) {
+  create(matrix, level) {
     if (this.el) {
       let length = this.items.length;
 
@@ -19,6 +19,7 @@ export default class GridUI extends BaseClass {
       }
     } else {
       super.create();
+      this.el.classList.add(level);
     }
 
     const gridWidth = matrix[0].length;

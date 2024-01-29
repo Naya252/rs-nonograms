@@ -43,9 +43,22 @@ body {
   text-align: center;
 }
 
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .grid-container {
   display: inline-grid;
-  margin: 0 auto;
+  justify-items: center;
+  align-items: center;
   position: relative;
 
   &.lock {
@@ -63,14 +76,27 @@ body {
 }
 
 .cell {
-  width: 50px;
-  height: 50px;
   border: 1px solid rgba($dark, 0.5);
   background-color: $secondary;
   cursor: pointer;
   color: #fff;
   font-weight: 600;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.easy .cell {
+  width: 50px;
+  height: 50px;
+}
+.medium .cell {
+  width: 40px;
+  height: 40px;
+}
+.hard .cell {
+  width: 25px;
+  height: 25px;
 }
 
 .hint {
@@ -88,10 +114,10 @@ body {
   background-color: #000;
 }
 
-.cell.x{
+.cell.x {
   position: relative;
 
-  &:after{
+  &:after {
     content: 'x';
     position: absolute;
     top: 0;
@@ -171,4 +197,9 @@ body {
 .modal-open {
   overflow: hidden;
   // padding-right: 17px;
+}
+
+.timer {
+  font-weight: 600;
+  font-size: 1.3rem;
 }
