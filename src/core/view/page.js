@@ -14,7 +14,7 @@ import {
   getRandomCard,
   getPassedGames,
 } from '../repository/repository';
-import { getBoolTheme, getBoolValue, getScore, completeScore, formateTime } from '../shared/helpers';
+import { getBoolTheme, getBoolValue, getScore, completeScore, formateTime, createElement } from '../shared/helpers';
 import { FILL_SOUND, CLEAN_SOUND, X_SOUND, CLICK_SOUND, NOTIFICATION_SOUND, WIN_SOUND } from '../shared/constants';
 
 import Body from './body';
@@ -52,6 +52,8 @@ export default class Game {
     this.passedGames = [];
     this.randomData = [...RANDOM_DATA];
     this.randomId = 0;
+
+    this.info = '';
   }
 
   // ================== Sounds =================================================
@@ -119,14 +121,16 @@ export default class Game {
   }
 
   changeId() {
-    console.log(this.passedGames);
+    // console.log(this.passedGames);
     const idx = Math.floor(Math.random() * this.randomData.length);
     this.randomId = this.randomData[idx].id;
 
     this.changePassedGame(this.randomId);
     const scheme = getRandomCard(this.randomId);
+    this.info = `level: ${scheme.level} - game: ${scheme.name}`;
+    console.log(this.info);
     this.createGrid(scheme.name);
-    console.log(this.passedGames);
+    // console.log(this.passedGames);
   }
 
   changeData(id) {
@@ -234,6 +238,7 @@ export default class Game {
   }
 
   selectCurLevel(event) {
+    this.info = '';
     const isSelect = this.lvl.selectCurLevel(event);
 
     if (this.lvl.curLevel.value === 'saved') {
@@ -257,6 +262,10 @@ export default class Game {
     this.tmr.cleanTimer();
 
     const data = getSavedGame();
+
+    this.info = `level: ${data.lvl} - game: ${data.card}`;
+    console.log(this.info);
+
     this.createGrid(data.card, data.timer);
     this.fillSavedGame(data.grid);
   }
@@ -293,7 +302,7 @@ export default class Game {
   // ================== Grid ================================================
 
   createGrid(savedCard, savedTime) {
-    console.log(savedCard);
+    // console.log(savedCard);
     let game;
 
     if (savedCard) {
@@ -325,7 +334,7 @@ export default class Game {
   }
 
   selectCell(event, rbm) {
-    console.log(rbm);
+    // console.log(rbm);
 
     if (!this.grd.grid.el.classList.contains('lock')) {
       const cell = event.target.closest('.cell');
@@ -606,6 +615,6 @@ export default class Game {
   init() {
     this.createHtml();
     this.passedGames = getPassedGames();
-    console.log(this.passedGames);
+    // console.log(this.passedGames);
   }
 }
