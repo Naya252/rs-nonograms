@@ -15,7 +15,7 @@ import {
   getPassedGames,
 } from '../repository/repository';
 import { getBoolTheme, getBoolValue, getScore, completeScore, formateTime } from '../shared/helpers';
-import { FILL_SOUND, CLEAN_SOUND, X_SOUND } from '../shared/constants';
+import { FILL_SOUND, CLEAN_SOUND, X_SOUND, CLICK_SOUND, NOTIFICATION_SOUND, WIN_SOUND } from '../shared/constants';
 
 import Body from './body';
 import Header from '../layouts/header/header';
@@ -52,6 +52,54 @@ export default class Game {
     this.passedGames = [];
     this.randomData = [...RANDOM_DATA];
     this.randomId = 0;
+  }
+
+  // ================== Sounds =================================================
+
+  getFillSound() {
+    if (!this.settings.volume.isSilent) {
+      const audio = new Audio(FILL_SOUND);
+      audio.volume = 0.3;
+      audio.play();
+    }
+  }
+
+  getCleanSound() {
+    if (!this.settings.volume.isSilent) {
+      new Audio(CLEAN_SOUND).play();
+    }
+  }
+
+  getXSound() {
+    if (!this.settings.volume.isSilent) {
+      const audio = new Audio(X_SOUND);
+      audio.volume = 0.2;
+      audio.play();
+    }
+  }
+
+  getClickSound() {
+    if (!this.settings.volume.isSilent) {
+      const audio = new Audio(CLICK_SOUND);
+      audio.volume = 0.8;
+      audio.play();
+    }
+  }
+
+  getNotificationSound() {
+    if (!this.settings.volume.isSilent) {
+      const audio = new Audio(NOTIFICATION_SOUND);
+      audio.volume = 0.8;
+      audio.play();
+    }
+  }
+
+  getWinSound() {
+    if (!this.settings.volume.isSilent) {
+      const audio = new Audio(WIN_SOUND);
+      audio.volume = 0.3;
+      audio.play();
+    }
   }
 
   // ================== Random game ============================================
@@ -104,16 +152,19 @@ export default class Game {
     this.top.collapse.el.append(this.settings.score.el);
     this.settings.score.el.addEventListener('click', () => {
       this.showScore();
+      this.getClickSound();
     });
 
     this.top.collapse.el.append(this.settings.theme.el);
     this.settings.theme.el.addEventListener('click', () => {
       this.changeTheme();
+      this.getClickSound();
     });
 
     this.top.collapse.el.append(this.settings.volume.el);
     this.settings.volume.el.addEventListener('click', () => {
       this.changeVolume();
+      this.getClickSound();
     });
   }
 
@@ -187,8 +238,10 @@ export default class Game {
 
     if (this.lvl.curLevel.value === 'saved') {
       this.selectSaved();
+      this.getClickSound();
     } else if (this.lvl.curLevel.value === 'random') {
       this.changeId();
+      this.getClickSound();
     } else {
       if (isSelect) {
         this.crd.cleanCards();
@@ -232,6 +285,7 @@ export default class Game {
     const isSelect = this.crd.selectCurCard(event);
 
     if (isSelect) {
+      this.getClickSound();
       this.createGrid();
     }
   }
@@ -286,7 +340,7 @@ export default class Game {
 
         if (rbm) {
           if (!cell.classList.contains('black')) {
-            new Audio(X_SOUND).play();
+            this.getXSound();
             cell.classList.toggle('x');
           }
         } else {
@@ -295,10 +349,9 @@ export default class Game {
 
             if (!this.settings.volume.isSilent) {
               if (isFill) {
-                console.log('fill');
-                new Audio(FILL_SOUND).play();
+                this.getFillSound();
               } else {
-                new Audio(CLEAN_SOUND).play();
+                this.getCleanSound();
               }
             }
 
@@ -317,6 +370,8 @@ export default class Game {
     this.actions.addDisabled();
     this.actions.activeReset();
 
+    this.getWinSound();
+
     this.openModal('win');
   }
 
@@ -325,7 +380,13 @@ export default class Game {
   openModal(type, scoreData) {
     if (!this.modal.el) {
       this.modal.create();
-      this.modal.el.addEventListener('click', (event) => this.closeModal(event));
+      this.modal.el.addEventListener('click', (event) => {
+        this.closeModal(event);
+      });
+    }
+
+    if (type !== 'win') {
+      this.getNotificationSound();
     }
 
     if (scoreData && type === 'score') {
@@ -358,6 +419,8 @@ export default class Game {
     const type = this.modal.el.getAttribute('data-type');
 
     if (close || backdrop || (submit && hasInvisinleBtn) || (submit && !hasInvisinleBtn)) {
+      this.getClickSound();
+
       if (submit && !hasInvisinleBtn) {
         this.callActions('sbmt', type);
       } else {
@@ -423,6 +486,7 @@ export default class Game {
 
       setTimeout(() => {
         this.alert.addAlert('score');
+        this.getNotificationSound();
       }, 300);
     }
   }
@@ -439,9 +503,18 @@ export default class Game {
 
   createActions() {
     this.actions.createActions();
-    this.actions.solution.el.addEventListener('click', () => this.showSolution());
-    this.actions.reset.el.addEventListener('click', () => this.resetGame());
-    this.actions.save.el.addEventListener('click', () => this.saveGame());
+    this.actions.solution.el.addEventListener('click', () => {
+      this.showSolution();
+      this.getClickSound();
+    });
+    this.actions.reset.el.addEventListener('click', () => {
+      this.resetGame();
+      this.getClickSound();
+    });
+    this.actions.save.el.addEventListener('click', () => {
+      this.saveGame();
+      this.getClickSound();
+    });
 
     this.content.main.el.append(this.actions.save.el);
     this.content.main.el.append(this.actions.solution.el);
