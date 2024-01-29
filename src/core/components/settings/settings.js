@@ -4,13 +4,13 @@ export default class Settings {
   constructor() {
     this.volume = new BtnUI({
       btnClass: 'volume btn btn-link mx-2',
-      trueIcon: 'bi-volume-mute',
-      falseIcon: 'bi-volume-up',
+      trueIcon: 'bi-volume-up',
+      falseIcon: 'bi-volume-mute',
     });
     this.theme = new BtnUI({
       btnClass: 'theme btn btn-link mx-2',
-      trueIcon: 'bi-moon',
-      falseIcon: 'bi-brightness-high',
+      trueIcon: 'bi-brightness-high',
+      falseIcon: 'bi-moon',
     });
     this.score = new BtnUI({
       btnClass: 'score btn btn-link mx-2',
