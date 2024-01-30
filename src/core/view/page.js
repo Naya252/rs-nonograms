@@ -334,15 +334,15 @@ export default class Game {
         event.preventDefault();
         this.selectCell(event, true);
       });
-      this.grd.grid.el.addEventListener('pointermove', (event) => {
-        if (event.type === 'pointermove' && event.pressure > 0) {
-          let isContext = false;
-          if (event.buttons === 2) {
-            isContext = true;
-          }
-          this.selectCell(event, isContext);
-        }
-      });
+      // this.grd.grid.el.addEventListener('pointermove', (event) => {
+      //   if (event.type === 'pointermove' && event.pressure > 0) {
+      //     let isContext = false;
+      //     if (event.buttons === 2) {
+      //       isContext = true;
+      //     }
+      //     this.selectCell(event, isContext);
+      //   }
+      // });
 
       const wrap = createElement('div', 'wrap');
       const actions = createElement('div', 'actions');
