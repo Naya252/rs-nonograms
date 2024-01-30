@@ -34,6 +34,7 @@ export default class GridUI extends BaseClass {
         if (cell.name === 'cell') {
           el.setAttribute('name', cell.name);
           el.setAttribute('id', `${idx}-${i}`);
+          el.classList.add('game');
           if (cell.value) {
             scheme.push(`${idx}-${i}`);
           }

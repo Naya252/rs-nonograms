@@ -60,6 +60,7 @@ body {
   justify-items: center;
   align-items: center;
   position: relative;
+  user-select: none;
 
   &.lock {
     cursor: auto;

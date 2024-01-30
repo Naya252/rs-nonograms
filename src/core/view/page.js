@@ -55,6 +55,7 @@ export default class Game {
 
     this.isLoad = false;
     this.wrap = null;
+    this.cellTarget = null;
   }
 
   // ================== Sounds =================================================
@@ -329,10 +330,18 @@ export default class Game {
       this.grd.cleanGrid();
       this.grd.createGrid(game[0], this.lvl.curLevel.value);
       this.grd.grid.el.addEventListener('click', (event) => this.selectCell(event));
-
       this.grd.grid.el.addEventListener('contextmenu', (event) => {
         event.preventDefault();
         this.selectCell(event, true);
+      });
+      this.grd.grid.el.addEventListener('pointermove', (event) => {
+        if (event.type === 'pointermove' && event.pressure > 0) {
+          let isContext = false;
+          if (event.buttons === 2) {
+            isContext = true;
+          }
+          this.selectCell(event, isContext);
+        }
       });
 
       const wrap = createElement('div', 'wrap');
@@ -360,9 +369,9 @@ export default class Game {
 
   selectCell(event, isContext) {
     if (!this.grd.grid.el.classList.contains('lock')) {
-      const cell = event.target.closest('.cell');
+      const cell = event.target.closest('.cell.game');
 
-      if (cell.hasAttribute('id')) {
+      if (cell) {
         if (!this.tmr.timer.isStart) {
           this.tmr.timer.isStart = true;
 
@@ -370,18 +379,41 @@ export default class Game {
           this.actions.activateButtons();
         }
 
-        const { isFill, isX, isWin } = this.grd.selectCell(event, isContext);
+        if (event.type === 'pointermove' && event.pressure > 0) {
+          // console.log(event);
+          if (!this.cellTarget) {
+            this.cellTarget = cell;
+          }
+          if (this.cellTarget !== cell) {
+            const { isFill, isX, isWin } = this.grd.selectCell(event, isContext);
+            if (isFill) {
+              this.getFillSound();
+            } else if (isX) {
+              this.getXSound();
+            } else {
+              this.getCleanSound();
+            }
 
-        if (isFill) {
-          this.getFillSound();
-        } else if (isX) {
-          this.getXSound();
+            if (isWin) {
+              this.winGame();
+            }
+
+            this.cellTarget = cell;
+          }
         } else {
-          this.getCleanSound();
-        }
+          const { isFill, isX, isWin } = this.grd.selectCell(event, isContext);
 
-        if (isWin) {
-          this.winGame();
+          if (isFill) {
+            this.getFillSound();
+          } else if (isX) {
+            this.getXSound();
+          } else {
+            this.getCleanSound();
+          }
+
+          if (isWin) {
+            this.winGame();
+          }
         }
       }
     }
