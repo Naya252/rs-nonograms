@@ -421,6 +421,7 @@ export default class Game {
 
   winGame() {
     this.grd.lockGrid();
+    this.grd.cleanX();
     this.tmr.pauseTimer();
     this.actions.addDisabled();
     this.actions.activeReset();

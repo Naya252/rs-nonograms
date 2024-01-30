@@ -39,6 +39,14 @@ export default class Grid {
     return this.points.cur.sort().join('=') === this.points.scheme.sort().join('=');
   }
 
+  cleanX() {
+    for (const cell of this.grid.items) {
+      if (cell.classList.contains('x')) {
+        cell.classList.remove('x');
+      }
+    }
+  }
+
   selectCell(event, isContext) {
     let isFill = null;
     let isX = null;
@@ -83,6 +91,8 @@ export default class Grid {
   }
 
   cleanCells() {
+    this.cleanX();
+
     this.points.cur = [];
 
     for (const cell of this.grid.items) {
