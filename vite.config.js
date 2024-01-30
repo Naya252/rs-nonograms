@@ -14,7 +14,7 @@ export default {
     css: {
       devSourcemap: true, // enable CSS source maps during development
     },
-    sourcemap: true, // enable production source maps
+    // sourcemap: true, // enable production source maps
   },
   resolve: {
     alias: {
