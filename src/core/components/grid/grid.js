@@ -2,6 +2,18 @@
 import calculateMatrix from './service/matrix-service';
 import GridUI from './ui/grid-ui';
 
+function check(cell, cls) {
+  let val = false;
+  if (!cell.classList.contains(cls)) {
+    cell.classList.add(cls);
+    val = true;
+  } else {
+    cell.classList.remove(cls);
+    val = false;
+  }
+  return val;
+}
+
 export default class Grid {
   constructor() {
     this.grid = new GridUI();
@@ -27,23 +39,29 @@ export default class Grid {
     return this.points.cur.sort().join('=') === this.points.scheme.sort().join('=');
   }
 
-  selectCell(event) {
+  selectCell(event, isContext) {
     let isFill = null;
+    let isX = null;
     let isWin = null;
 
     const cell = event.target.closest('.cell');
-    if (cell && cell.hasAttribute('name')) {
-      if (cell.classList.contains('black')) {
-        cell.classList.remove('black');
-        isFill = false;
-      } else {
-        cell.classList.add('black');
-        isFill = true;
-      }
 
-      isWin = this.checkCell(cell);
+    if (cell && cell.hasAttribute('name')) {
+      if (isContext) {
+        if (cell.classList.contains('black')) {
+          cell.classList.remove('black');
+        }
+
+        isX = check(cell, 'x');
+      } else {
+        if (cell.classList.contains('x')) {
+          cell.classList.remove('x');
+        }
+        isFill = check(cell, 'black');
+        isWin = this.checkCell(cell);
+      }
     }
-    return { isFill, isWin };
+    return { isFill, isX, isWin };
   }
 
   fillScheme() {

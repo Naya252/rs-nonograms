@@ -329,12 +329,11 @@ export default class Game {
       this.grd.cleanGrid();
       this.grd.createGrid(game[0], this.lvl.curLevel.value);
       this.grd.grid.el.addEventListener('click', (event) => this.selectCell(event));
-      this.grd.grid.el.addEventListener('mouseup', (event) => {
-        if (event.button === 2) {
-          this.selectCell(event, true);
-        }
+
+      this.grd.grid.el.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+        this.selectCell(event, true);
       });
-      this.grd.grid.el.addEventListener('contextmenu', (event) => event.preventDefault());
 
       const wrap = createElement('div', 'wrap');
       const actions = createElement('div', 'actions');
@@ -359,7 +358,7 @@ export default class Game {
     this.grd.fillSavedCells();
   }
 
-  selectCell(event, rbm) {
+  selectCell(event, isContext) {
     if (!this.grd.grid.el.classList.contains('lock')) {
       const cell = event.target.closest('.cell');
 
@@ -371,27 +370,18 @@ export default class Game {
           this.actions.activateButtons();
         }
 
-        if (rbm) {
-          if (!cell.classList.contains('black')) {
-            this.getXSound();
-            cell.classList.toggle('x');
-          }
+        const { isFill, isX, isWin } = this.grd.selectCell(event, isContext);
+
+        if (isFill) {
+          this.getFillSound();
+        } else if (isX) {
+          this.getXSound();
         } else {
-          if (!cell.classList.contains('x')) {
-            const { isFill, isWin } = this.grd.selectCell(event);
+          this.getCleanSound();
+        }
 
-            if (!this.settings.volume.isSilent) {
-              if (isFill) {
-                this.getFillSound();
-              } else {
-                this.getCleanSound();
-              }
-            }
-
-            if (isWin) {
-              this.winGame();
-            }
-          }
+        if (isWin) {
+          this.winGame();
         }
       }
     }
