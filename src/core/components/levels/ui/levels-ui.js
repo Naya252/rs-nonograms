@@ -1,4 +1,4 @@
-import { BaseClass } from '../../../shared/helpers';
+import { BaseClass, createElement } from '../../../shared/helpers';
 import Btn from '../../base/btn';
 
 export default class LevelBtn extends BaseClass {
@@ -17,5 +17,10 @@ export default class LevelBtn extends BaseClass {
     btn.classList.add('btn-lg');
     this.items.push(btn);
     this.el.append(btn);
+
+    if (el.icon) {
+      const icon = createElement('i', el.icon);
+      btn.append(icon);
+    }
   }
 }

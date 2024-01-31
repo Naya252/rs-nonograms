@@ -41,7 +41,11 @@ export default class Levels {
   }
 
   createLevels() {
-    this.levels.names = [{ name: 'easy' }, { name: 'medium' }, { name: 'hard' }];
+    this.levels.names = [
+      { name: 'easy', icon: 'bi bi-droplet' },
+      { name: 'medium', icon: 'bi bi-droplet-half' },
+      { name: 'hard', icon: 'bi bi-droplet-fill' },
+    ];
     this.levels.create();
 
     this.levels.names.forEach((item) => {
