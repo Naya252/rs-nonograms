@@ -32,6 +32,12 @@ export default class Grid {
     } else {
       this.points.x.push(id);
     }
+
+    if (this.points.cur.includes(id)) {
+      this.points.cur = this.points.cur.filter((el) => el !== id);
+    }
+
+    return this.isWin();
   }
 
   checkCell(cell) {
@@ -72,6 +78,7 @@ export default class Grid {
 
         isX = check(cell, 'x');
         this.checkX(cell);
+        isWin = this.checkX(cell);
       } else {
         if (cell.classList.contains('x')) {
           cell.classList.remove('x');
