@@ -87,9 +87,9 @@ export default class ModalUI extends BaseClass {
     this.p = createElement('p', '');
     body.append(this.p);
 
-    const submitBtn = createElement('button', 'btn btn-secondary sbmt');
+    const submitBtn = createElement('button', 'btn btn-outline-success sbmt');
     submitBtn.innerText = 'OK';
-    this.cancelBtn = createElement('button', 'btn btn-outline-secondary-cancel cls invisible');
+    this.cancelBtn = createElement('button', 'btn btn-outline-modal-cancel cls invisible');
     this.cancelBtn.innerText = 'Cancel';
     footer.append(submitBtn);
     footer.append(this.cancelBtn);
