@@ -27,7 +27,11 @@ export default class ModalUI extends BaseClass {
     const heads = ['#', 'Title', 'Level', 'Time'];
     for (const el of heads) {
       const hdr = createElement('th', '');
+      hdr.setAttribute('scope', 'col');
       hdr.innerText = el;
+      if (el === 'Title') {
+        hdr.style = 'width:50%';
+      }
       tr.append(hdr);
     }
   }
