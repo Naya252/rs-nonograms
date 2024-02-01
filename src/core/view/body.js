@@ -1,3 +1,5 @@
+import { createElement } from '../shared/helpers';
+
 export default class Body {
   constructor(tag = 'body') {
     this.tag = tag;
@@ -20,5 +22,10 @@ export default class Body {
     this.getEl();
     this.addDataTag();
     this.changeDataTheme(theme);
+
+    const bg = createElement('div', 'game-bg');
+    this.el.append(bg);
+    const bg2 = createElement('div', 'game-bg2');
+    this.el.append(bg2);
   }
 }

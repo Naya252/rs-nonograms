@@ -5,8 +5,8 @@ export default class Actions {
     this.save = new Button('save', 'btn btn-action btn-outline-success', 'bi bi-floppy');
     this.solution = new Button('solution', 'btn btn-action btn-outline-info', 'bi bi-image');
     this.reset = new Button('reset', 'btn btn-action btn-outline-info', 'bi bi-arrow-counterclockwise');
-    this.random = new Button('random', 'btn btn-action btn-outline-secondary mt-3', 'bi bi-shuffle');
-    this.saved = new Button('continue game', 'btn btn-action btn-outline-secondary', 'bi bi-crosshair');
+    this.random = new Button('random', 'btn btn-action btn-primary mt-3', 'bi bi-shuffle');
+    this.saved = new Button('continue game', 'btn btn-action btn-primary', 'bi bi-crosshair');
   }
 
   activateButtons() {

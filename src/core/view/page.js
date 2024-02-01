@@ -345,9 +345,11 @@ export default class Game {
       // });
 
       const wrap = createElement('div', 'wrap');
+      const gridWrap = createElement('div', 'grid-wrap');
       const actions = createElement('div', 'actions');
 
-      wrap.append(this.grd.grid.el);
+      gridWrap.append(this.grd.grid.el);
+      wrap.append(gridWrap);
       wrap.append(actions);
 
       if (this.wrap) {

@@ -49,10 +49,10 @@ export default class GridUI extends BaseClass {
         }
 
         if (cell.border?.includes('right')) {
-          el.style.borderRight = '2px solid #000';
+          el.classList.add('cell-border-right');
         }
         if (cell.border?.includes('top')) {
-          el.style.borderTop = '2px solid #000';
+          el.classList.add('cell-border-top');
         }
 
         this.items.push(el);
