@@ -21,7 +21,17 @@ export default class Grid {
     this.points = {
       scheme: [],
       cur: [],
+      x: [],
     };
+  }
+
+  checkX(cell) {
+    const id = cell.getAttribute('id');
+    if (this.points.x.includes(id)) {
+      this.points.x = this.points.x.filter((el) => el !== id);
+    } else {
+      this.points.x.push(id);
+    }
   }
 
   checkCell(cell) {
@@ -61,6 +71,7 @@ export default class Grid {
         }
 
         isX = check(cell, 'x');
+        this.checkX(cell);
       } else {
         if (cell.classList.contains('x')) {
           cell.classList.remove('x');
@@ -88,12 +99,19 @@ export default class Grid {
         el.classList.add('black');
       }
     });
+
+    this.grid.items.forEach((el) => {
+      if (el.hasAttribute('id') && this.points.x.includes(el.getAttribute('id'))) {
+        el.classList.add('x');
+      }
+    });
   }
 
   cleanCells() {
     this.cleanX();
 
     this.points.cur = [];
+    this.points.x = [];
 
     for (const cell of this.grid.items) {
       if (cell.classList.contains('black')) {
@@ -118,6 +136,7 @@ export default class Grid {
   createGrid(game, level) {
     this.points.scheme = [];
     this.points.cur = [];
+    this.points.x = [];
     this.grid.matrix = [];
     this.grid.matrix = calculateMatrix(game.figure);
 

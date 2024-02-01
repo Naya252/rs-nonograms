@@ -273,7 +273,7 @@ export default class Game {
     this.getSpecLevel(data.lvl, data.card);
     // TODO двойное создание таблицы
     this.createGrid(data.card, data.timer);
-    this.fillSavedGame(data.grid);
+    this.fillSavedGame(data.grid, data.x);
   }
 
   // ================== Cards ===============================================
@@ -366,8 +366,9 @@ export default class Game {
     }
   }
 
-  fillSavedGame(data) {
+  fillSavedGame(data, x) {
     this.grd.points.cur = data;
+    this.grd.points.x = x;
     this.grd.fillSavedCells();
   }
 
@@ -646,6 +647,7 @@ export default class Game {
         lvl: this.lvl.curLevel.value,
         card: this.crd.curCard.value,
         grid: this.grd.points.cur,
+        x: this.grd.points.x,
         timer: this.tmr.timer.sec,
       };
       saveGameData(data);
