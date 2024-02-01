@@ -287,7 +287,7 @@ export default class Game {
         this.changeGameEvt = event;
         this.openModal('change');
       }
-      if (!this.tmr.timer.isStart && !crd) {
+      if (!this.tmr.timer.isStart) {
         this.selectCurCard(event);
       }
     });
@@ -382,7 +382,6 @@ export default class Game {
         }
 
         if (event.type === 'pointermove' && event.pressure > 0) {
-          // console.log(event);
           if (!this.cellTarget) {
             this.cellTarget = cell;
           }
