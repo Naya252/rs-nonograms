@@ -213,8 +213,8 @@
   --bs-body-bg: #566bbe;
   --bs-body-bg-rgb: #{to-rgb(#566bbe)};
 
-  --bs-primary: #{to-rgb(#616694)};
-  --bs-primary-rgb: #{to-rgb(#616694)};
+  --bs-primary: #{to-rgb(#464b79)};
+  --bs-primary-rgb: #{to-rgb(#464b79)};
   --bs-secondary: #{to-rgb(#152d51)};
   --bs-secondary-rgb: #{to-rgb(#152d51)};
   --bs-success: #{to-rgb(#58bfbe)};
@@ -460,6 +460,12 @@ body {
   right: 0;
   left: 0;
   z-index: 1;
+}
+
+.logo {
+  margin-right: 16px;
+  margin-bottom: 4px;
+  width: 28px;
 }
 
 main {
