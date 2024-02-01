@@ -6,8 +6,8 @@
 
   --bs-primary: #{to-rgb(#080a22)};
   --bs-primary-rgb: #{to-rgb(#080a22)};
-  --bs-secondary: #{to-rgb(#5981c0)};
-  --bs-secondary-rgb: #{to-rgb(#5981c0)};
+  --bs-secondary: #{to-rgb(#315796)};
+  --bs-secondary-rgb: #{to-rgb(#315796)};
   --bs-success: #{to-rgb(#58bfbe)};
   --bs-success-rgb: #{to-rgb(#58bfbe)};
   --bs-info: #{to-rgb(#58a0bf)};
@@ -193,7 +193,7 @@
   }
 
   .cell.x {
-    color: #6f6f6f4a;
+    color: #101720;
   }
 
   .hint {
@@ -213,10 +213,10 @@
   --bs-body-bg: #566bbe;
   --bs-body-bg-rgb: #{to-rgb(#566bbe)};
 
-  --bs-primary: #{to-rgb(#9096d3)};
-  --bs-primary-rgb: #{to-rgb(#9096d3)};
-  --bs-secondary: #{to-rgb(#5981c0)};
-  --bs-secondary-rgb: #{to-rgb(#5981c0)};
+  --bs-primary: #{to-rgb(#616694)};
+  --bs-primary-rgb: #{to-rgb(#616694)};
+  --bs-secondary: #{to-rgb(#152d51)};
+  --bs-secondary-rgb: #{to-rgb(#152d51)};
   --bs-success: #{to-rgb(#58bfbe)};
   --bs-success-rgb: #{to-rgb(#58bfbe)};
   --bs-info: #{to-rgb(#58a0bf)};
@@ -236,6 +236,16 @@
   --bs-ganger-text-emphasis-rgb: #{to-rgb(#cebac3)};
   --bs-danger-bg-subtle: #38222e59;
   --bs-danger-border-subtle: #6e3939fb;
+
+  .btn-link {
+  --bs-link-color:#a6bee2;
+  --bs-link-color-rgb: #{to-rgb(#a6bee2)};
+  --bs-link-hover-color: #c3dafc;
+  --bs-link-hover-colors-rgb: #{to-rgb(#c3dafc)};
+}
+.navbar-brand{
+  color: #fff
+}
 
   .btn-primary {
     --bs-btn-color: #fff;
