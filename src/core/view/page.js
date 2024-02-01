@@ -70,7 +70,9 @@ export default class Game {
 
   getCleanSound() {
     if (!this.settings.volume.isSilent) {
-      new Audio(CLEAN_SOUND).play();
+      const audio = new Audio(CLEAN_SOUND);
+      audio.volume = 0.3;
+      audio.play();
     }
   }
 
