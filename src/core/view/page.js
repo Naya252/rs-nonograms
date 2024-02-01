@@ -535,6 +535,8 @@ export default class Game {
       if (this.changeGameEvt) {
         if (this.changeGameEvt.target.classList.contains('scheme')) {
           this.selectCurCard(this.changeGameEvt);
+        } else if (this.changeGameEvt.target.parentNode.classList.contains('scheme')) {
+          this.selectCurCard(this.changeGameEvt.target.parentNode);
         } else {
           this.selectCurLevel(this.changeGameEvt);
         }
