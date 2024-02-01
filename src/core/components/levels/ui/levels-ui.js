@@ -1,4 +1,4 @@
-import { BaseClass, createElement } from '../../../shared/helpers';
+import { BaseClass } from '../../../shared/helpers';
 import Btn from '../../base/btn';
 
 export default class LevelBtn extends BaseClass {
@@ -13,14 +13,9 @@ export default class LevelBtn extends BaseClass {
 
   createLevel(el) {
     const radioBtn = new Btn(el.name, 'level');
-    const btn = radioBtn.init();
+    const btn = radioBtn.init(el.icon);
     btn.classList.add('btn-lg');
     this.items.push(btn);
     this.el.append(btn);
-
-    if (el.icon) {
-      const icon = createElement('i', el.icon);
-      btn.append(icon);
-    }
   }
 }

@@ -1,4 +1,4 @@
-import { BaseClass } from '../../shared/helpers';
+import { BaseClass, createElement } from '../../shared/helpers';
 
 export default class Radio extends BaseClass {
   constructor(id, className, color = 'primary') {
@@ -10,18 +10,26 @@ export default class Radio extends BaseClass {
     this.id = id;
   }
 
-  getEl() {
+  getEl(icon) {
     super.create();
 
     this.el.setAttribute('value', this.id);
     this.el.setAttribute('id', this.id);
-    this.el.innerText = this.id;
+
+    if (icon) {
+      const icn = createElement('i', icon);
+      this.el.append(icn);
+    }
+
+    const text = createElement('span', '');
+    text.innerText = this.id;
+    this.el.append(text);
 
     return this.el;
   }
 
-  init() {
-    const item = this.getEl();
+  init(icon) {
+    const item = this.getEl(icon);
     return item;
   }
 }
