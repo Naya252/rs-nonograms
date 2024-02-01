@@ -51,6 +51,50 @@ export default class Grid {
     return this.isWin();
   }
 
+  addHover(event) {
+    const cell = event.target.closest('.game');
+    if (cell) {
+      const val = cell.getAttribute('id').split('-');
+      const row = val[0];
+      const col = val[1];
+
+      this.grid.items.forEach((el) => {
+        if (el.classList.contains('hint') && el.hasAttribute('id')) {
+          const elVal = el.getAttribute('id').split('-');
+
+          if (elVal[0] === row) {
+            el.classList.add('light');
+          }
+          if (elVal[1] === col) {
+            el.classList.add('light');
+          }
+        }
+      });
+    }
+  }
+
+  removeHover(event) {
+    const cell = event.target.closest('.game');
+    if (cell) {
+      const val = cell.getAttribute('id').split('-');
+      const row = val[0];
+      const col = val[1];
+
+      this.grid.items.forEach((el) => {
+        if (el.classList.contains('hint') && el.hasAttribute('id')) {
+          const elVal = el.getAttribute('id').split('-');
+
+          if (elVal[0] === row) {
+            el.classList.remove('light');
+          }
+          if (elVal[1] === col) {
+            el.classList.remove('light');
+          }
+        }
+      });
+    }
+  }
+
   isWin() {
     return this.points.cur.sort().join('=') === this.points.scheme.sort().join('=');
   }

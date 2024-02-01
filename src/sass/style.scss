@@ -181,6 +181,10 @@
     border: 1px solid rgba($white, 0.1);
   }
 
+  .cell.light {
+    background-color: #075755e0;
+  }
+
   .cell-border-right {
     border-right: 2px solid #707070 !important;
   }
@@ -412,6 +416,10 @@
     border: 1px solid rgba(#7393bd, 0.5);
   }
 
+  .cell.light {
+    background-color: #97c4c7ea;
+  }
+
   .cell-border-right {
     border-right: 2px solid #101720 !important;
   }
@@ -586,7 +594,6 @@ main {
 
 .cell {
   cursor: pointer;
-
   font-weight: 600;
   display: flex;
   justify-content: center;
@@ -595,6 +602,7 @@ main {
   font-size: 1em;
   position: relative;
   width: 100%;
+  transition: all 0.2s ease;
   height: 100%;
 }
 
@@ -692,7 +700,7 @@ main {
   gap: 16px;
 }
 
-.level{
-  display: flex; 
+.level {
+  display: flex;
   gap: 8px;
 }

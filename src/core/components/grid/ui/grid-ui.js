@@ -43,6 +43,10 @@ export default class GridUI extends BaseClass {
         if (cell.name === 'hint') {
           el.innerText = cell.value;
           el.classList.add('hint');
+
+          if (cell.value) {
+            el.setAttribute('id', `${idx}-${i}`);
+          }
           if (!cell.value) {
             el.classList.add('spirit');
           }

@@ -336,6 +336,12 @@ export default class Game {
         event.preventDefault();
         this.selectCell(event, true);
       });
+      this.grd.grid.el.addEventListener('mouseover', (event) => {
+        this.grd.addHover(event);
+      });
+      this.grd.grid.el.addEventListener('mouseout', (event) => {
+        this.grd.removeHover(event);
+      });
       // this.grd.grid.el.addEventListener('pointermove', (event) => {
       //   if (event.type === 'pointermove' && event.pressure > 0) {
       //     let isContext = false;
