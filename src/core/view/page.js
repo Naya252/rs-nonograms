@@ -206,7 +206,6 @@ export default class Game {
 
   showScore() {
     const scoreData = getScore();
-
     this.openModal('score', scoreData);
   }
 
@@ -217,9 +216,8 @@ export default class Game {
     this.lvl.levels.el.addEventListener('click', (event) => {
       if (
         this.tmr.timer.isStart &&
-        event.target.closest('.level').getAttribute('id').toLowerCase() !== this.lvl.curLevel.value
+        event.target.closest('.level')?.getAttribute('id').toLowerCase() !== this.lvl.curLevel.value
       ) {
-        this.tmr.pauseTimer();
         this.changeGameEvt = event;
         this.openModal('change');
       } else {
@@ -285,7 +283,6 @@ export default class Game {
 
     this.crd.cards.el.addEventListener('click', (event) => {
       if (this.tmr.timer.isStart) {
-        this.tmr.pauseTimer();
         this.changeGameEvt = event;
         this.openModal('change');
       }
@@ -432,7 +429,6 @@ export default class Game {
   winGame() {
     this.grd.lockGrid();
     this.grd.cleanX();
-    this.tmr.pauseTimer();
     this.actions.addDisabled();
     this.actions.activeReset();
 
@@ -468,6 +464,7 @@ export default class Game {
     this.body.el.append(this.modal.el);
 
     setTimeout(() => {
+      this.tmr.pauseTimer();
       this.body.el.classList.add('modal-open');
       this.top.header.el.setAttribute('inert', true);
       this.content.main.el.setAttribute('inert', true);
@@ -499,6 +496,7 @@ export default class Game {
         this.modal.scoreBody.remove();
         this.modal.scoreBody = null;
         this.modal.createBody();
+        this.cancelTimerPause();
       }
     }
   }
@@ -590,8 +588,6 @@ export default class Game {
     });
     this.actions.random.el.addEventListener('click', () => {
       if (this.tmr.timer.isStart) {
-        this.tmr.pauseTimer();
-        // this.changeGameEvt = event;
         this.openModal('change');
       } else {
         this.changeId();
@@ -614,7 +610,6 @@ export default class Game {
     if (this.grd.grid.el.classList.contains('lock')) {
       this.submitResetGame();
     } else {
-      this.tmr.pauseTimer();
       this.openModal('reset');
     }
   }
@@ -630,7 +625,6 @@ export default class Game {
   }
 
   showSolution() {
-    this.tmr.pauseTimer();
     this.openModal('solution');
   }
 
