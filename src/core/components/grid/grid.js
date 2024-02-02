@@ -27,6 +27,7 @@ export default class Grid {
 
   checkX(cell) {
     const id = cell.getAttribute('id');
+
     if (this.points.x.includes(id)) {
       this.points.x = this.points.x.filter((el) => el !== id);
     } else {
@@ -121,7 +122,6 @@ export default class Grid {
         }
 
         isX = check(cell, 'x');
-        this.checkX(cell);
         isWin = this.checkX(cell);
       } else {
         if (cell.classList.contains('x')) {

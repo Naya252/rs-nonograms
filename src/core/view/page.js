@@ -650,7 +650,11 @@ export default class Game {
   saveGame() {
     const lastSaved = getSavedGame();
 
-    if (lastSaved === null || (lastSaved && lastSaved.grid.join('=') !== this.grd.points.cur.join('='))) {
+    if (
+      lastSaved === null ||
+      (lastSaved && lastSaved.grid.join('=') !== this.grd.points.cur.join('=')) ||
+      (lastSaved && lastSaved.x.join('=') !== this.grd.points.x.join('='))
+    ) {
       const data = {
         lvl: this.lvl.curLevel.value,
         card: this.crd.curCard.value,
