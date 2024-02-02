@@ -675,8 +675,8 @@ export default class Game {
     const gameTheme = getTheme();
 
     if (!gameTheme) {
-      this.body.initBody('dark');
-      this.settings.theme.isDark = true;
+      this.body.initBody('light');
+      this.settings.theme.isDark = false;
     } else {
       this.body.initBody(gameTheme);
       this.settings.theme.isDark = getBoolTheme(gameTheme);
