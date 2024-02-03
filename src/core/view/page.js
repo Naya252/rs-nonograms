@@ -495,12 +495,12 @@ export default class Game {
   closeModal(event) {
     const close = event.target.closest('.cls');
     const submit = event.target.closest('.sbmt');
-    const backdrop = event.target.className === 'modal fade show';
+    // const backdrop = event.target.className === 'modal fade show';
 
     const hasInvisinleBtn = this.modal.cancelBtn.classList.contains('invisible');
     const type = this.modal.el.getAttribute('data-type');
 
-    if (close || backdrop || (submit && hasInvisinleBtn) || (submit && !hasInvisinleBtn)) {
+    if (close || (submit && hasInvisinleBtn) || (submit && !hasInvisinleBtn)) {
       this.getClickSound();
 
       if (submit && !hasInvisinleBtn) {
