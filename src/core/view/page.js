@@ -155,7 +155,7 @@ export default class Game {
     const gameVolume = getVolume();
 
     if (!gameVolume) {
-      this.settings.volume.isSilent = true;
+      this.settings.volume.isSilent = false;
     } else {
       this.settings.volume.isSilent = getBoolValue(gameVolume);
     }
