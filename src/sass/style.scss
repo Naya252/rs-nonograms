@@ -768,7 +768,8 @@ main {
       display: none;
     }
   }
-  .cards, .levels {
+  .cards,
+  .levels {
     max-width: 700px;
   }
 }
@@ -785,15 +786,15 @@ main {
   }
 
   .wrap {
-    flex-direction: column;
-    gap: 32px;
+    flex-direction: column-reverse;
+    gap: 16px;
   }
 
   .actions {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 16px;
+    margin-bottom: auto;
   }
 
   .btn-action {
@@ -826,7 +827,7 @@ main {
   .cards {
     flex-direction: column;
     width: 100%;
-    
+
     .scheme {
       width: 100%;
     }
@@ -867,44 +868,52 @@ main {
   }
 
   .easy {
-    // width: 350px;
-    // .hint {
-    //   font-weight: 600;
-    //   font-size: 100%;
-    // }
+    max-width: 350px;
+    min-width: 300px;
   }
   .medium {
+    max-width: 550px;
+    width: 100%;
+    min-width: 100%;
+
     .hint {
       font-size: 0.9rem;
     }
   }
   .hard {
+    max-width: 550px;
+    width: 100%;
+    min-width: 100%;
+
     .hint {
       font-size: 0.8rem;
     }
   }
 
-  
-  
+  .grid-wrap {
+    height: auto;
+  }
+
+  main {
+    min-height: 80dvh;
+
+    .wrap {
+      min-height: 65dvh;
+    }
+  }
 }
 
 @media only screen and (max-width: 450px) {
   .easy {
-
   }
   .medium {
-
     .hint {
-
       font-size: 0.8rem;
     }
   }
   .hard {
-
     .hint {
-
       font-size: 0.6rem;
     }
   }
-
 }
