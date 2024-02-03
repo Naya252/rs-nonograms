@@ -14,6 +14,8 @@ export default class Alert extends BaseClass {
     this.savedText = 'Game saved';
     this.notSavedText = 'Game was saved earlier';
     this.tableText = 'Result added in Score table';
+
+    this.notGameText = 'No saved game';
   }
 
   createAlert(type) {
@@ -25,6 +27,10 @@ export default class Alert extends BaseClass {
       alert.className = 'alert alert-info d-flex align-items-center alert-dismissible fade';
     } else if (type === 'not') {
       text.innerText = this.notSavedText;
+      icon.className = this.warnIcon;
+      alert.className = 'alert alert-danger d-flex align-items-center alert-dismissible fade';
+    } else if (type === 'noGame') {
+      text.innerText = this.notGameText;
       icon.className = this.warnIcon;
       alert.className = 'alert alert-danger d-flex align-items-center alert-dismissible fade';
     } else {

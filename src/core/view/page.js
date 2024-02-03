@@ -275,10 +275,14 @@ export default class Game {
   selectSaved() {
     const data = getSavedGame();
 
-    this.getSpecLevel(data.lvl, data.card);
-    // TODO двойное создание таблицы
-    this.createGrid(data.card, data.timer);
-    this.fillSavedGame(data.grid, data.x);
+    if (data) {
+      this.getSpecLevel(data.lvl, data.card);
+      // TODO двойное создание таблицы
+      this.createGrid(data.card, data.timer);
+      this.fillSavedGame(data.grid, data.x);
+    } else {
+      this.alert.addAlert('noGame');
+    }
   }
 
   // ================== Cards ===============================================
