@@ -2,7 +2,7 @@ import { BaseClass } from '../../../shared/helpers';
 import Btn from '../../base/btn';
 
 export default class LevelBtn extends BaseClass {
-  constructor(tag = 'div', className = 'levels mt-4') {
+  constructor(tag = 'div', className = 'levels') {
     super();
 
     this.tag = tag;

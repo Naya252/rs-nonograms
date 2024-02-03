@@ -11,3 +11,6 @@ window.addEventListener('beforeunload', (event) => game.saveRandomGames(event));
 window.addEventListener('load', () => {
   game.isLoad = true;
 });
+window.addEventListener('resize', (event) => {
+  game.changePageSize(event.target.innerWidth);
+});

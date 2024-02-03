@@ -15,7 +15,7 @@ export default class Button extends BaseClass {
 
     const icon = createElement('i', this.iconClass);
     const text = createElement('span', '');
-    text.innerText = this.title.toUpperCase();
+    text.innerText = this.title[0].toUpperCase() + this.title.slice(1);
     this.el.append(icon);
     this.el.append(text);
   }

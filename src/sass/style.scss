@@ -28,6 +28,10 @@
   --bs-danger-bg-subtle: #38222e59;
   --bs-danger-border-subtle: #6e3939fb;
 
+  .top-controls {
+    background-color: #171b3c !important;
+  }
+
   .btn-primary {
     --bs-btn-color: #fff;
     --bs-btn-bg: #0a1c38;
@@ -185,11 +189,11 @@
   }
 
   .cell-border-right {
-    border-right: 2px solid #dadadae1  !important;
+    border-right: 2px solid #dadadae1 !important;
   }
 
   .cell-border-top {
-    border-top: 2px solid #dadadae1  !important;
+    border-top: 2px solid #dadadae1 !important;
   }
 
   .cell.black {
@@ -206,6 +210,7 @@
     background-color: #2c3542;
     border: 1px solid rgba($white, 0.1);
     cursor: auto;
+    font-weight: 600;
 
     &.spirit {
       background-color: #10172094;
@@ -247,6 +252,10 @@
   --bs-info-text-emphasis-rgb: #{to-rgb(#fff)};
   --bs-info-bg-subtle: #6483f8a8;
   --bs-info-border-subtle: #6887ff;
+
+  .top-controls {
+    background-color: #cbd0ff !important;
+  }
 
   .btn-link {
     --bs-link-color: #a6bee2;
@@ -538,8 +547,13 @@ main {
   display: flex;
   gap: 12px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   margin-bottom: 32px;
+  margin-top: 16px;
+  max-width: 800px;
+  // width: 800px;
+  margin-right: auto;
+  margin-left: auto;
 
   label {
     font-weight: 600;
@@ -555,11 +569,6 @@ main {
   align-items: center;
   justify-content: center;
   gap: 32px;
-}
-.actions {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
 }
 
 .grid-wrap {
@@ -665,9 +674,6 @@ main {
   .bi-bookmark-star {
     font-size: 1.8rem;
   }
-  .bi-moon {
-    font-size: 1.5rem;
-  }
 }
 
 .alerts {
@@ -695,12 +701,210 @@ main {
   font-size: 1.3rem;
 }
 
-.btn-action {
-  display: flex;
-  gap: 16px;
-}
-
 .level {
   display: flex;
   gap: 8px;
+}
+
+.logo-wrap {
+  display: flex;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 80px;
+}
+
+.btn-action {
+  display: flex;
+  gap: 16px;
+  font-size: 1rem;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-info {
+  display: none;
+}
+
+.top-controls {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+
+  .navbar-toggler {
+    align-self: flex-end;
+  }
+}
+
+.game-info {
+  font-weight: 600;
+  color: #fff;
+}
+
+.time-wrap {
+  margin-left: auto;
+  margin-right: 16px;
+}
+
+@media only screen and (max-width: 850px) {
+  .actions {
+    align-items: center;
+  }
+
+  .btn-action {
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0;
+    width: 50px;
+    height: 38px;
+
+    span {
+      display: none;
+    }
+  }
+  .cards, .levels {
+    max-width: 700px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .navbar-brand {
+    display: none;
+  }
+
+  .logo {
+    margin-right: 8px;
+    margin-bottom: 0;
+    width: 20px;
+  }
+
+  .wrap {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .btn-action {
+    margin: 0;
+    width: auto;
+    min-width: 110px;
+    gap: 8px;
+
+    span {
+      display: block;
+    }
+  }
+
+  .timer {
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  .levels,
+  .cards {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  .level {
+    padding: 0.375rem 0.75rem !important;
+    font-size: 1rem !important;
+  }
+
+  .cards {
+    flex-direction: column;
+    width: 100%;
+    
+    .scheme {
+      width: 100%;
+    }
+  }
+
+  .game-info {
+    display: block;
+  }
+
+  .top-controls {
+    margin: 16px 0 12px;
+    padding: 20px 12px;
+    gap: 16px;
+  }
+
+  .volume {
+    .bi-volume-mute {
+      font-size: 1.6rem;
+    }
+    .bi-volume-up {
+      font-size: 1.6rem;
+    }
+  }
+
+  .theme {
+    .bi-brightness-high {
+      font-size: 1.45rem;
+    }
+    .bi-moon {
+      font-size: 1.2rem;
+    }
+  }
+
+  .score {
+    .bi-bookmark-star {
+      font-size: 1.4rem;
+    }
+  }
+
+  .easy {
+    // width: 350px;
+    // .hint {
+    //   font-weight: 600;
+    //   font-size: 100%;
+    // }
+  }
+  .medium {
+    .hint {
+      font-size: 0.9rem;
+    }
+  }
+  .hard {
+    .hint {
+      font-size: 0.8rem;
+    }
+  }
+
+  
+  
+}
+
+@media only screen and (max-width: 450px) {
+  .easy {
+
+  }
+  .medium {
+
+    .hint {
+
+      font-size: 0.8rem;
+    }
+  }
+  .hard {
+
+    .hint {
+
+      font-size: 0.6rem;
+    }
+  }
+
 }

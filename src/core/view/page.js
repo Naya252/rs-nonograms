@@ -54,8 +54,11 @@ export default class Game {
     this.randomId = 0;
 
     this.isLoad = false;
+    this.controls = null;
     this.wrap = null;
     this.cellTarget = null;
+
+    this.pageSize = null;
   }
 
   // ================== Sounds =================================================
@@ -226,7 +229,11 @@ export default class Game {
       }
     });
 
-    this.content.main.el.append(this.lvl.levels.el);
+    if (this.pageSize > 768) {
+      this.controls.append(this.lvl.levels.el);
+    } else {
+      this.top.nav.el.childNodes[3].childNodes[0].append(this.lvl.levels.el);
+    }
 
     this.selectSpecificLevel(this.lvl.levels.el.childNodes[0]);
   }
@@ -290,7 +297,12 @@ export default class Game {
         this.selectCurCard(event);
       }
     });
-    this.content.main.el.append(this.crd.cards.el);
+
+    if (this.pageSize > 768) {
+      this.controls.append(this.crd.cards.el);
+    } else {
+      this.top.nav.el.childNodes[3].childNodes[0].append(this.crd.cards.el);
+    }
 
     if (crd) {
       const secificCard = this.crd.cards.items.filter((el) => el.value === crd);
@@ -349,6 +361,8 @@ export default class Game {
       //   }
       // });
 
+      // const controls = createElement('div', 'controls');
+
       const wrap = createElement('div', 'wrap');
       const gridWrap = createElement('div', 'grid-wrap');
       const actions = createElement('div', 'actions');
@@ -366,6 +380,7 @@ export default class Game {
 
       this.createTimer(savedTime);
       this.createActions();
+      this.changeGameinfo();
     }
   }
 
@@ -567,7 +582,12 @@ export default class Game {
   createTimer(savedTime) {
     this.tmr.cleanTimer();
     this.tmr.createTimer(savedTime);
-    this.wrap.childNodes[1].append(this.tmr.timer.el);
+
+    if (this.pageSize > 768) {
+      this.wrap.childNodes[1].insertAdjacentElement('afterbegin', this.tmr.timer.el);
+    } else {
+      this.top.nav.el.childNodes[1].insertAdjacentElement('afterbegin', this.tmr.timer.el);
+    }
   }
 
   // ================== Actions =============================================
@@ -665,6 +685,29 @@ export default class Game {
   }
 
   // ================== HTML ================================================
+  changeGameinfo() {
+    this.top.header.el.childNodes[0].childNodes[0].childNodes[2].innerHTML = `${this.crd.curCard.value}  (${this.lvl.curLevel.value})`;
+  }
+
+  changePageSize(width) {
+    if (!this.pageSize) {
+      this.pageSize = width;
+    } else {
+      if (this.pageSize < 769 && width > 768) {
+        this.pageSize = width;
+        this.controls.append(this.lvl.levels.el);
+        this.controls.append(this.crd.cards.el);
+        this.wrap.childNodes[1].insertAdjacentElement('afterbegin', this.tmr.timer.el);
+      }
+      if (this.pageSize > 768 && width < 769) {
+        this.pageSize = width;
+        this.top.nav.el.childNodes[1].insertAdjacentElement('afterbegin', this.tmr.timer.el);
+        this.top.nav.el.childNodes[3].childNodes[0].append(this.lvl.levels.el);
+        this.top.nav.el.childNodes[3].childNodes[0].append(this.crd.cards.el);
+      }
+    }
+  }
+
   createHtml() {
     const gameTheme = getTheme();
 
@@ -676,11 +719,17 @@ export default class Game {
       this.settings.theme.isDark = getBoolTheme(gameTheme);
     }
 
+    this.pageSize = window.innerWidth;
+
     this.top.initNav();
     this.content.init();
 
     this.body.el.append(this.top.header.el);
     this.body.el.append(this.content.main.el);
+
+    this.controls = createElement('div', 'controls');
+
+    this.content.main.el.append(this.controls);
 
     this.createSettings();
     this.createLevels();

@@ -1,7 +1,7 @@
 import { BaseClass, createElement } from '../../../shared/helpers';
 
-function createIcon() {
-  const icon = createElement('i', 'bi bi-list');
+function createIcon(icn) {
+  const icon = createElement('i', icn ?? 'bi bi-gear');
   icon.setAttribute('width', '32');
   icon.setAttribute('height', '32');
 
@@ -9,24 +9,25 @@ function createIcon() {
 }
 
 export default class BurgerUI extends BaseClass {
-  constructor(tag = 'button', className = 'navbar-toggler') {
+  constructor(target, tag = 'button', className = 'navbar-toggler') {
     super();
 
     this.tag = tag;
     this.className = className;
+    this.target = target;
   }
 
-  create() {
+  create(icn) {
     super.create();
 
     this.el.setAttribute('type', 'button btn-link');
     this.el.setAttribute('data-bs-toggle', 'collapse');
-    this.el.setAttribute('data-bs-target', '#bdNavbar');
-    this.el.setAttribute('aria-controls', 'bdNavbar');
+    this.el.setAttribute('data-bs-target', `#${this.target}`);
+    this.el.setAttribute('aria-controls', this.target);
     this.el.setAttribute('aria-expanded', 'false');
     this.el.setAttribute('aria-label', 'change nav');
 
-    const icon = createIcon();
+    const icon = createIcon(icn);
     this.el.append(icon);
   }
 }

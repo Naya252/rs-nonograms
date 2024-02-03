@@ -6,9 +6,9 @@ import NavUI from './ui/nav-ui';
 
 export default class Header {
   constructor() {
-    this.header = new BaseClass('header', 'navbar navbar-expand-md bd-navbar bg-primary sticky-top');
-    this.burger = new BurgerUI();
-    this.collapse = new CollapseUI();
+    this.header = new BaseClass('header', 'navbar navbar-expand-md bd-navbar pb-0 bg-primary sticky-top');
+    this.burger = new BurgerUI('nav-collapse');
+    this.collapse = new CollapseUI('nav-collapse');
     this.nav = new NavUI();
   }
 
@@ -16,7 +16,6 @@ export default class Header {
     this.header.create();
     this.nav.create();
     this.burger.create();
-
     this.collapse.create();
 
     this.nav.el.append(this.burger.el);
