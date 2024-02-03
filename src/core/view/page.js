@@ -229,7 +229,7 @@ export default class Game {
       }
     });
 
-    if (this.pageSize > 768) {
+    if (this.pageSize > 767) {
       this.controls.append(this.lvl.levels.el);
     } else {
       this.top.nav.el.childNodes[3].childNodes[0].append(this.lvl.levels.el);
@@ -298,7 +298,7 @@ export default class Game {
       }
     });
 
-    if (this.pageSize > 768) {
+    if (this.pageSize > 767) {
       this.controls.append(this.crd.cards.el);
     } else {
       this.top.nav.el.childNodes[3].childNodes[0].append(this.crd.cards.el);
@@ -583,7 +583,7 @@ export default class Game {
     this.tmr.cleanTimer();
     this.tmr.createTimer(savedTime);
 
-    if (this.pageSize > 768) {
+    if (this.pageSize > 767) {
       this.wrap.childNodes[1].insertAdjacentElement('afterbegin', this.tmr.timer.el);
     } else {
       this.top.nav.el.childNodes[1].insertAdjacentElement('afterbegin', this.tmr.timer.el);
@@ -693,13 +693,13 @@ export default class Game {
     if (!this.pageSize) {
       this.pageSize = width;
     } else {
-      if (this.pageSize < 769 && width > 768) {
+      if (this.pageSize <= 767 && width > 767) {
         this.pageSize = width;
         this.controls.append(this.lvl.levels.el);
         this.controls.append(this.crd.cards.el);
         this.wrap.childNodes[1].insertAdjacentElement('afterbegin', this.tmr.timer.el);
       }
-      if (this.pageSize > 768 && width < 769) {
+      if (this.pageSize > 767 && width <= 767) {
         this.pageSize = width;
         this.top.nav.el.childNodes[1].insertAdjacentElement('afterbegin', this.tmr.timer.el);
         this.top.nav.el.childNodes[3].childNodes[0].append(this.lvl.levels.el);

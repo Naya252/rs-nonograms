@@ -282,7 +282,6 @@
     --bs-btn-disabled-color: #fff;
     --bs-btn-disabled-bg: #85819b;
     --bs-btn-disabled-border-color: #85819b;
-    // font-weight: 500;
   }
 
   .btn-outline-primary {
@@ -301,7 +300,6 @@
     --bs-btn-disabled-bg: transparent;
     --bs-btn-disabled-border-color: #85819b;
     --bs-gradient: none;
-    // font-weight: 500;
   }
 
   .btn-secondary {
@@ -357,7 +355,6 @@
     --bs-btn-disabled-bg: rgba(90, 134, 134, 0.842);
     --bs-btn-disabled-border-color: rgba(90, 134, 134, 0.842);
     --bs-gradient: none;
-    // font-weight: 500;
   }
 
   .btn-outline-info {
@@ -376,7 +373,6 @@
     --bs-btn-disabled-bg: rgba(87, 121, 134, 0.842);
     --bs-btn-disabled-border-color: rgba(87, 121, 134, 0.842);
     --bs-gradient: none;
-    // font-weight: 500;
   }
 
   .btn-outline-modal-cancel {
@@ -551,7 +547,6 @@ main {
   margin-bottom: 32px;
   margin-top: 16px;
   max-width: 800px;
-  // width: 800px;
   margin-right: auto;
   margin-left: auto;
 
@@ -774,7 +769,7 @@ main {
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
   .navbar-brand {
     display: none;
   }
@@ -787,7 +782,6 @@ main {
 
   .wrap {
     flex-direction: column-reverse;
-    gap: 16px;
   }
 
   .actions {
