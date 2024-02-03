@@ -671,7 +671,7 @@ main {
 }
 
 .alerts {
-  position: absolute;
+  position: fixed;
   top: 70px;
   right: 0;
   z-index: 99;
@@ -888,6 +888,7 @@ main {
   }
 
   main {
+    position: relative;
     min-height: 80dvh;
 
     .wrap {
