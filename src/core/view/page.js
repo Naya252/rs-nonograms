@@ -515,7 +515,9 @@ export default class Game {
         this.modal.scoreBody.remove();
         this.modal.scoreBody = null;
         this.modal.createBody();
-        this.cancelTimerPause();
+        if (this.tmr.timer.isStart) {
+          this.cancelTimerPause();
+        }
       }
     }
   }
