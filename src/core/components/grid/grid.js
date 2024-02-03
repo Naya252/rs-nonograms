@@ -49,6 +49,10 @@ export default class Grid {
       this.points.cur.push(id);
     }
 
+    if (this.points.x.includes(id)) {
+      this.points.x = this.points.x.filter((el) => el !== id);
+    }
+
     return this.isWin();
   }
 
