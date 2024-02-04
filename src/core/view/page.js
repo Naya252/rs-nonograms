@@ -709,6 +709,14 @@ export default class Game {
         this.controls.append(this.lvl.levels.el);
         this.controls.append(this.crd.cards.el);
         this.wrap.childNodes[1].insertAdjacentElement('afterbegin', this.tmr.timer.el);
+
+        if (this.body.el.classList.contains('burger-open')) {
+          this.top.burger.el.classList.remove('cog-rotate');
+          this.top.collapse.el.classList.remove('translateY');
+          this.body.el.classList.remove('burger-open');
+          this.content.main.el.removeAttribute('inert');
+          this.top.collapse.el.classList.remove('show');
+        }
       }
       if (this.pageSize > 767 && width <= 767) {
         this.pageSize = width;
