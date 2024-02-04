@@ -1,10 +1,10 @@
 /* eslint-disable no-lonely-if */
 import RANDOM_DATA from '../game-figures/templates';
-import { getCardsData, getCardData, getTheme, getVolume, saveGameData, getSavedGame } from '../repository/repository';
-import { getBoolTheme, getBoolValue, getScore, createElement } from '../shared/helpers';
+import { getCardsData, getCardData, getTheme, saveGameData, getSavedGame } from '../repository/repository';
+import { getBoolTheme, getScore, createElement } from '../shared/helpers';
 
 import * as sound from '../services/sound-service';
-import { changeVolume, changeTheme } from '../services/settings-service';
+import * as settings from '../services/settings-service';
 import * as modalService from '../services/modal-service';
 import * as randomService from '../services/random-service';
 
@@ -77,34 +77,7 @@ class Game {
   // ================== Settings ============================================
 
   createSettings() {
-    const gameVolume = getVolume();
-
-    if (!gameVolume) {
-      this.settings.volume.isSilent = false;
-    } else {
-      this.settings.volume.isSilent = getBoolValue(gameVolume);
-    }
-
-    this.settings.createSettings();
-
-    this.top.collapse.el.append(this.settings.score.el);
-    this.settings.score.el.addEventListener('click', () => {
-      this.showScore();
-      sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
-    });
-
-    this.top.collapse.el.append(this.settings.theme.el);
-    this.settings.theme.el.addEventListener('click', () => {
-      const val = changeTheme(this.settings);
-      this.body.changeDataTheme(val);
-      sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
-    });
-
-    this.top.collapse.el.append(this.settings.volume.el);
-    this.settings.volume.el.addEventListener('click', () => {
-      changeVolume(this.settings);
-      sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
-    });
+    settings.createSettings(this);
   }
 
   showScore() {
