@@ -1,6 +1,6 @@
 import './src/sass/style.scss';
 
-import game from './src/core/view/page';
+import game from './src/core/game';
 
 game.init();
 

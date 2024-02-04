@@ -1,30 +1,30 @@
 /* eslint-disable no-lonely-if */
-import RANDOM_DATA from '../game-figures/templates';
-import { getScore } from '../shared/helpers';
+import RANDOM_DATA from './game-figures/templates';
+import { getScore } from './shared/helpers';
 
-import * as settings from '../services/settings-service';
-import * as modalService from '../services/modal-service';
-import * as randomService from '../services/random-service';
-import * as levelService from '../services/level-service';
-import * as schemeService from '../services/schemes-service';
-import * as gridService from '../services/grid-service';
-import * as actionsService from '../services/actions-service';
-import * as resizeService from '../services/resize-service';
-import initService from '../services/init-service';
+import * as settings from './services/settings-service';
+import * as modalService from './services/modal-service';
+import * as randomService from './services/random-service';
+import * as levelService from './services/level-service';
+import * as schemeService from './services/schemes-service';
+import * as gridService from './services/grid-service';
+import * as actionsService from './services/actions-service';
+import * as resizeService from './services/resize-service';
+import initService from './services/init-service';
 
-import Body from './body';
-import Header from '../layouts/header/header';
-import Main from '../layouts/main/content';
+import Body from './view/body';
+import Header from './layouts/header/header';
+import Main from './layouts/main/content';
 
-import Settings from '../components/settings/settings';
-import Levels from '../components/levels/levels';
-import Cards from '../components/game-cards/game-cards';
-import Actions from '../components/game-actions/game-actions';
-import Grid from '../components/grid/grid';
-import Timer from '../components/timer/timer';
+import Settings from './components/settings/settings';
+import Levels from './components/levels/levels';
+import Cards from './components/game-cards/game-cards';
+import Actions from './components/game-actions/game-actions';
+import Grid from './components/grid/grid';
+import Timer from './components/timer/timer';
 
-import Modal from '../components/modal/modal';
-import Alert from '../components/alert/alert';
+import Modal from './components/modal/modal';
+import Alert from './components/alert/alert';
 
 class Game {
   constructor() {
