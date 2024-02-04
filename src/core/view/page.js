@@ -3,9 +3,7 @@ import RANDOM_DATA from '../game-figures/templates';
 import {
   getCardsData,
   getCardData,
-  saveTheme,
   getTheme,
-  saveVolume,
   getVolume,
   saveGameData,
   getSavedGame,
@@ -17,6 +15,7 @@ import {
 import { getBoolTheme, getBoolValue, getScore, completeScore, formateTime, createElement } from '../shared/helpers';
 
 import * as sound from '../services/sound-service';
+import { changeVolume, changeTheme } from '../services/settings-service';
 
 import Body from './body';
 import Header from '../layouts/header/header';
@@ -121,41 +120,16 @@ export default class Game {
 
     this.top.collapse.el.append(this.settings.theme.el);
     this.settings.theme.el.addEventListener('click', () => {
-      this.changeTheme();
+      const val = changeTheme(this.settings);
+      this.body.changeDataTheme(val);
       sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
     });
 
     this.top.collapse.el.append(this.settings.volume.el);
     this.settings.volume.el.addEventListener('click', () => {
-      this.changeVolume();
+      changeVolume(this.settings);
       sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
     });
-  }
-
-  changeTheme() {
-    const val = this.settings.changeTheme();
-
-    let textVal = 'dark';
-    if (val) {
-      textVal = 'dark';
-    } else {
-      textVal = 'light';
-    }
-
-    this.body.changeDataTheme(textVal);
-    saveTheme(textVal);
-  }
-
-  changeVolume() {
-    const val = this.settings.changeVolume();
-
-    let textVal = 'silent';
-    if (val) {
-      textVal = 'silent';
-    } else {
-      textVal = 'loud';
-    }
-    saveVolume(textVal);
   }
 
   showScore() {
