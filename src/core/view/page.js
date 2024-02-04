@@ -3,7 +3,6 @@ import RANDOM_DATA from '../game-figures/templates';
 import { getTheme } from '../repository/repository';
 import { getBoolTheme, getScore, createElement } from '../shared/helpers';
 
-import * as sound from '../services/sound-service';
 import * as settings from '../services/settings-service';
 import * as modalService from '../services/modal-service';
 import * as randomService from '../services/random-service';
@@ -11,6 +10,7 @@ import * as levelService from '../services/level-service';
 import * as schemeService from '../services/schemes-service';
 import * as gridService from '../services/grid-service';
 import * as actionsService from '../services/actions-service';
+import * as resizeService from '../services/resize-service';
 
 import Body from './body';
 import Header from '../layouts/header/header';
@@ -206,58 +206,15 @@ class Game {
 
   // ================== HTML ================================================
   changeGameinfo() {
-    this.top.header.el.childNodes[0].childNodes[0].childNodes[2].innerHTML = `${this.crd.curCard.value}  (${this.lvl.curLevel.value})`;
+    resizeService.changeGameinfo(this);
   }
 
   changePageSize(width) {
-    if (!this.pageSize) {
-      this.pageSize = width;
-    } else {
-      if (this.pageSize <= 767 && width > 767) {
-        this.pageSize = width;
-        this.controls.append(this.lvl.levels.el);
-        this.controls.append(this.crd.cards.el);
-        this.wrap.childNodes[1].insertAdjacentElement('afterbegin', this.tmr.timer.el);
-
-        if (this.body.el.classList.contains('burger-open')) {
-          this.top.burger.el.classList.remove('cog-rotate');
-          this.top.collapse.el.classList.remove('translateY');
-          this.body.el.classList.remove('burger-open');
-          this.content.main.el.removeAttribute('inert');
-          this.top.collapse.el.classList.remove('show');
-        }
-      }
-      if (this.pageSize > 767 && width <= 767) {
-        this.pageSize = width;
-        this.top.nav.el.childNodes[1].insertAdjacentElement('afterbegin', this.tmr.timer.el);
-        this.top.nav.el.childNodes[3].childNodes[0].append(this.lvl.levels.el);
-        this.top.nav.el.childNodes[3].childNodes[0].append(this.crd.cards.el);
-      }
-    }
+    resizeService.changePageSize(width, this);
   }
 
   toggleCollapse() {
-    sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
-
-    if (this.top.collapse.el.classList.contains('show')) {
-      this.top.burger.el.classList.remove('cog-rotate');
-      this.top.collapse.el.classList.remove('translateY');
-
-      setTimeout(() => {
-        this.body.el.classList.remove('burger-open');
-        this.content.main.el.removeAttribute('inert');
-        this.top.collapse.el.classList.remove('show');
-      }, 300);
-    } else {
-      this.top.burger.el.classList.add('cog-rotate');
-      this.top.collapse.el.classList.add('show');
-      this.body.el.classList.add('burger-open');
-      this.content.main.el.setAttribute('inert', true);
-
-      setTimeout(() => {
-        this.top.collapse.el.classList.add('translateY');
-      }, 300);
-    }
+    resizeService.toggleCollapse(this);
   }
 
   createHtml() {
