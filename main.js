@@ -1,8 +1,7 @@
 import './src/sass/style.scss';
 
-import Game from './src/core/view/page';
+import game from './src/core/view/page';
 
-const game = new Game();
 game.init();
 
 window.addEventListener('beforeunload', (event) => game.saveRandomGames(event));

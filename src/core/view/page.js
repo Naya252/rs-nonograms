@@ -7,15 +7,15 @@ import {
   getVolume,
   saveGameData,
   getSavedGame,
-  setWinGame,
   savePassedGames,
   getRandomCard,
   getPassedGames,
 } from '../repository/repository';
-import { getBoolTheme, getBoolValue, getScore, completeScore, formateTime, createElement } from '../shared/helpers';
+import { getBoolTheme, getBoolValue, getScore, createElement } from '../shared/helpers';
 
 import * as sound from '../services/sound-service';
 import { changeVolume, changeTheme } from '../services/settings-service';
+import * as modalService from '../services/modal-service';
 
 import Body from './body';
 import Header from '../layouts/header/header';
@@ -31,7 +31,7 @@ import Timer from '../components/timer/timer';
 import Modal from '../components/modal/modal';
 import Alert from '../components/alert/alert';
 
-export default class Game {
+class Game {
   constructor() {
     this.body = new Body();
     this.top = new Header();
@@ -384,128 +384,19 @@ export default class Game {
   // ================== Modal ===============================================
 
   openModal(type, scoreData) {
-    if (!this.modal.el) {
-      this.modal.create();
-      this.modal.el.addEventListener('click', (event) => {
-        this.closeModal(event);
-      });
-    }
-
-    if (type !== 'win') {
-      sound.getNotificationSound(this.settings.volume.isSilent);
-    }
-
-    if (scoreData && type === 'score') {
-      const data = completeScore(scoreData);
-
-      data.forEach((el, i) => {
-        const time = formateTime(el.timer);
-        this.modal.createRow({ ...el, num: i + 1, timer: time });
-      });
-    }
-
-    this.body.el.append(this.modal.backdrop);
-    this.body.el.append(this.modal.el);
-
-    setTimeout(() => {
-      this.tmr.pauseTimer();
-      this.body.el.classList.add('modal-open');
-      this.top.header.el.setAttribute('inert', true);
-      this.content.main.el.setAttribute('inert', true);
-
-      this.modal.open(type, this.tmr.timer.sec);
-    }, 300);
+    modalService.openModal(type, scoreData, this);
   }
 
   closeModal(event) {
-    const close = event.target.closest('.cls');
-    const submit = event.target.closest('.sbmt');
-    // const backdrop = event.target.className === 'modal fade show';
-
-    const hasInvisinleBtn = this.modal.cancelBtn.classList.contains('invisible');
-    const type = this.modal.el.getAttribute('data-type');
-
-    if (close || (submit && hasInvisinleBtn) || (submit && !hasInvisinleBtn)) {
-      sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
-
-      if (submit && !hasInvisinleBtn) {
-        this.callActions('sbmt', type);
-      } else {
-        this.callActions('cancel', type);
-      }
-
-      if (type === 'score') {
-        this.close();
-
-        this.modal.scoreBody.remove();
-        this.modal.scoreBody = null;
-        this.modal.createBody();
-        if (this.tmr.timer.isStart) {
-          this.cancelTimerPause();
-        }
-      }
-    }
+    modalService.closeModal(event, this);
   }
 
   close() {
-    this.modal.close();
-
-    this.body.el.classList.remove('modal-open');
-    this.top.header.el.removeAttribute('inert');
-    this.content.main.el.removeAttribute('inert');
-
-    this.body.el.lastChild.remove();
-    this.body.el.lastChild.remove();
+    modalService.close(this);
   }
 
   callActions(action, type) {
-    if ((type === 'solution' || type === 'reset' || type === 'change') && action === 'cancel') {
-      this.cancelTimerPause();
-      this.close();
-    }
-
-    if (type === 'solution' && action === 'sbmt') {
-      this.submitSolution();
-      this.close();
-    }
-    if (type === 'reset' && action === 'sbmt') {
-      this.submitResetGame();
-      this.close();
-    }
-    if (type === 'change' && action === 'sbmt') {
-      this.tmr.timer.isStart = false;
-      this.close();
-
-      if (this.changeGameEvt) {
-        if (this.changeGameEvt.target.classList.contains('scheme')) {
-          this.selectCurCard(this.changeGameEvt);
-        } else if (this.changeGameEvt.target.parentNode.classList.contains('scheme')) {
-          this.selectCurCard(this.changeGameEvt.target.parentNode);
-        } else {
-          this.selectCurLevel(this.changeGameEvt);
-        }
-      } else {
-        this.changeId();
-        sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
-      }
-    }
-
-    if (type === 'win') {
-      this.tmr.timer.isStart = false;
-      this.close();
-      const data = {
-        lvl: this.lvl.curLevel.value,
-        card: this.crd.curCard.value,
-        timer: this.tmr.timer.sec,
-        id: new Date(),
-      };
-      setWinGame(data);
-
-      setTimeout(() => {
-        this.alert.addAlert('score');
-        sound.getNotificationSound(this.settings.volume.isSilent);
-      }, 300);
-    }
+    modalService.callActions(action, type, this);
   }
 
   // ================== Timer ===============================================
@@ -712,3 +603,6 @@ export default class Game {
     this.fillPassedGames();
   }
 }
+
+const game = new Game();
+export default game;
