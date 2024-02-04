@@ -626,8 +626,8 @@ export default class Game {
     });
 
     this.wrap.childNodes[1].append(this.actions.save.el);
-    this.wrap.childNodes[1].append(this.actions.solution.el);
     this.wrap.childNodes[1].append(this.actions.reset.el);
+    this.wrap.childNodes[1].append(this.actions.solution.el);
     this.wrap.childNodes[1].append(this.actions.random.el);
     this.wrap.childNodes[1].append(this.actions.saved.el);
   }
@@ -651,7 +651,12 @@ export default class Game {
   }
 
   showSolution() {
-    this.openModal('solution');
+    if (this.tmr.timer.isStart) {
+      this.openModal('solution');
+    } else {
+      this.grd.fillScheme();
+      this.actions.showSolution();
+    }
   }
 
   submitSolution() {

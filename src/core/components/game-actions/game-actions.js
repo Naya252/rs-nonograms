@@ -29,7 +29,6 @@ export default class Actions {
 
   addDisabled() {
     this.save.el.setAttribute('disabled', true);
-    this.solution.el.setAttribute('disabled', true);
     this.reset.el.setAttribute('disabled', true);
   }
 
