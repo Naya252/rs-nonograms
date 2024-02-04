@@ -1,0 +1,16 @@
+.alerts {
+  position: fixed;
+  top: 70px;
+  right: 0;
+  z-index: 99;
+  width: 292px;
+
+  .alert {
+    gap: 16px;
+
+    svg {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+}

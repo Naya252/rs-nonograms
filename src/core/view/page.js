@@ -723,6 +723,7 @@ export default class Game {
     this.getClickSound();
 
     if (this.top.collapse.el.classList.contains('show')) {
+      this.top.burger.el.classList.remove('cog-rotate');
       this.top.collapse.el.classList.remove('translateY');
 
       setTimeout(() => {
@@ -731,6 +732,7 @@ export default class Game {
         this.top.collapse.el.classList.remove('show');
       }, 300);
     } else {
+      this.top.burger.el.classList.add('cog-rotate');
       this.top.collapse.el.classList.add('show');
       this.body.el.classList.add('burger-open');
       this.content.main.el.setAttribute('inert', true);
