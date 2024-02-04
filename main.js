@@ -1,5 +1,4 @@
 import './src/sass/style.scss';
-import 'bootstrap';
 
 import Game from './src/core/view/page';
 

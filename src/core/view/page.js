@@ -719,6 +719,28 @@ export default class Game {
     }
   }
 
+  toggleCollapse() {
+    this.getClickSound();
+
+    if (this.top.collapse.el.classList.contains('show')) {
+      this.top.collapse.el.classList.remove('translateY');
+
+      setTimeout(() => {
+        this.body.el.classList.remove('burger-open');
+        this.content.main.el.removeAttribute('inert');
+        this.top.collapse.el.classList.remove('show');
+      }, 300);
+    } else {
+      this.top.collapse.el.classList.add('show');
+      this.body.el.classList.add('burger-open');
+      this.content.main.el.setAttribute('inert', true);
+
+      setTimeout(() => {
+        this.top.collapse.el.classList.add('translateY');
+      }, 300);
+    }
+  }
+
   createHtml() {
     const gameTheme = getTheme();
 
@@ -734,6 +756,7 @@ export default class Game {
 
     this.top.initNav();
     this.content.init();
+    this.top.burger.el.addEventListener('click', () => this.toggleCollapse());
 
     this.body.el.append(this.top.header.el);
     this.body.el.append(this.content.main.el);
