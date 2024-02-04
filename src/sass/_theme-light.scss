@@ -1,0 +1,218 @@
+[data-bs-theme='light'] {
+  --bs-body-bg: #566bbe;
+  --bs-body-bg-rgb: #{to-rgb(#566bbe)};
+
+  --bs-primary: #{to-rgb(#464b79)};
+  --bs-primary-rgb: #{to-rgb(#464b79)};
+
+  --bs-success-text-emphasis: #fff;
+  --bs-success-border-subtle: #00fff4;
+  --bs-success-bg-subtle: #289997ea;
+
+  --bs-danger-text-emphasis: #fff;
+  --bs-danger-bg-subtle: #c93e6fd0;
+  --bs-danger-border-subtle: #72082e6b;
+
+  --bs-info-text-emphasis: #fff;
+  --bs-info-bg-subtle: #6484f8ee;
+  --bs-info-border-subtle: #0f60ac;
+
+  .top-controls {
+    background-color: #cbd0ff !important;
+  }
+  .btn-link {
+    --bs-link-color: #b1c9f0;
+    --bs-link-hover-color: #d2e3ff;
+  }
+  .collapse.show.translateY {
+    background: #29424de8;
+  }
+  .navbar-brand {
+    color: #fff;
+  }
+
+  .btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #655a9cfa;
+    --bs-btn-border-color: #4f4779;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #7063ad;
+    --bs-btn-hover-border-color: #655a9c;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #655a9c;
+    --bs-btn-active-border-color: #655a9c;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #85819b;
+    --bs-btn-disabled-border-color: #85819b;
+  }
+
+  .btn-outline-primary {
+    --bs-btn-bg: #655a9cb4;
+    --bs-btn-color: #fff;
+    --bs-btn-border-color: #655a9c;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #655a9cd3;
+    --bs-btn-hover-border-color: #655a9c;
+    --bs-btn-focus-shadow-rgb: 13, 110, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #655a9c;
+    --bs-btn-active-border-color: #655a9c;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #85819b;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #85819b;
+    --bs-gradient: none;
+  }
+
+  .btn-secondary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #157199;
+    --bs-btn-border-color: #005b82;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #157199;
+    --bs-btn-hover-border-color: #157199;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #157199;
+    --bs-btn-active-border-color: #157199;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #4d636d;
+    --bs-btn-disabled-border-color: #4d636d;
+    font-weight: 500;
+  }
+
+  .btn-outline-secondary {
+    --bs-btn-bg: #2e7c9ed8;
+    --bs-btn-color: #ffffff;
+    --bs-btn-border-color: #1f7194;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #1f7194ea;
+    --bs-btn-hover-border-color: #1f7194;
+    --bs-btn-focus-shadow-rgb: 13, 110, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #1f7194e3;
+    --bs-btn-active-border-color: #1f7194;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: rgb(128, 139, 155);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: rgb(128, 139, 155);
+    --bs-gradient: none;
+    font-weight: 500;
+  }
+
+  .btn-outline-success {
+    --bs-btn-bg: #027775c4;
+    --bs-btn-color: #ffffff;
+    --bs-btn-border-color: #00a7a4;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #01a09dc4;
+    --bs-btn-hover-border-color: #00a7a4;
+    --bs-btn-focus-shadow-rgb: 13, 110, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #11b4b2;
+    --bs-btn-active-border-color: #00a7a4;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #e0e0e0;
+    --bs-btn-disabled-bg: rgba(90, 134, 134, 0.842);
+    --bs-btn-disabled-border-color: rgba(90, 134, 134, 0.842);
+    --bs-gradient: none;
+  }
+
+  .btn-outline-info {
+    --bs-btn-bg: #005c75a4;
+    --bs-btn-color: #ffffff;
+    --bs-btn-border-color: #019fca;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #007ea1d8;
+    --bs-btn-hover-border-color: #019fca;
+    --bs-btn-focus-shadow-rgb: 13, 110, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #0193bbd8;
+    --bs-btn-active-border-color: #019fca;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #e0e0e0;
+    --bs-btn-disabled-bg: rgba(87, 121, 134, 0.842);
+    --bs-btn-disabled-border-color: rgba(87, 121, 134, 0.842);
+    --bs-gradient: none;
+  }
+
+  .btn-outline-modal-cancel {
+    --bs-btn-bg: #4b9d9b69;
+    --bs-btn-color: #00514f;
+    --bs-btn-border-color: #009a97;
+    --bs-btn-hover-color: #00514f;
+    --bs-btn-hover-bg: rgba(147, 201, 200, 0.486);
+    --bs-btn-hover-border-color: #009a97;
+    --bs-btn-focus-shadow-rgb: 13, 110, 253;
+    --bs-btn-active-color: #00514f;
+    --bs-btn-active-bg: rgba(137, 211, 210, 0.486);
+    --bs-btn-active-border-color: #009a97;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #a3a3a3;
+    --bs-btn-disabled-bg: #8cc4c452;
+    --bs-btn-disabled-border-color: #a3a3a3;
+    --bs-gradient: none;
+    font-weight: 500;
+  }
+
+  .btn-close {
+    --bs-btn-close-focus-shadow: 0 0 0 0.25rem rgb(2 185 193 / 25%);
+  }
+
+  .modal {
+    --bs-modal-bg: #ecfbfffa;
+    --bs-modal-bg-rgb: #{to-rgb(#e8e3fffa)};
+  }
+  .table {
+    --bs-table-bg: #ecfbfffa;
+    --bs-table-bg-rgb: #{to-rgb(#ecfbfffa)};
+  }
+
+  .grid-wrap {
+    background: #60719698;
+  }
+
+  .game-bg2 {
+    background: #ffffff7e;
+  }
+
+  .cell {
+    color: #101720;
+    background-color: #ececec;
+    border: 1px solid rgba(#7393bd, 0.5);
+  }
+
+  .cell.light {
+    background-color: #97c4c7ea;
+  }
+
+  .cell-border-right {
+    border-right: 2px solid #101720 !important;
+  }
+
+  .cell-border-top {
+    border-top: 2px solid #101720 !important;
+  }
+
+  .cell.black {
+    background-color: #101720c9;
+  }
+
+  .cell.x {
+    color: #101720;
+  }
+
+  .hint {
+    background-color: #d3d8dfc0;
+    border: 1px solid rgba(#7393bd, 0.8);
+    cursor: auto;
+
+    &.spirit {
+      background-color: #607196ab;
+      border: 1px solid rgba($white, 0.15);
+    }
+  }
+}
