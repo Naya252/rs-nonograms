@@ -1,21 +1,12 @@
 /* eslint-disable no-lonely-if */
 import RANDOM_DATA from '../game-figures/templates';
-import {
-  getCardsData,
-  getCardData,
-  getTheme,
-  getVolume,
-  saveGameData,
-  getSavedGame,
-  savePassedGames,
-  getRandomCard,
-  getPassedGames,
-} from '../repository/repository';
+import { getCardsData, getCardData, getTheme, getVolume, saveGameData, getSavedGame } from '../repository/repository';
 import { getBoolTheme, getBoolValue, getScore, createElement } from '../shared/helpers';
 
 import * as sound from '../services/sound-service';
 import { changeVolume, changeTheme } from '../services/settings-service';
 import * as modalService from '../services/modal-service';
+import * as randomService from '../services/random-service';
 
 import Body from './body';
 import Header from '../layouts/header/header';
@@ -64,39 +55,23 @@ class Game {
   // ================== Random game ============================================
 
   fillPassedGames() {
-    const passed = getPassedGames();
-    passed.forEach((el) => this.changePassedGame(el));
+    randomService.fillPassedGames(this);
   }
 
   changePassedGame(id) {
-    this.passedGames.push(id);
-    this.changeData(id);
-    if (this.passedGames.length === 16) {
-      this.passedGames = [];
-      this.changeData(id);
-      this.changePassedGame(id);
-    }
+    randomService.changePassedGame(id, this);
   }
 
   saveRandomGames() {
-    savePassedGames(this.passedGames);
+    randomService.saveRandomGames(this);
   }
 
   changeId() {
-    const idx = Math.floor(Math.random() * this.randomData.length);
-    this.randomId = this.randomData[idx].id;
-
-    this.changePassedGame(this.randomId);
-    const scheme = getRandomCard(this.randomId);
-
-    this.getSpecLevel(scheme.level, scheme.name);
+    randomService.changeId(this);
   }
 
   changeData(id) {
-    this.randomData = this.randomData.filter((el) => el.id !== id);
-    if (this.passedGames.length === 16) {
-      this.randomData = [...RANDOM_DATA];
-    }
+    randomService.changeData(id, this);
   }
 
   // ================== Settings ============================================
