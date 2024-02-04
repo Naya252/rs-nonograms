@@ -1,7 +1,6 @@
 /* eslint-disable no-lonely-if */
 import RANDOM_DATA from '../game-figures/templates';
-import { getTheme } from '../repository/repository';
-import { getBoolTheme, getScore, createElement } from '../shared/helpers';
+import { getScore } from '../shared/helpers';
 
 import * as settings from '../services/settings-service';
 import * as modalService from '../services/modal-service';
@@ -11,6 +10,7 @@ import * as schemeService from '../services/schemes-service';
 import * as gridService from '../services/grid-service';
 import * as actionsService from '../services/actions-service';
 import * as resizeService from '../services/resize-service';
+import initService from '../services/init-service';
 
 import Body from './body';
 import Header from '../layouts/header/header';
@@ -218,34 +218,7 @@ class Game {
   }
 
   createHtml() {
-    const gameTheme = getTheme();
-
-    if (!gameTheme) {
-      this.body.initBody('light');
-      this.settings.theme.isDark = false;
-    } else {
-      this.body.initBody(gameTheme);
-      this.settings.theme.isDark = getBoolTheme(gameTheme);
-    }
-
-    this.pageSize = window.innerWidth;
-
-    this.top.initNav();
-    this.content.init();
-    this.top.burger.el.addEventListener('click', () => this.toggleCollapse());
-
-    this.body.el.append(this.top.header.el);
-    this.body.el.append(this.content.main.el);
-
-    this.controls = createElement('div', 'controls');
-
-    this.content.main.el.append(this.controls);
-
-    this.createSettings();
-    this.createLevels();
-
-    this.alert.create();
-    this.body.el.append(this.alert.el);
+    initService(this);
   }
 
   init() {
