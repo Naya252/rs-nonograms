@@ -1,6 +1,6 @@
 /* eslint-disable no-lonely-if */
 import RANDOM_DATA from '../game-figures/templates';
-import { getTheme, saveGameData, getSavedGame } from '../repository/repository';
+import { getTheme } from '../repository/repository';
 import { getBoolTheme, getScore, createElement } from '../shared/helpers';
 
 import * as sound from '../services/sound-service';
@@ -10,6 +10,7 @@ import * as randomService from '../services/random-service';
 import * as levelService from '../services/level-service';
 import * as schemeService from '../services/schemes-service';
 import * as gridService from '../services/grid-service';
+import * as actionsService from '../services/actions-service';
 
 import Body from './body';
 import Header from '../layouts/header/header';
@@ -176,100 +177,31 @@ class Game {
   // ================== Actions =============================================
 
   createActions() {
-    this.actions.createActions();
-    this.actions.solution.el.addEventListener('click', () => {
-      this.showSolution();
-      sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
-    });
-    this.actions.reset.el.addEventListener('click', () => {
-      this.resetGame();
-      sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
-    });
-    this.actions.save.el.addEventListener('click', () => {
-      this.saveGame();
-      sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
-    });
-    this.actions.random.el.addEventListener('click', () => {
-      if (this.tmr.timer.isStart) {
-        this.openModal('change');
-      } else {
-        this.changeId();
-        sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
-      }
-    });
-    this.actions.saved.el.addEventListener('click', () => {
-      this.selectSaved();
-      sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
-    });
-
-    this.wrap.childNodes[1].append(this.actions.save.el);
-    this.wrap.childNodes[1].append(this.actions.reset.el);
-    this.wrap.childNodes[1].append(this.actions.solution.el);
-    this.wrap.childNodes[1].append(this.actions.random.el);
-    this.wrap.childNodes[1].append(this.actions.saved.el);
+    actionsService.createActions(this);
   }
 
   resetGame() {
-    if (this.grd.grid.el.classList.contains('lock')) {
-      this.submitResetGame();
-    } else {
-      this.openModal('reset');
-    }
+    actionsService.resetGame(this);
   }
 
   submitResetGame() {
-    this.tmr.cleanTimer();
-    this.tmr.createTimer();
-    this.grd.cleanCells();
-    this.actions.resetGame();
-    if (this.grd.grid.el.classList.contains('lock')) {
-      this.grd.lockGrid();
-    }
+    actionsService.submitResetGame(this);
   }
 
   showSolution() {
-    if (this.tmr.timer.isStart) {
-      this.openModal('solution');
-    } else {
-      this.grd.fillScheme();
-      this.actions.showSolution();
-    }
+    actionsService.showSolution(this);
   }
 
   submitSolution() {
-    this.grd.lockGrid();
-    this.tmr.cleanTimer();
-    this.tmr.createTimer();
-    this.grd.fillScheme();
-    this.actions.showSolution();
+    actionsService.submitSolution(this);
   }
 
   cancelTimerPause() {
-    this.tmr.timer.isStart = true;
-    this.tmr.startTimer(true);
+    actionsService.cancelTimerPause(this);
   }
 
   saveGame() {
-    const lastSaved = getSavedGame();
-
-    if (
-      lastSaved === null ||
-      (lastSaved && lastSaved.grid.join('=') !== this.grd.points.cur.join('=')) ||
-      (lastSaved && lastSaved.x.join('=') !== this.grd.points.x.join('='))
-    ) {
-      const data = {
-        lvl: this.lvl.curLevel.value,
-        card: this.crd.curCard.value,
-        grid: this.grd.points.cur,
-        x: this.grd.points.x,
-        timer: this.tmr.timer.sec,
-      };
-      saveGameData(data);
-
-      this.alert.addAlert();
-    } else {
-      this.alert.addAlert('not');
-    }
+    actionsService.saveGame(this);
   }
 
   // ================== HTML ================================================
