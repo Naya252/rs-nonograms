@@ -1,21 +1,21 @@
 import BtnUI from './ui/btn-ui';
+import { VOLUME_ICON, MUTE_ICON, MOON_ICON, SUN_ICON, BOOKMARK_ICON } from '../../shared/constants';
 
 export default class Settings {
   constructor() {
     this.volume = new BtnUI({
       btnClass: 'volume btn btn-link mx-2',
-      trueIcon: 'bi-volume-up',
-      falseIcon: 'bi-volume-mute',
+      trueIcon: VOLUME_ICON,
+      falseIcon: MUTE_ICON,
     });
     this.theme = new BtnUI({
       btnClass: 'theme btn btn-link mx-2',
-      trueIcon: 'bi-brightness-high',
-      falseIcon: 'bi-moon',
+      trueIcon: SUN_ICON,
+      falseIcon: MOON_ICON,
     });
     this.score = new BtnUI({
       btnClass: 'score btn btn-link mx-2',
-      trueIcon: 'bi-bookmark-star',
-      falseIcon: 'bi-bookmark-star-fill',
+      trueIcon: BOOKMARK_ICON,
     });
   }
 

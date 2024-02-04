@@ -1,5 +1,4 @@
-import { BaseClass } from '../../../shared/helpers';
-import IconUI from './icon-ui';
+import { BaseClass, createElement } from '../../../shared/helpers';
 
 export default class BtnUI extends BaseClass {
   constructor({ btnClass, trueIcon, falseIcon }) {
@@ -15,19 +14,16 @@ export default class BtnUI extends BaseClass {
 
   changeIcon(val) {
     if (val) {
-      this.icon.classList.remove(this.trueIcon);
-      this.icon.classList.add(this.falseIcon);
+      this.icon.innerHTML = this.falseIcon;
     } else {
-      this.icon.classList.add(this.trueIcon);
-      this.icon.classList.remove(this.falseIcon);
+      this.icon.innerHTML = this.trueIcon;
     }
   }
 
   create() {
     super.create();
 
-    const icn = new IconUI();
-    this.icon = icn.create();
+    this.icon = createElement('div', 'icon');
     this.el.append(this.icon);
   }
 }

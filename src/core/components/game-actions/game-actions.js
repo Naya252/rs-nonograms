@@ -1,12 +1,13 @@
 import Button from './ui/btn';
+import { FLOPPY_ICON, IMAGE_ICON, RESET_ICON, SHUFFLE_ICON, AIM_ICON } from '../../shared/constants';
 
 export default class Actions {
   constructor() {
-    this.save = new Button('save', 'btn btn-action btn-outline-success', 'bi bi-floppy');
-    this.solution = new Button('solution', 'btn btn-action btn-outline-info', 'bi bi-image');
-    this.reset = new Button('reset', 'btn btn-action btn-outline-info', 'bi bi-arrow-counterclockwise');
-    this.random = new Button('random', 'btn btn-action btn-primary mt-md-3', 'bi bi-shuffle');
-    this.saved = new Button('continue game', 'btn btn-action btn-primary', 'bi bi-crosshair');
+    this.save = new Button('save', 'btn btn-action btn-outline-success', FLOPPY_ICON);
+    this.solution = new Button('solution', 'btn btn-action btn-outline-info', IMAGE_ICON);
+    this.reset = new Button('reset', 'btn btn-action btn-outline-info', RESET_ICON);
+    this.random = new Button('random', 'btn btn-action btn-primary mt-md-3', SHUFFLE_ICON);
+    this.saved = new Button('continue game', 'btn btn-action btn-primary', AIM_ICON);
   }
 
   activateButtons() {

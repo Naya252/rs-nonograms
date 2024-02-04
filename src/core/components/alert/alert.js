@@ -1,4 +1,5 @@
 import { BaseClass, createElement } from '../../shared/helpers';
+import { INFO_ICON, ALARM_ICON, CIRCLE_ICON } from '../../shared/constants';
 
 export default class Alert extends BaseClass {
   constructor(tag = 'div', className = 'alerts') {
@@ -8,9 +9,9 @@ export default class Alert extends BaseClass {
     this.className = className;
     this.count = 0;
 
-    this.infoIcon = 'bi bi-info-circle';
-    this.warnIcon = 'bi bi-exclamation-triangle';
-    this.sucIcon = 'bi bi-check-circle';
+    this.infoIcon = INFO_ICON;
+    this.warnIcon = ALARM_ICON;
+    this.sucIcon = CIRCLE_ICON;
     this.savedText = 'Game saved';
     this.notSavedText = 'Game was saved earlier';
     this.tableText = 'Result added in Score table';
@@ -20,25 +21,25 @@ export default class Alert extends BaseClass {
 
   createAlert(type) {
     const alert = createElement('div', 'alert alert-success d-flex align-items-center alert-dismissible fade');
-    const icon = createElement('i', this.infoIcon);
+    let icon = this.infoIcon;
     const text = createElement('div', '');
     if (type === 'score') {
       text.innerText = this.tableText;
       alert.className = 'alert alert-info d-flex align-items-center alert-dismissible fade';
     } else if (type === 'not') {
       text.innerText = this.notSavedText;
-      icon.className = this.warnIcon;
+      icon = this.warnIcon;
       alert.className = 'alert alert-danger d-flex align-items-center alert-dismissible fade';
     } else if (type === 'noGame') {
       text.innerText = this.notGameText;
-      icon.className = this.warnIcon;
+      icon = this.warnIcon;
       alert.className = 'alert alert-danger d-flex align-items-center alert-dismissible fade';
     } else {
       text.innerText = this.savedText;
-      icon.className = this.sucIcon;
+      icon = this.sucIcon;
     }
 
-    alert.append(icon);
+    alert.innerHTML = icon;
     alert.append(text);
     alert.setAttribute('id', `alert-${this.count}`);
     this.count += 1;

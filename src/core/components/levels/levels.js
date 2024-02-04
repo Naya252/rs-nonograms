@@ -1,4 +1,5 @@
 import LevelBtns from './ui/levels-ui';
+import { DROPLET_FULL_ICON, DROPLET_HALF_ICON, DROPLET_ICON } from '../../shared/constants';
 
 export default class Levels {
   constructor() {
@@ -42,9 +43,9 @@ export default class Levels {
 
   createLevels() {
     this.levels.names = [
-      { name: 'easy', icon: 'bi bi-droplet' },
-      { name: 'medium', icon: 'bi bi-droplet-half' },
-      { name: 'hard', icon: 'bi bi-droplet-fill' },
+      { name: 'easy', icon: DROPLET_ICON },
+      { name: 'medium', icon: DROPLET_HALF_ICON },
+      { name: 'hard', icon: DROPLET_FULL_ICON },
     ];
     this.levels.create();
 

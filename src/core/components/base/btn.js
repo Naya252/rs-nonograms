@@ -17,8 +17,7 @@ export default class Radio extends BaseClass {
     this.el.setAttribute('id', this.id);
 
     if (icon) {
-      const icn = createElement('i', icon);
-      this.el.append(icn);
+      this.el.innerHTML = icon;
     }
 
     const text = createElement('span', '');

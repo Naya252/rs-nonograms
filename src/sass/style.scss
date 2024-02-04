@@ -643,30 +643,35 @@ main {
 .volume {
   padding: 0;
 
-  .bi-volume-mute {
-    font-size: 2rem;
+  .icon .bi-volume-mute {
+    width: 2rem;
+    height: 2rem;
   }
-  .bi-volume-up {
-    font-size: 2rem;
+  .icon .bi-volume-up {
+    width: 2rem;
+    height: 2rem;
   }
 }
 
 .theme {
   padding: 0;
 
-  .bi-brightness-high {
-    font-size: 1.8rem;
+  .icon .bi-brightness-high {
+    width: 1.8rem;
+    height: 1.8rem;
   }
-  .bi-moon {
-    font-size: 1.5rem;
+  .icon .bi-moon {
+    width: 1.5rem;
+    height: 1.5rem;
   }
 }
 
 .score {
   padding: 0;
 
-  .bi-bookmark-star {
-    font-size: 1.8rem;
+  .icon .bi-bookmark-star {
+    width: 1.8rem;
+    height: 1.8rem;
   }
 }
 
@@ -679,6 +684,11 @@ main {
 
   .alert {
     gap: 16px;
+
+    svg {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
   }
 }
 
@@ -697,7 +707,14 @@ main {
 
 .level {
   display: flex;
+  align-items: center;
   gap: 8px;
+
+  svg {
+    width: 20px;
+    min-width: 20px;
+    height: 20px;
+  }
 }
 
 .logo-wrap {
@@ -713,8 +730,14 @@ main {
 
 .btn-action {
   display: flex;
+  align-items: center;
   gap: 16px;
   font-size: 1rem;
+
+  svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
 }
 
 .navbar {
@@ -746,6 +769,11 @@ main {
   margin-right: 16px;
 }
 
+.bi-gear {
+  width: 24px;
+  height: 24px;
+}
+
 @media only screen and (max-width: 850px) {
   .actions {
     align-items: center;
@@ -753,7 +781,6 @@ main {
 
   .btn-action {
     justify-content: center;
-    align-items: flex-start;
     gap: 0;
     width: 50px;
     height: 38px;
@@ -837,26 +864,31 @@ main {
   }
 
   .volume {
-    .bi-volume-mute {
-      font-size: 1.6rem;
+    .icon .bi-volume-mute {
+      width: 1.6rem;
+      height: 1.6rem;
     }
-    .bi-volume-up {
-      font-size: 1.6rem;
+    .icon .bi-volume-up {
+      width: 1.6rem;
+      height: 1.6rem;
     }
   }
 
   .theme {
-    .bi-brightness-high {
-      font-size: 1.45rem;
+    .icon .bi-brightness-high {
+      width: 1.45rem;
+      height: 1.45rem;
     }
-    .bi-moon {
-      font-size: 1.2rem;
+    .icon .bi-moon {
+      width: 1.2rem;
+      height: 1.2rem;
     }
   }
 
   .score {
-    .bi-bookmark-star {
-      font-size: 1.4rem;
+    .icon .bi-bookmark-star {
+      width: 1.4rem;
+      height: 1.4rem;
     }
   }
 
