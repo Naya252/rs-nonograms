@@ -1,12 +1,15 @@
 /* eslint-disable no-lonely-if */
 import RANDOM_DATA from '../game-figures/templates';
-import { getCardsData, getCardData, getTheme, saveGameData, getSavedGame } from '../repository/repository';
+import { getTheme, saveGameData, getSavedGame } from '../repository/repository';
 import { getBoolTheme, getScore, createElement } from '../shared/helpers';
 
 import * as sound from '../services/sound-service';
 import * as settings from '../services/settings-service';
 import * as modalService from '../services/modal-service';
 import * as randomService from '../services/random-service';
+import * as levelService from '../services/level-service';
+import * as schemeService from '../services/schemes-service';
+import * as gridService from '../services/grid-service';
 
 import Body from './body';
 import Header from '../layouts/header/header';
@@ -88,245 +91,55 @@ class Game {
   // ================== Levels ==============================================
 
   createLevels() {
-    this.lvl.createLevels();
-    this.lvl.levels.el.addEventListener('click', (event) => {
-      if (
-        this.tmr.timer.isStart &&
-        event.target.closest('.level')?.getAttribute('id').toLowerCase() !== this.lvl.curLevel.value
-      ) {
-        this.changeGameEvt = event;
-        this.openModal('change');
-      } else {
-        this.selectCurLevel(event);
-        sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
-      }
-    });
-
-    if (this.pageSize > 767) {
-      this.controls.append(this.lvl.levels.el);
-    } else {
-      this.top.nav.el.childNodes[3].childNodes[0].append(this.lvl.levels.el);
-    }
-
-    this.selectSpecificLevel(this.lvl.levels.el.childNodes[0]);
+    levelService.createLevels(this);
   }
 
   getSpecLevel(lvl, name) {
-    const level = this.lvl.levels.items.filter((el) => el.value === lvl);
-
-    // TODO убрать дубль
-    if (level[0].getAttribute('value') === this.lvl.curLevel.value) {
-      const secificCard = this.crd.cards.items.filter((el) => el.value === name);
-      this.selectSpecificCard(secificCard[0]);
-    } else {
-      this.selectSpecificLevel(level[0], name);
-    }
+    levelService.getSpecLevel(lvl, name, this);
   }
 
   selectSpecificLevel(lvl, card) {
-    const isSelect = this.lvl.selectCurLevel(lvl);
-    if (isSelect) {
-      this.crd.cleanCards();
-
-      if (card) {
-        this.createCards(card);
-      } else {
-        this.createCards();
-      }
-    }
+    levelService.selectSpecificLevel(lvl, card, this);
   }
 
   selectCurLevel(event) {
-    const isSelect = this.lvl.selectCurLevel(event);
-
-    if (isSelect) {
-      this.crd.cleanCards();
-      this.createCards();
-    }
+    levelService.selectCurLevel(event, this);
   }
 
   selectSaved() {
-    const data = getSavedGame();
-
-    if (data) {
-      this.getSpecLevel(data.lvl, data.card);
-      // TODO двойное создание таблицы
-      this.createGrid(data.card, data.timer);
-      this.fillSavedGame(data.grid, data.x);
-    } else {
-      this.alert.addAlert('noGame');
-    }
+    levelService.selectSaved(this);
   }
 
   // ================== Cards ===============================================
 
   createCards(crd) {
-    const cards = getCardsData(this.lvl.curLevel.value);
-
-    this.crd.createCards(cards);
-
-    this.crd.cards.el.addEventListener('click', (event) => {
-      if (this.tmr.timer.isStart) {
-        this.changeGameEvt = event;
-        this.openModal('change');
-      }
-      if (!this.tmr.timer.isStart) {
-        this.selectCurCard(event);
-      }
-    });
-
-    if (this.pageSize > 767) {
-      this.controls.append(this.crd.cards.el);
-    } else {
-      this.top.nav.el.childNodes[3].childNodes[0].append(this.crd.cards.el);
-    }
-
-    if (crd) {
-      const secificCard = this.crd.cards.items.filter((el) => el.value === crd);
-      this.selectSpecificCard(secificCard[0]);
-    } else {
-      this.selectSpecificCard(this.crd.cards.el.childNodes[0]);
-    }
+    schemeService.createCards(crd, this);
   }
 
   selectSpecificCard(el) {
-    this.crd.selectCurCard(el);
-    this.createGrid();
+    schemeService.selectSpecificCard(el, this);
   }
 
   selectCurCard(event) {
-    const isSelect = this.crd.selectCurCard(event);
-
-    if (isSelect) {
-      sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
-      this.createGrid();
-    }
+    schemeService.selectCurCard(event, this);
   }
 
   // ================== Grid ================================================
 
   createGrid(savedCard, savedTime) {
-    let game;
-
-    if (savedCard) {
-      game = getCardData(savedCard);
-    } else {
-      game = this.crd.cards.data.filter((el) => el.name === this.crd.curCard.value);
-    }
-
-    if (game.length) {
-      this.grd.cleanGrid();
-      this.grd.createGrid(game[0], this.lvl.curLevel.value);
-      this.grd.grid.el.addEventListener('click', (event) => this.selectCell(event));
-      this.grd.grid.el.addEventListener('contextmenu', (event) => {
-        event.preventDefault();
-        this.selectCell(event, true);
-      });
-      this.grd.grid.el.addEventListener('mouseover', (event) => {
-        this.grd.addHover(event);
-      });
-      this.grd.grid.el.addEventListener('mouseout', (event) => {
-        this.grd.removeHover(event);
-      });
-      // this.grd.grid.el.addEventListener('pointermove', (event) => {
-      //   if (event.type === 'pointermove' && event.pressure > 0) {
-      //     let isContext = false;
-      //     if (event.buttons === 2) {
-      //       isContext = true;
-      //     }
-      //     this.selectCell(event, isContext);
-      //   }
-      // });
-
-      // const controls = createElement('div', 'controls');
-
-      const wrap = createElement('div', 'wrap');
-      const gridWrap = createElement('div', 'grid-wrap');
-      const actions = createElement('div', 'actions');
-
-      gridWrap.append(this.grd.grid.el);
-      wrap.append(gridWrap);
-      wrap.append(actions);
-
-      if (this.wrap) {
-        this.wrap.remove();
-      }
-
-      this.content.main.el.append(wrap);
-      this.wrap = wrap;
-
-      this.createTimer(savedTime);
-      this.createActions();
-      this.changeGameinfo();
-    }
+    gridService.createGrid(savedCard, savedTime, this);
   }
 
   fillSavedGame(data, x) {
-    this.grd.points.cur = data;
-    this.grd.points.x = x;
-    this.grd.fillSavedCells();
+    gridService.fillSavedGame(data, x, this);
   }
 
   selectCell(event, isContext) {
-    if (!this.grd.grid.el.classList.contains('lock')) {
-      const cell = event.target.closest('.cell.game');
-
-      if (cell) {
-        if (!this.tmr.timer.isStart) {
-          this.tmr.timer.isStart = true;
-
-          this.tmr.startTimer(true);
-          this.actions.activateButtons();
-        }
-
-        if (event.type === 'pointermove' && event.pressure > 0) {
-          if (!this.cellTarget) {
-            this.cellTarget = cell;
-          }
-          if (this.cellTarget !== cell) {
-            const { isFill, isX, isWin } = this.grd.selectCell(event, isContext);
-            if (isFill) {
-              sound.getFillSound(this.settings.volume.isSilent);
-            } else if (isX) {
-              sound.getXSound(this.settings.volume.isSilent);
-            } else {
-              sound.getCleanSound(this.settings.volume.isSilent);
-            }
-
-            if (isWin) {
-              this.winGame();
-            }
-
-            this.cellTarget = cell;
-          }
-        } else {
-          const { isFill, isX, isWin } = this.grd.selectCell(event, isContext);
-
-          if (isFill) {
-            sound.getFillSound(this.settings.volume.isSilent);
-          } else if (isX) {
-            sound.getXSound(this.settings.volume.isSilent);
-          } else {
-            sound.getCleanSound(this.settings.volume.isSilent);
-          }
-
-          if (isWin) {
-            this.winGame();
-          }
-        }
-      }
-    }
+    gridService.selectCell(event, isContext, this);
   }
 
   winGame() {
-    this.grd.lockGrid();
-    this.grd.cleanX();
-    this.actions.addDisabled();
-    this.actions.activeReset();
-
-    sound.getWinSound(this.settings.volume.isSilent);
-
-    this.openModal('win');
+    gridService.winGame(this);
   }
 
   // ================== Modal ===============================================
