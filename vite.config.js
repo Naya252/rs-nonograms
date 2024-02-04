@@ -19,7 +19,6 @@ export default {
   resolve: {
     alias: {
       '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
-      '~bootstrap-icons': path.resolve(__dirname, 'node_modules/bootstrap-icons'),
     },
   },
 };
