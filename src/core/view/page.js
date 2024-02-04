@@ -15,7 +15,8 @@ import {
   getPassedGames,
 } from '../repository/repository';
 import { getBoolTheme, getBoolValue, getScore, completeScore, formateTime, createElement } from '../shared/helpers';
-import { FILL_SOUND, CLEAN_SOUND, X_SOUND, CLICK_SOUND, NOTIFICATION_SOUND, WIN_SOUND } from '../shared/constants';
+
+import * as sound from '../services/sound-service';
 
 import Body from './body';
 import Header from '../layouts/header/header';
@@ -59,56 +60,6 @@ export default class Game {
     this.cellTarget = null;
 
     this.pageSize = null;
-  }
-
-  // ================== Sounds =================================================
-
-  getFillSound() {
-    if (!this.settings.volume.isSilent) {
-      const audio = new Audio(FILL_SOUND);
-      audio.volume = 0.3;
-      audio.play();
-    }
-  }
-
-  getCleanSound() {
-    if (!this.settings.volume.isSilent) {
-      const audio = new Audio(CLEAN_SOUND);
-      audio.volume = 0.3;
-      audio.play();
-    }
-  }
-
-  getXSound() {
-    if (!this.settings.volume.isSilent) {
-      const audio = new Audio(X_SOUND);
-      audio.volume = 0.2;
-      audio.play();
-    }
-  }
-
-  getClickSound() {
-    if (!this.settings.volume.isSilent && this.isLoad) {
-      const audio = new Audio(CLICK_SOUND);
-      audio.volume = 0.8;
-      audio.play();
-    }
-  }
-
-  getNotificationSound() {
-    if (!this.settings.volume.isSilent) {
-      const audio = new Audio(NOTIFICATION_SOUND);
-      audio.volume = 0.8;
-      audio.play();
-    }
-  }
-
-  getWinSound() {
-    if (!this.settings.volume.isSilent) {
-      const audio = new Audio(WIN_SOUND);
-      audio.volume = 0.3;
-      audio.play();
-    }
   }
 
   // ================== Random game ============================================
@@ -165,19 +116,19 @@ export default class Game {
     this.top.collapse.el.append(this.settings.score.el);
     this.settings.score.el.addEventListener('click', () => {
       this.showScore();
-      this.getClickSound();
+      sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
     });
 
     this.top.collapse.el.append(this.settings.theme.el);
     this.settings.theme.el.addEventListener('click', () => {
       this.changeTheme();
-      this.getClickSound();
+      sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
     });
 
     this.top.collapse.el.append(this.settings.volume.el);
     this.settings.volume.el.addEventListener('click', () => {
       this.changeVolume();
-      this.getClickSound();
+      sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
     });
   }
 
@@ -225,7 +176,7 @@ export default class Game {
         this.openModal('change');
       } else {
         this.selectCurLevel(event);
-        this.getClickSound();
+        sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
       }
     });
 
@@ -325,7 +276,7 @@ export default class Game {
     const isSelect = this.crd.selectCurCard(event);
 
     if (isSelect) {
-      this.getClickSound();
+      sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
       this.createGrid();
     }
   }
@@ -413,11 +364,11 @@ export default class Game {
           if (this.cellTarget !== cell) {
             const { isFill, isX, isWin } = this.grd.selectCell(event, isContext);
             if (isFill) {
-              this.getFillSound();
+              sound.getFillSound(this.settings.volume.isSilent);
             } else if (isX) {
-              this.getXSound();
+              sound.getXSound(this.settings.volume.isSilent);
             } else {
-              this.getCleanSound();
+              sound.getCleanSound(this.settings.volume.isSilent);
             }
 
             if (isWin) {
@@ -430,11 +381,11 @@ export default class Game {
           const { isFill, isX, isWin } = this.grd.selectCell(event, isContext);
 
           if (isFill) {
-            this.getFillSound();
+            sound.getFillSound(this.settings.volume.isSilent);
           } else if (isX) {
-            this.getXSound();
+            sound.getXSound(this.settings.volume.isSilent);
           } else {
-            this.getCleanSound();
+            sound.getCleanSound(this.settings.volume.isSilent);
           }
 
           if (isWin) {
@@ -451,7 +402,7 @@ export default class Game {
     this.actions.addDisabled();
     this.actions.activeReset();
 
-    this.getWinSound();
+    sound.getWinSound(this.settings.volume.isSilent);
 
     this.openModal('win');
   }
@@ -467,7 +418,7 @@ export default class Game {
     }
 
     if (type !== 'win') {
-      this.getNotificationSound();
+      sound.getNotificationSound(this.settings.volume.isSilent);
     }
 
     if (scoreData && type === 'score') {
@@ -501,7 +452,7 @@ export default class Game {
     const type = this.modal.el.getAttribute('data-type');
 
     if (close || (submit && hasInvisinleBtn) || (submit && !hasInvisinleBtn)) {
-      this.getClickSound();
+      sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
 
       if (submit && !hasInvisinleBtn) {
         this.callActions('sbmt', type);
@@ -561,7 +512,7 @@ export default class Game {
         }
       } else {
         this.changeId();
-        this.getClickSound();
+        sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
       }
     }
 
@@ -578,7 +529,7 @@ export default class Game {
 
       setTimeout(() => {
         this.alert.addAlert('score');
-        this.getNotificationSound();
+        sound.getNotificationSound(this.settings.volume.isSilent);
       }, 300);
     }
   }
@@ -602,27 +553,27 @@ export default class Game {
     this.actions.createActions();
     this.actions.solution.el.addEventListener('click', () => {
       this.showSolution();
-      this.getClickSound();
+      sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
     });
     this.actions.reset.el.addEventListener('click', () => {
       this.resetGame();
-      this.getClickSound();
+      sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
     });
     this.actions.save.el.addEventListener('click', () => {
       this.saveGame();
-      this.getClickSound();
+      sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
     });
     this.actions.random.el.addEventListener('click', () => {
       if (this.tmr.timer.isStart) {
         this.openModal('change');
       } else {
         this.changeId();
-        this.getClickSound();
+        sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
       }
     });
     this.actions.saved.el.addEventListener('click', () => {
       this.selectSaved();
-      this.getClickSound();
+      sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
     });
 
     this.wrap.childNodes[1].append(this.actions.save.el);
@@ -728,7 +679,7 @@ export default class Game {
   }
 
   toggleCollapse() {
-    this.getClickSound();
+    sound.getClickSound(this.settings.volume.isSilent, this.isLoad);
 
     if (this.top.collapse.el.classList.contains('show')) {
       this.top.burger.el.classList.remove('cog-rotate');
