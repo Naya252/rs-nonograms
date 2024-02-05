@@ -3,19 +3,16 @@ import { FLOPPY_ICON, IMAGE_ICON, RESET_ICON, SHUFFLE_ICON, AIM_ICON } from '../
 
 export default class Actions {
   constructor() {
-    this.save = new Button('save', 'btn btn-action btn-outline-success', FLOPPY_ICON);
+    this.save = new Button('save game', 'btn btn-action btn-outline-success', FLOPPY_ICON);
     this.solution = new Button('solution', 'btn btn-action btn-outline-info', IMAGE_ICON);
-    this.reset = new Button('reset', 'btn btn-action btn-outline-info', RESET_ICON);
-    this.random = new Button('random', 'btn btn-action btn-primary mt-md-3', SHUFFLE_ICON);
-    this.saved = new Button('continue game', 'btn btn-action btn-primary', AIM_ICON);
+    this.reset = new Button('reset game', 'btn btn-action btn-outline-info', RESET_ICON);
+    this.random = new Button('random game', 'btn btn-action btn-primary mt-md-3', SHUFFLE_ICON);
+    this.saved = new Button('continue last game', 'btn btn-action btn-primary', AIM_ICON);
   }
 
   activateButtons() {
     this.save.el.removeAttribute('disabled');
-    this.solution.el.removeAttribute('disabled');
     this.reset.el.removeAttribute('disabled');
-    this.random.el.removeAttribute('disabled');
-    this.saved.el.removeAttribute('disabled');
   }
 
   resetGame() {

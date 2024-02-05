@@ -73,6 +73,20 @@
   }
 }
 
+@media only screen and (max-width: 900px) {
+  .grid-wrap {
+    max-width: 500px;
+    height: 530px;
+  }
+
+  .medium {
+    width: 450px;
+  }
+  .hard {
+    width: 450px;
+  }
+}
+
 @media only screen and (max-width: 767px) {
   .easy {
     max-width: 350px;
