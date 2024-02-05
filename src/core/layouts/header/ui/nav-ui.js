@@ -2,7 +2,7 @@ import { BaseClass, createElement } from '../../../shared/helpers';
 import { BASE_URL } from '../../../shared/constants';
 
 export default class NavUI extends BaseClass {
-  constructor(tag = 'nav', className = 'container-xxl mb-2 flex-wrap flex-md-nowrap') {
+  constructor(tag = 'nav', className = 'container-fluid mb-2 flex-wrap flex-md-nowrap') {
     super();
 
     this.tag = tag;
