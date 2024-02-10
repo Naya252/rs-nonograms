@@ -1,5 +1,5 @@
 export default {
-  base: 'https://rolling-scopes-school.github.io/naya252-JSFE2023Q4/nonograms/',
+  base: 'https://naya252.github.io/rs-nonograms/',
   plugins: [],
   css: {
     modules: {
