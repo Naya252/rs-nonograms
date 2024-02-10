@@ -1,0 +1,44 @@
+import aim from './icons/aim';
+import alarm from './icons/alarm';
+import circle from './icons/circle';
+import cog from './icons/cog';
+import dropletFull from './icons/droplet-full';
+import dropletHalf from './icons/droplet-half';
+import droplet from './icons/droplet';
+import floppy from './icons/floppy';
+import image from './icons/image';
+import info from './icons/info';
+import reset from './icons/reset';
+import shuffle from './icons/shuffle';
+import volume from './icons/volume';
+import mute from './icons/mute';
+import moon from './icons/moon';
+import sun from './icons/sun';
+import bookmark from './icons/bookmark';
+
+export const { BASE_URL } = import.meta.env;
+
+export const FILL_SOUND = `${BASE_URL}sounds/fill.mp3`;
+export const CLEAN_SOUND = `${BASE_URL}sounds/clean.wav`;
+export const X_SOUND = `${BASE_URL}sounds/x.wav`;
+export const CLICK_SOUND = `${BASE_URL}sounds/click.wav`;
+export const NOTIFICATION_SOUND = `${BASE_URL}sounds/modal.wav`;
+export const WIN_SOUND = `${BASE_URL}sounds/win.wav`;
+
+export const AIM_ICON = aim;
+export const ALARM_ICON = alarm;
+export const CIRCLE_ICON = circle;
+export const COG_ICON = cog;
+export const DROPLET_FULL_ICON = dropletFull;
+export const DROPLET_HALF_ICON = dropletHalf;
+export const DROPLET_ICON = droplet;
+export const FLOPPY_ICON = floppy;
+export const IMAGE_ICON = image;
+export const INFO_ICON = info;
+export const RESET_ICON = reset;
+export const SHUFFLE_ICON = shuffle;
+export const VOLUME_ICON = volume;
+export const MUTE_ICON = mute;
+export const MOON_ICON = moon;
+export const SUN_ICON = sun;
+export const BOOKMARK_ICON = bookmark;

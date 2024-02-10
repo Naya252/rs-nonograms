@@ -1,0 +1,38 @@
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 80px;
+}
+
+.btn-action {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 1rem;
+
+  svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: auto;
+  }
+
+  .btn-action {
+    margin: 0;
+    width: auto;
+    min-width: 110px;
+    gap: 8px;
+
+    span {
+      display: block;
+    }
+  }
+}

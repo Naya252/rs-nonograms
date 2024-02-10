@@ -1,0 +1,170 @@
+.navbar-toggler {
+  padding: 4px;
+  border: 1px solid #388da5;
+  color: #388da5;
+}
+
+.bi-gear {
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s linear;
+}
+
+.cog-rotate {
+  .bi-gear {
+    transform: rotate(-45deg);
+  }
+}
+
+.logo {
+  margin-right: 16px;
+  margin-bottom: 4px;
+  width: 28px;
+}
+
+.collapse.show {
+  position: absolute;
+  top: 50px;
+  left: 100%;
+  z-index: 50;
+  width: 100%;
+  height: 100dvh;
+  transition: all 0.5s ease;
+}
+
+.collapse.show.translateY {
+  transform: translateX(-100%);
+}
+
+.navbar {
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-controls {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+
+  .navbar-toggler {
+    align-self: flex-end;
+  }
+}
+
+.volume {
+  padding: 0;
+
+  .icon .bi-volume-mute {
+    width: 2rem;
+    height: 2rem;
+  }
+  .icon .bi-volume-up {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.theme {
+  padding: 0;
+
+  .icon .bi-brightness-high {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+  .icon .bi-moon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+.score {
+  padding: 0;
+
+  .icon .bi-bookmark-star {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+}
+
+.logo-wrap {
+  display: flex;
+}
+
+.game-info {
+  display: none;
+  font-weight: 600;
+  color: #fff;
+}
+
+.time-wrap {
+  margin-left: auto;
+  margin-right: 16px;
+}
+
+.timer {
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+@media (min-width: 768px) {
+  .navbar-expand-md .navbar-collapse {
+    justify-content: flex-end;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .navbar-brand {
+    display: none;
+  }
+
+  .logo {
+    margin-right: 8px;
+    margin-bottom: 0;
+    width: 20px;
+  }
+
+  .timer {
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  .game-info {
+    display: block;
+  }
+
+  .top-controls {
+    margin: 0 0 12px;
+    padding: 20px 12px;
+    gap: 16px;
+  }
+
+  .volume {
+    .icon .bi-volume-mute {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+    .icon .bi-volume-up {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+  }
+
+  .theme {
+    .icon .bi-brightness-high {
+      width: 1.45rem;
+      height: 1.45rem;
+    }
+    .icon .bi-moon {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+  }
+
+  .score {
+    .icon .bi-bookmark-star {
+      width: 1.4rem;
+      height: 1.4rem;
+    }
+  }
+}
